@@ -1,0 +1,35 @@
+/* Animation */
+@keyframes rocket-animation {
+    0% {transform: translateY(-2.5%) rotateZ(-2deg);}
+    50% {transform: translateY(+2.5%) rotateZ(+2deg);;}
+    100% {transform: translateY(-2.5%) rotateZ(-2deg);;}
+}
+
+/* Home section styling */
+#home {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: black;
+}
+
+/* Styling for the home rocket */
+#home-rocket {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -100px;
+  margin-top: -100px;
+
+  width: 200px;
+  height: 200px;
+
+  /* Animation */
+  animation-name: rocket-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
