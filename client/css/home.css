@@ -5,6 +5,10 @@
     100% {transform: translateY(-2.5%) rotateZ(-2deg);;}
 }
 
+body, html {
+  background-color: black;
+}
+
 /* Home section styling */
 #home {
   position: fixed;
@@ -32,4 +36,9 @@
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
+}
+
+/* Canvas Styling */
+#home-canvas {
+  background-color: rgba(0, 0, 0, 0.7);
 }

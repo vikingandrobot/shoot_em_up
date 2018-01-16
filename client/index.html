@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Shoot'Em Hub !</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+
+    <script src="js/vector/Vector.js" charset="utf-8"></script>
+    <script src="js/light/LightParticle.js" charset="utf-8"></script>
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
   </head>
@@ -11,7 +20,12 @@
     <section id="home">
 
       <img id="home-rocket" src="img/github_rocket.png" alt="image of a rocket" />
+
+      <canvas id="home-canvas" width="800" height="800"></canvas>
+
     </section>
+
+    <script src="js/home.js" charset="utf-8"></script>
 
   </body>
 </html>
