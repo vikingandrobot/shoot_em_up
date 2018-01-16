@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Shoot'Em Hub !</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900|Roboto:300,400,700" rel="stylesheet">
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -19,9 +21,20 @@
 
     <section id="home">
 
+      <!-- Canvas to display light particles -->
+      <canvas id="home-canvas" width="800" height="800"></canvas>
+        <!-- Main background title -->
+        <h1 id="main-title">Shoot'em Hub</h1>
+
+      <!-- Rocket cat image -->
       <img id="home-rocket" src="img/github_rocket.png" alt="image of a rocket" />
 
-      <canvas id="home-canvas" width="800" height="800"></canvas>
+      <!-- Button call to action -->
+      <div class="button-row">
+        <a class="button" href="https://github.com" title="Login with GitHub" alt="Login with GitHub">
+          <span class="normal">Play With GitHub</span>
+        </a>
+      </div>
 
     </section>
 

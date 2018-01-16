@@ -1,8 +1,13 @@
 /**
-  Script for the home page
+  File: home.js
+  Date: 16.01.2018
+  Authors: Mathieu Monteverde & Sathiya Kirushnapillai
+
+  Script for the home page. This file uses the Vector.js and
+  LightParice.js classes.
 */
 
-const LIGHT_PARTICLE_SPAN = 150;
+// Constants
 const LIGHT_PARTICLE_RADIUS = 2;
 
 $(document).ready(() => {
@@ -45,14 +50,14 @@ function drawLightParticles(lightParticles, ctx, c) {
   }
 
   // Spawn light particles
-  if (lightParticles.length < 30 || Math.random() < 0.05) {
-    const x = c.width / 2 + Math.random() * LIGHT_PARTICLE_SPAN - LIGHT_PARTICLE_SPAN / 2 ;
-    const y = c.height / 2 + Math.random() * LIGHT_PARTICLE_SPAN - LIGHT_PARTICLE_SPAN / 2;
+  if (lightParticles.length < 50 || Math.random() < 0.05) {
+    const x = Math.random()  * c.width * 2;
+    const y = -10;
 
     lightParticles.push(new LightParticle(
         new CartesianVector(x, y),
         Math.random() * LIGHT_PARTICLE_RADIUS + 1,
-        new CartesianVector(0, -3)
+        new CartesianVector(-15,  15)
       )
     );
   }
