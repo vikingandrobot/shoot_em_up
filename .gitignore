@@ -1,1 +1,12 @@
 .DS_Store
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+node_modules/
+.DS_Store
+*/.DS_Store
+npm-debug.log
+.env

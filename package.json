@@ -1,0 +1,27 @@
+{
+  "name": "shoot_em_up",
+  "version": "1.0.0",
+  "description": "*Imagine a world where you can play with the experience you gain from your hard work...*",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikingandrobot/shoot_em_up.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vikingandrobot/shoot_em_up/issues"
+  },
+  "homepage": "https://github.com/vikingandrobot/shoot_em_up#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.1.0"
+  }
+}
