@@ -17,4 +17,10 @@ $(document).ready(() => {
   });
 
   cloud.start();
+
+  $('.repo-overview').click(function(e) {
+    e.preventDefault();
+
+    $(this).find('.picto').addClass('flying');
+  });
 })

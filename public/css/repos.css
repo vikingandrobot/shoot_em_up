@@ -1,3 +1,23 @@
+/* Transitions */
+.repo-overview .picto {
+  -webkit-transition: all 0.5; /* Safari */
+  transition: all 1s;
+}
+
+/* Animation */
+@keyframes flying-animation {
+    0% {top: 0;}
+    100% {top: -10000px;}
+}
+.flying {
+
+  /* Animation */
+  animation-name: flying-animation;
+  animation-duration: 10s;
+  animation-timing-function: ease-in;
+
+}
+
 .repos .title-section {
   position: relative;
   min-height: 40vh;
@@ -13,9 +33,66 @@
   z-index: 2;
 }
 
+/* Canvas styling */
 #repos-canvas {
   position: absolute;
   left: 0;
   top: 0;
   z-index: 1;
+}
+
+.repos .repos-list {
+  padding: 5% 15%;
+}
+
+.repos-list h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.repos-list .repo-overview {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  content: center;
+  cursor: pointer;
+  border-bottom: solid 1px #999999;
+}
+
+.repos-list .repo-overview:last-child {
+  border-bottom: none;
+}
+
+.repo-overview h2 {
+  text-align: left;
+  font-size: 1.3em;
+}
+.repo-overview h3 {
+  text-align: left;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.repo-overview .left {
+  margin-right: 30px;
+}
+
+
+.repo-overview .picto {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background-image: url(../img/rocket.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transform: rotateZ(30deg);
+  z-index: 10;
+}
+.repo-overview:hover .picto {
+  transform: rotateZ(0);
 }
