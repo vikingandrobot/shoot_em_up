@@ -9,13 +9,15 @@
     0% {top: 0;}
     100% {top: -10000px;}
 }
+@keyframes rotate-animation {
+    0% {transform: rotateZ(-3deg);}
+    50% {transform: rotateZ(+3deg);}
+    100% {transform: rotateZ(-3deg);}
+}
+
 .flying {
-
   /* Animation */
-  animation-name: flying-animation;
-  animation-duration: 10s;
-  animation-timing-function: ease-in;
-
+  animation: flying-animation 8s ease-in, rotate-animation 1s infinite ease-in-out;
 }
 
 .repos .title-section {
