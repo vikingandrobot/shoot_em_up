@@ -4,8 +4,23 @@ class SpaceShip {
     this.speed = new CartesianVector(0, 0);
     this.w = w;
     this.h = h;
+    this.CANON_SPACE = 30;
+
+    this.leftCanon = new Canon();
+    this.rightCanon = new Canon();
 
     this.maxSpeed = 10;
+  }
+
+  shoot() {
+    this.leftCanon.shoot(
+      this.pos.x + this.CANON_SPACE,
+      this.pos.y
+    );
+    this.rightCanon.shoot(
+      this.pos.x - this.CANON_SPACE,
+      this.pos.y
+    );
   }
 
   logic(bounds) {
@@ -27,12 +42,27 @@ class SpaceShip {
       this.pos.y = bounds.y + bounds.h - this.h / 2;
       this.speed.y = 0;
     }
+
+    this.leftCanon.logic(bounds);
+    this.rightCanon.logic(bounds)
   }
 
   /**
     Draw the space ship
   */
   draw(ctx) {
+
+    this.leftCanon.draw(
+      ctx,
+      this.pos.x + this.CANON_SPACE,
+      this.pos.y
+    );
+    this.rightCanon.draw(
+      ctx,
+      this.pos.x - this.CANON_SPACE,
+      this.pos.y
+    );
+
     ctx.beginPath();
     ctx.rect(
       this.pos.x - this.w / 2,

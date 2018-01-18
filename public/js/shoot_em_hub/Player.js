@@ -56,6 +56,10 @@ class Player {
     });
   }
 
+  shoot() {
+    this.spaceShip.shoot();
+  }
+
   logic() {
     const left = this.left;
     const up = this.up;
@@ -72,7 +76,7 @@ class Player {
     }
 
     if (up) {
-      console.log('up')
+      this.spaceShip.shoot();
     }
 
     this.spaceShip.logic(this.bounds);
