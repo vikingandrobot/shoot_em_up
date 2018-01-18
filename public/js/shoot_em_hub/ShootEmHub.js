@@ -79,6 +79,9 @@ class ShootEmHub {
     Game logic.
   */
   logic() {
+    // Check the condition for ending the game.
+    this.checkEnd();
+
     // Do the player logic
     this.player.logic(this.ennemies);
 
@@ -128,6 +131,18 @@ class ShootEmHub {
     // Check and display UI information
     this.checkUI();
 
+  }
+
+  /**
+    Check if the conditions to end the game are here, and end the game if
+    it is the case
+  */
+  checkEnd() {
+    if (this.player.getLife() <= 0) {
+      this.pause();
+
+      // Display Game Over screen.
+    }
   }
 
   /**
