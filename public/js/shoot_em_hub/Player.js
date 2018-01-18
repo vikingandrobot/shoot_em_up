@@ -91,4 +91,12 @@ class Player {
   draw(ctx) {
     this.spaceShip.draw(ctx);
   }
+
+  getScore() {
+    return this.spaceShip.score;
+  }
+
+  getLife() {
+    return this.spaceShip.life;
+  }
 }

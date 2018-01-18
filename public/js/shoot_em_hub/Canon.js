@@ -1,5 +1,7 @@
 class Canon {
-  constructor() {
+  constructor(spaceShip) {
+    this.spaceShip = spaceShip;
+
     this.w = 5;
     this.h = 20;
 
@@ -36,6 +38,7 @@ class Canon {
               );
               ennemies.splice(j, 1);
               this.bullets.splice(i, 1);
+              this.spaceShip.countScore();
               break;
             };
           }

@@ -14,8 +14,8 @@ class SpaceShip {
     this.h = h;
     this.CANON_SPACE = 20;
 
-    this.leftCanon = new Canon();
-    this.rightCanon = new Canon();
+    this.leftCanon = new Canon(this);
+    this.rightCanon = new Canon(this);
 
     this.particles = [];
     this.nbOfParticles = 10;
@@ -26,6 +26,22 @@ class SpaceShip {
     this.colorString = this.color.asString();
 
     this.img = spaceShipImage;
+
+    this.score = 0;
+    this.DEFAULT_COMBO_VALUE = 10;
+    this.comboCount = 0;
+    this.comboTime = 0;
+    this.comboDuration = 60;
+
+
+
+    this.life = 3;
+  }
+
+  countScore() {
+    this.score += this.DEFAULT_COMBO_VALUE * Math.pow(2, this.comboCount);
+    ++this.comboCount;
+    this.comboTime = 0;
   }
 
   shoot() {
@@ -89,6 +105,14 @@ class SpaceShip {
           speed
         )
       )
+    }
+
+    // Reset combo
+    ++this.comboTime;
+
+    if (this.comboTime >= this.comboDuration) {
+      this.comboCount = Math.max(this.comboCount - 1, 0);
+      this.comboTime = 0;
     }
   }
 

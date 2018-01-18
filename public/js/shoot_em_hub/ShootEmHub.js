@@ -20,6 +20,8 @@ class ShootEmHub {
       w: this.c.width,
       h: this.c.height + 400
     };
+
+    this.tick = 0;
   }
 
   /**
@@ -65,6 +67,20 @@ class ShootEmHub {
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
       this.ennemies[i].draw(this.ctx);
     }
+
+    if (this.tick == 0) {
+      $('#game-ui .score .score-value').html(this.player.getScore());
+      let playerLife = this.player.getLife();
+      let i = 0;
+      $('#game-ui .life div').each(function() {
+        if (i < playerLife) {
+          $(this).addClass('point');
+        } else {
+          $(this).removeClass('point');
+        }
+      })
+    }
+    this.tick = (this.tick + 1) % 50;
   }
 
   spawnEnnemy(x, y) {
