@@ -6,4 +6,8 @@ class TriangleSpaceShip extends SpaceShip {
     this.leftCanon.direction.y = 5;
     this.rightCanon.direction.y = 5;
   }
+
+  logic(bounds) {
+    super.logic(bounds, undefined);
+  }
 }

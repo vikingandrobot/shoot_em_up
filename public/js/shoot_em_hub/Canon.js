@@ -11,7 +11,7 @@ class Canon {
     this.BOUNDS_TOLERANCE = 30;
   }
 
-  logic(bounds) {
+  logic(bounds, ennemies) {
     if (this.fireRate != 0) {
       this.fireRate = (this.fireRate + 1) % this.maxFireRate;
     }
@@ -19,6 +19,16 @@ class Canon {
     for (let i = this.bullets.length - 1; i >= 0; --i) {
       if (this.inBounds(this.bullets[i], bounds)) {
         this.bullets[i].logic();
+
+        if (ennemies !== undefined) {
+          for (let j = ennemies.length - 1; j >= 0; --j) {
+            if (this.bullets[i].collision(ennemies[j])) {
+              ennemies.splice(j, 1);
+              this.bullets.splice(i, 1);
+              break;
+            };
+          }
+        }
       } else {
         this.bullets.splice(i, 1);
       }

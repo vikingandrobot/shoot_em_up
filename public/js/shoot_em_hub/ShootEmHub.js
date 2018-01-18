@@ -46,7 +46,7 @@ class ShootEmHub {
   }
 
   logic() {
-    this.player.logic();
+    this.player.logic(this.ennemies);
 
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
       if (this.ennemies[i].pos.y -  this.ennemies[i].h > this.c.height) {

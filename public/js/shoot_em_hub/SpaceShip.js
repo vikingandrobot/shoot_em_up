@@ -26,7 +26,7 @@ class SpaceShip {
     );
   }
 
-  logic(bounds) {
+  logic(bounds, ennemies) {
     this.pos.add(this.speed);
 
     if (this.pos.x - this.w / 2 < bounds.x) {
@@ -46,8 +46,8 @@ class SpaceShip {
       this.speed.y = 0;
     }
 
-    this.leftCanon.logic(bounds);
-    this.rightCanon.logic(bounds)
+    this.leftCanon.logic(bounds, ennemies);
+    this.rightCanon.logic(bounds, ennemies);
   }
 
   /**

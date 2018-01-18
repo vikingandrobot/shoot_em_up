@@ -16,4 +16,14 @@ class Bullet {
     ctx.fill();
     ctx.closePath();
   }
+
+  collision(ennemy) {
+    if (
+      this.pos.x > ennemy.pos.x - ennemy.w / 2
+      && this.pos.x < ennemy.pos.x + ennemy.w / 2
+      && this.pos.y > ennemy.pos.y - ennemy.h / 2
+      && this.pos.y < ennemy.pos.y + ennemy.h / 2) {
+        return true;
+    }
+  }
 }
