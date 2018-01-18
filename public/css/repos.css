@@ -1,0 +1,123 @@
+/* Transitions */
+.repo-overview .picto, .repos-list .repo-overview:after, .repo-overview h2 {
+  -webkit-transition: all 0.5; /* Safari */
+  transition: all 0.5s;
+}
+
+/* Animation */
+@keyframes flying-animation {
+    0% {top: 0;}
+    100% {top: -10000px;}
+}
+@keyframes rotate-animation {
+    0% {transform: rotateZ(-3deg);}
+    50% {transform: rotateZ(+3deg);}
+    100% {transform: rotateZ(-3deg);}
+}
+
+.flying {
+  /* Animation */
+  animation: flying-animation 8s ease-in, rotate-animation 1s infinite ease-in-out;
+}
+
+.repos .title-section {
+  position: relative;
+  min-height: 40vh;
+  padding: 20vh 5% 5%;
+  background-color: black;
+  overflow: auto;
+}
+
+.repos .title-section h1, p {
+  position: relative;
+  color: #999999;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Canvas styling */
+#repos-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.repos .repos-list {
+  padding: 5% 15%;
+}
+
+.repos-list h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.repos-list .repo-overview {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2.5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  content: center;
+  cursor: pointer;
+  border-bottom: solid 1px #999999;
+}
+.repos-list .repo-overview:last-child {
+  border-bottom: none;
+}
+.repos-list .repo-overview:after {
+  position: absolute;
+  content: '';
+  top: 50%;
+  right: 30px;
+  width: 30px;
+  height: 30px;
+
+  margin-top: -15px;
+
+  background-image: url('../img/right_arrow.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.repos-list .repo-overview:hover:after {
+  right: 20px;
+  opacity: 0.5;
+}
+
+.repo-overview h2 {
+  text-align: left;
+  font-size: 1.3em;
+}
+.repo-overview:hover h2 {
+  color: #999;
+}
+.repo-overview h3 {
+  text-align: left;
+  font-size: 1em;
+  font-weight: normal;
+  color: #999;
+}
+
+.repo-overview .left {
+  margin-right: 30px;
+}
+
+
+.repo-overview .picto {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background-image: url(../img/rocket.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transform: rotateZ(30deg);
+  z-index: 10;
+}
+.repo-overview:hover .picto {
+  transform: rotateZ(0);
+}

@@ -32,4 +32,12 @@ router.get('/callback', (req, res) => {
   res.redirect('/');
 });
 
+router.get('/repos', (req, res) => {
+  res.render('../views/repos');
+});
+
+router.get('/play', (req, res) => {
+  res.render('../views/play');
+});
+
 module.exports = router;
