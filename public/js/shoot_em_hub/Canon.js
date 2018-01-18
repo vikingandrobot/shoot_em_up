@@ -3,14 +3,17 @@ class Canon {
     this.w = 5;
     this.h = 20;
 
+    this.direction = new CartesianVector(0, -10);
+
     this.bullets = [];
     this.fireRate = 0;
+    this.maxFireRate = 10;
     this.BOUNDS_TOLERANCE = 30;
   }
 
   logic(bounds) {
     if (this.fireRate != 0) {
-      this.fireRate = (this.fireRate + 1) % 10;
+      this.fireRate = (this.fireRate + 1) % this.maxFireRate;
     }
 
     for (let i = this.bullets.length - 1; i >= 0; --i) {
@@ -35,7 +38,7 @@ class Canon {
       this.bullets.push(
           new Bullet(
             new CartesianVector(x, y),
-            new CartesianVector(0, -10),
+            this.direction,
             4
           )
         );

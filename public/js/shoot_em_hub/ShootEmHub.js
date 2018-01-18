@@ -13,14 +13,21 @@ class ShootEmHub {
     this.player = new Player(this.c);
 
     this.ennemies = [];
-    this.ennemies.push(this.spawnEnnemy(50, 50));
+    // for (let i = 0; i < 5; ++i) {
+    //   this.ennemies.push(
+    //     this.spawnEnnemy(
+    //       Math.random() * this.c.width,
+    //       Math.random() * -this.c.height * 0.5
+    //     )
+    //   );
+    // }
 
 
     this.ennemyBounds = {
       x: 0,
-      y: 0,
+      y: -this.c.height * 0.5,
       w: this.c.width,
-      h: this.c.height * 1.5
+      h: this.c.height * 2
     };
   }
 
@@ -42,14 +49,28 @@ class ShootEmHub {
     this.player.logic();
 
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
-      this.ennemies[i].logic(this.ennemyBounds);
+      if (this.ennemies[i].pos.y -  this.ennemies[i].h > this.c.height) {
+        this.ennemies.splice(i, 1);
+      } else {
+        this.ennemies[i].shoot();
+        this.ennemies[i].logic(this.ennemyBounds);
+      }
+    }
+
+    if (Math.random() < 0.03) {
+      this.ennemies.push(
+        this.spawnEnnemy(
+          Math.random() * this.c.width,
+          Math.random() * -this.c.height / 2
+        )
+      );
     }
   }
 
   draw() {
     this.ctx.clearRect(0, 0, this.c.width, this.c.height);
     this.player.draw(this.ctx);
-    
+
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
       this.ennemies[i].draw(this.ctx);
     }
