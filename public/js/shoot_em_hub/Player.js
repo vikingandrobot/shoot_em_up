@@ -1,9 +1,9 @@
 class Player {
   constructor(c) {
     this.spaceShip = new SpaceShip(
-      new CartesianVector(c.width/2, c.height - 20),
-      20,
-      40
+      new CartesianVector(c.width/2, c.height - 50),
+      30,
+      60
     );
 
     this.bounds = {
@@ -56,7 +56,11 @@ class Player {
     });
   }
 
-  logic() {
+  shoot() {
+    this.spaceShip.shoot();
+  }
+
+  logic(ennemies) {
     const left = this.left;
     const up = this.up;
     const right = this.right;
@@ -72,14 +76,27 @@ class Player {
     }
 
     if (up) {
-      console.log('up')
+      this.spaceShip.shoot();
+      if (this.spaceShip.speed.x > 2) {
+        this.spaceShip.speed.x = 2;
+      } else if (this.spaceShip.speed.x < -2){
+        this.spaceShip.speed.x = -2;
+      }
     }
 
-    this.spaceShip.logic(this.bounds);
+    this.spaceShip.logic(this.bounds, ennemies);
 
   }
 
   draw(ctx) {
     this.spaceShip.draw(ctx);
+  }
+
+  getScore() {
+    return this.spaceShip.score;
+  }
+
+  getLife() {
+    return this.spaceShip.life;
   }
 }

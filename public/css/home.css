@@ -6,7 +6,7 @@
 }
 
 body, html {
-  background-color: black;
+  background-color: #1a2c44;
 }
 
 /* Home section styling */
@@ -17,7 +17,7 @@ body, html {
   width: 100vw;
   height: 100vh;
 
-  background-color: black;
+  background-color: #1a2c44;
 }
 
 /* Styling for the home rocket */
@@ -43,7 +43,6 @@ body, html {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
   z-index: 0;
 }
 

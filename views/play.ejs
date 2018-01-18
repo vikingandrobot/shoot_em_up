@@ -12,8 +12,14 @@
       crossorigin="anonymous"></script>
 
     <script src="js/vector/Vector.js" charset="utf-8"></script>
+    <script src="js/color/Color.js" charset="utf-8"></script>
     <script src="js/light/LightParticle.js" charset="utf-8"></script>
+    <script src="js/shoot_em_hub/Explosion.js" charset="utf-8"></script>
+    <script src="js/shoot_em_hub/Bullet.js" charset="utf-8"></script>
+    <script src="js/shoot_em_hub/Canon.js" charset="utf-8"></script>
     <script src="js/shoot_em_hub/SpaceShip.js" charset="utf-8"></script>
+    <script src="js/shoot_em_hub/EnnemySpaceShip.js" charset="utf-8"></script>
+    <script src="js/shoot_em_hub/LaserEnnemySpaceShip.js" charset="utf-8"></script>
     <script src="js/shoot_em_hub/Player.js" charset="utf-8"></script>
     <script src="js/shoot_em_hub/ShootEmHub.js" charset="utf-8"></script>
 
@@ -22,7 +28,53 @@
   </head>
   <body>
     <section id="play">
+
+      <!-- Canvas to display the Game -->
       <canvas id="game-canvas" width="800" height="600"></canvas>
+
+      <!-- Game UI container -->
+      <div id="game-ui" class="screen">
+
+        <!-- Life container -->
+        <div class="life">
+          <div class="point"></div>
+          <div></div>
+          <div></div>
+        </div>
+
+        <!-- Score container -->
+        <div class="score">
+          <span class="score-value">0</span>
+        </div>
+      </div>
+
+      <!-- Game Over screen -->
+      <div id="game-over" class="screen">
+        <article>
+          <h1>Game Over</h1>
+          <table>
+            <tr>
+              <td valign="middle">Your score:</td>
+              <td valign="middle">23009 pts</td>
+            </tr>
+            <tr>
+              <td valign="middle">Your record:</td>
+              <td valign="middle">37009 pts</td>
+            </tr>
+          </table>
+
+          <!-- Button call to action -->
+          <div class="button-row">
+            <a class="button try-again" href="https://github.com" title="Login with GitHub" alt="Login with GitHub">
+              <span class="normal">Try Again</span>
+            </a>
+            <br/>
+            <a class="button" href="https://github.com" title="Login with GitHub" alt="Login with GitHub">
+              <span class="normal">Repository list</span>
+            </a>
+          </div>
+        </article>
+      </div>
     </section>
 
   </body>
