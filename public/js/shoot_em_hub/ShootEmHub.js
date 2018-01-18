@@ -77,10 +77,10 @@ class ShootEmHub {
   }
 
   spawnEnnemy(x, y) {
-    const ennemy = new TriangleSpaceShip(
+    const ennemy = new EnnemySpaceShip(
       new CartesianVector(x, y),
-      20,
-      40
+      30,
+      60
     );
     ennemy.speed = new CartesianVector(0, 3);
     ennemy.setColor(new Color(186, 53, 5, 1));

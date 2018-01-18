@@ -9,6 +9,9 @@ class Canon {
     this.fireRate = 0;
     this.maxFireRate = 10;
     this.BOUNDS_TOLERANCE = 30;
+
+    this.color = new Color(255, 255, 255, 1);
+    this.colorString = this.color.asString();
   }
 
   logic(bounds, ennemies) {
@@ -43,13 +46,18 @@ class Canon {
     );
   }
 
+  setColor(color) {
+    this.color = color;
+    this.colorString = this.color.asString();
+  }
+
   shoot(x, y) {
     if (this.fireRate == 0) {
       this.bullets.push(
           new Bullet(
             new CartesianVector(x, y),
             this.direction,
-            4
+            3
           )
         );
         this.fireRate = this.fireRate + 1;
@@ -62,7 +70,7 @@ class Canon {
     }
 
     ctx.beginPath();
-    ctx.fillStyle = "white";
+    ctx.fillStyle = this.colorString;
     ctx.rect(x - this.w / 2, y - this.h / 2, this.w, this.h);
     ctx.fill();
     ctx.closePath();
