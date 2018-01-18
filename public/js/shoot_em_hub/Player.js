@@ -6,6 +6,13 @@ class Player {
       40
     );
 
+    this.bounds = {
+      x: 0,
+      y: 0,
+      w: c.width,
+      h: c.height
+    };
+
     this.left = this.up = this.right;
 
     this.registerKeyListeners();
@@ -57,14 +64,14 @@ class Player {
     } else if (right) {
       this.spaceShip.addSpeed(new CartesianVector(1, 0));
     } else {
-      this.spaceShip.looseSpeed(0.9);
+      this.spaceShip.looseSpeed(0.75);
     }
 
     if (up) {
       console.log('up')
     }
 
-    this.spaceShip.logic();
+    this.spaceShip.logic(this.bounds);
 
   }
 

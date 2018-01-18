@@ -8,8 +8,25 @@ class SpaceShip {
     this.maxSpeed = 10;
   }
 
-  logic() {
+  logic(bounds) {
     this.pos.add(this.speed);
+
+    if (this.pos.x - this.w / 2 < bounds.x) {
+      this.pos.x = bounds.x + this.w / 2;
+      this.speed.x = 0;
+    }
+    if (this.pos.x + this.w / 2 > bounds.x + bounds.w) {
+      this.pos.x = bounds.x + bounds.w - this.w / 2;
+      this.speed.x = 0;
+    }
+    if (this.pos.y - this.h / 2 < bounds.y) {
+      this.pos.y = bounds.y + this.h / 2;
+      this.speed.y = 0;
+    }
+    if (this.pos.y + this.h / 2 > bounds.y + bounds.h) {
+      this.pos.y = bounds.y + bounds.h - this.h / 2;
+      this.speed.y = 0;
+    }
   }
 
   /**
