@@ -77,6 +77,11 @@ class Player {
 
     if (up) {
       this.spaceShip.shoot();
+      if (this.spaceShip.speed.x > 2) {
+        this.spaceShip.speed.x = 2;
+      } else if (this.spaceShip.speed.x < -2){
+        this.spaceShip.speed.x = -2;
+      }
     }
 
     this.spaceShip.logic(this.bounds, ennemies);
