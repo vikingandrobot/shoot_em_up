@@ -181,11 +181,22 @@ class ShootEmHub {
     Spawn an ennemy at the (x, y) position
   */
   spawnEnnemy(x, y) {
-    const ennemy = new EnnemySpaceShip(
-      new CartesianVector(x, y),
-      30,
-      60
-    );
+    let ennemy;
+    if (Math.random() > 0.8) {
+      ennemy = new LaserEnnemySpaceShip(
+        new CartesianVector(x, y),
+        50,
+        50,
+        (Math.random() > 0.5 ? 1 : -1)
+      );
+    } else {
+      ennemy = new EnnemySpaceShip(
+        new CartesianVector(x, y),
+        30,
+        60
+      );
+    }
+
 
     // Ennemies go down
     ennemy.speed = new CartesianVector(0, 3);

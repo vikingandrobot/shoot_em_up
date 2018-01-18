@@ -1,18 +1,17 @@
 class Explosion {
   constructor(pos, speed) {
     this.pos = pos.copy();
-    this.speed = speed.copy();
 
     this.particles = [];
     for (let i = 0; i < 7; ++i) {
       this.particles.push(
         new LightParticle(
           new CartesianVector(
-            this.pos.x + Math.random() * 20 - 10,
-            this.pos.y + Math.random() * 20 - 10
+            this.pos.x + Math.random() * 30 - 15,
+            this.pos.y + Math.random() * 30 - 15
           ),
-          Math.random() * 10 + 5,
-          new CartesianVector(0, 0)
+          Math.random() * 20 + 5,
+          speed.copy()
         )
       )
     }

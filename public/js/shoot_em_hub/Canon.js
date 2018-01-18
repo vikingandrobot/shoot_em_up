@@ -33,7 +33,7 @@ class Canon {
               this.explosions.push(
                 new Explosion(
                   ennemies[j].pos,
-                  ennemies[j].speed
+                  ennemies[j].speed.toPolar().scale(0.5).toCartesian()
                 )
               );
               ennemies[j].hit();
