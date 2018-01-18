@@ -13,15 +13,6 @@ class ShootEmHub {
     this.player = new Player(this.c);
 
     this.ennemies = [];
-    // for (let i = 0; i < 5; ++i) {
-    //   this.ennemies.push(
-    //     this.spawnEnnemy(
-    //       Math.random() * this.c.width,
-    //       Math.random() * -this.c.height * 0.5
-    //     )
-    //   );
-    // }
-
 
     this.ennemyBounds = {
       x: 0,

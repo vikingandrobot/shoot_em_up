@@ -10,6 +10,8 @@ class Canon {
     this.maxFireRate = 10;
     this.BOUNDS_TOLERANCE = 30;
 
+    this.explosions = [];
+
     this.color = new Color(255, 255, 255, 1);
     this.colorString = this.color.asString();
   }
@@ -26,6 +28,12 @@ class Canon {
         if (ennemies !== undefined) {
           for (let j = ennemies.length - 1; j >= 0; --j) {
             if (this.bullets[i].collision(ennemies[j])) {
+              this.explosions.push(
+                new Explosion(
+                  ennemies[j].pos,
+                  ennemies[j].speed
+                )
+              );
               ennemies.splice(j, 1);
               this.bullets.splice(i, 1);
               break;
@@ -34,6 +42,14 @@ class Canon {
         }
       } else {
         this.bullets.splice(i, 1);
+      }
+    }
+
+    for (let i = this.explosions.length - 1; i >= 0; --i) {
+      if (this.explosions[i].isFinished()) {
+        this.explosions.splice(i, 1);
+      } else {
+        this.explosions[i].logic();
       }
     }
   }
@@ -67,6 +83,10 @@ class Canon {
   draw(ctx, x, y) {
     for (let i = this.bullets.length - 1; i >= 0; --i) {
       this.bullets[i].draw(ctx);
+    }
+
+    for (let i = this.explosions.length - 1; i >= 0; --i) {
+      this.explosions[i].draw(ctx);
     }
 
     ctx.beginPath();
