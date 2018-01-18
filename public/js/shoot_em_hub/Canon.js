@@ -36,6 +36,7 @@ class Canon {
                   ennemies[j].speed
                 )
               );
+              ennemies[j].hit();
               ennemies.splice(j, 1);
               this.bullets.splice(i, 1);
               this.spaceShip.countScore();

@@ -15,8 +15,4 @@ class EnnemySpaceShip extends SpaceShip {
     this.rightCanon.direction.y = 5;
     this.img = EnnemySpaceShipImage;
   }
-
-  logic(bounds) {
-    super.logic(bounds, undefined);
-  }
 }

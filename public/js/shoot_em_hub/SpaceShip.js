@@ -29,7 +29,7 @@ class SpaceShip {
 
     this.score = 0;
     this.DEFAULT_COMBO_VALUE = 10;
-    this.comboCount = 0;
+    this.comboCount = 1;
     this.comboTime = 0;
     this.comboDuration = 60;
 
@@ -39,9 +39,13 @@ class SpaceShip {
   }
 
   countScore() {
-    this.score += this.DEFAULT_COMBO_VALUE * Math.pow(2, this.comboCount);
+    this.score += this.DEFAULT_COMBO_VALUE * this.comboCount;
     ++this.comboCount;
     this.comboTime = 0;
+  }
+
+  hit() {
+    this.life -= 1;
   }
 
   shoot() {
@@ -111,7 +115,7 @@ class SpaceShip {
     ++this.comboTime;
 
     if (this.comboTime >= this.comboDuration) {
-      this.comboCount = Math.max(this.comboCount - 1, 0);
+      this.comboCount = Math.max(this.comboCount - 1, 1);
       this.comboTime = 0;
     }
   }

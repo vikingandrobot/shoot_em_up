@@ -21,7 +21,8 @@ class ShootEmHub {
       h: this.c.height + 400
     };
 
-    this.tick = 0;
+    this.lastScore = this.player.getScore();
+    this.lastLife = this.player.getLife();
   }
 
   /**
@@ -31,6 +32,8 @@ class ShootEmHub {
     setInterval(() => {
       this.core();
     }, 1000/50);
+
+    this.displayUI(this.player.getScore(), this.player.getLife());
   }
 
   core() {
@@ -46,7 +49,7 @@ class ShootEmHub {
         this.ennemies.splice(i, 1);
       } else {
         this.ennemies[i].shoot();
-        this.ennemies[i].logic(this.ennemyBounds);
+        this.ennemies[i].logic(this.ennemyBounds, [this.player.spaceShip]);
       }
     }
 
@@ -68,19 +71,27 @@ class ShootEmHub {
       this.ennemies[i].draw(this.ctx);
     }
 
-    if (this.tick == 0) {
-      $('#game-ui .score .score-value').html(this.player.getScore());
-      let playerLife = this.player.getLife();
-      let i = 0;
-      $('#game-ui .life div').each(function() {
-        if (i < playerLife) {
-          $(this).addClass('point');
-        } else {
-          $(this).removeClass('point');
-        }
-      })
+    const playerScore = this.player.getScore();
+    const playerLife = this.player.getLife();
+
+    if (this.lastLife != playerLife || this.lastScore != playerScore) {
+      this.displayUI(playerScore, playerLife);
+
+      this.lastScore = playerScore;
+      this.lastLife = playerLife;
     }
-    this.tick = (this.tick + 1) % 50;
+  }
+
+  displayUI(playerScore, playerLife) {
+    $('#game-ui .score .score-value').html(playerScore);
+    let i = 0;
+    $('#game-ui .life div').removeClass('point');
+    $('#game-ui .life div').each(function() {
+      if (i < playerLife) {
+        $(this).addClass('point');
+        i++;
+      }
+    })
   }
 
   spawnEnnemy(x, y) {
