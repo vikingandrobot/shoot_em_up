@@ -142,6 +142,7 @@ class ShootEmHub {
       this.pause();
 
       // Display Game Over screen.
+      $('#game-over').addClass('active');
     }
   }
 

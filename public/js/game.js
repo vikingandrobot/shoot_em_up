@@ -1,4 +1,12 @@
 $(document).ready(() => {
-  const game = new ShootEmHub('game-canvas');
+  let game = new ShootEmHub('game-canvas');
   game.start();
+
+  $('.try-again').click((e) => {
+    e.preventDefault();
+
+    game = new ShootEmHub('game-canvas');
+    game.start();
+    $('#game-over').removeClass('active');
+  })
 });
