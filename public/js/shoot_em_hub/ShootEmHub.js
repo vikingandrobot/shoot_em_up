@@ -16,9 +16,9 @@ class ShootEmHub {
 
     this.ennemyBounds = {
       x: 0,
-      y: -this.c.height * 0.5,
+      y: -200,
       w: this.c.width,
-      h: this.c.height * 2
+      h: this.c.height + 400
     };
   }
 
@@ -52,7 +52,7 @@ class ShootEmHub {
       this.ennemies.push(
         this.spawnEnnemy(
           Math.random() * this.c.width,
-          Math.random() * -this.c.height / 2
+          Math.random() * -100
         )
       );
     }

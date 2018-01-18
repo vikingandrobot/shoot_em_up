@@ -72,11 +72,12 @@ class SpaceShip {
 
     if (this.particles.length < this.nbOfParticles) {
       const x = Math.random() * this.w - this.w / 2 + this.pos.x;
-      const y = Math.random() * this.h - this.h / 2 + this.pos.y;
+      let y = Math.random() * this.h - this.h / 2 + this.pos.y;
 
       let speed;
-      if (this.speed.x === 0) {
-        speed = new CartesianVector(0, -1);
+      if (this.speed.x === 0 && this.speed.y === 0) {
+        speed = new CartesianVector(0, 1);
+        y += this.h;
       } else {
         speed = this.speed.toPolar().scale(-0.05).toCartesian();
       }
