@@ -10,6 +10,9 @@ class SpaceShip {
     this.rightCanon = new Canon();
 
     this.maxSpeed = 10;
+
+    this.color = new Color(255, 255, 255, 1);
+    this.colorString = this.color.asString();
   }
 
   shoot() {
@@ -70,7 +73,7 @@ class SpaceShip {
       this.w,
       this.h
     );
-    ctx.fillStyle = "white";
+    ctx.fillStyle = this.colorString;
     ctx.fill();
     ctx.closePath();
   }
@@ -97,5 +100,10 @@ class SpaceShip {
     } else {
       this.speed = new CartesianVector(0, 0);
     }
+  }
+
+  setColor(color) {
+    this.color = color;
+    this.colorString = this.color.asString();
   }
 }

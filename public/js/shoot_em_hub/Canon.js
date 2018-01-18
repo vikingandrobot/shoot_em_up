@@ -36,7 +36,7 @@ class Canon {
           new Bullet(
             new CartesianVector(x, y),
             new CartesianVector(0, -10),
-            10
+            4
           )
         );
         this.fireRate = this.fireRate + 1;
