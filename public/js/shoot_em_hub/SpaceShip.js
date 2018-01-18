@@ -33,9 +33,10 @@ class SpaceShip {
     this.comboTime = 0;
     this.comboDuration = 60;
 
-
-
     this.life = 3;
+
+    this.hitCounter = 0;
+    this.recuperationTime = 80;
   }
 
   countScore() {
@@ -45,7 +46,10 @@ class SpaceShip {
   }
 
   hit() {
-    this.life -= 1;
+    if (this.hitCounter == 0) {
+      this.life -= 1;
+      this.hitCounter++;
+    }
   }
 
   shoot() {
@@ -118,12 +122,23 @@ class SpaceShip {
       this.comboCount = Math.max(this.comboCount - 1, 1);
       this.comboTime = 0;
     }
+
+    if (this.hitCounter != 0) {
+      ++this.hitCounter;
+    }
+    if (this.hitCounter >= this.recuperationTime) {
+      this.hitCounter = 0;
+    }
   }
 
   /**
     Draw the space ship
   */
   draw(ctx) {
+
+    if (this.hitCounter != 0) {
+      ctx.globalAlpha = 0.5
+    }
 
     this.leftCanon.draw(
       ctx,
@@ -156,7 +171,12 @@ class SpaceShip {
       this.pos.x - this.w / 2,
       this.pos.y - this.h / 2,
       this.w,
-      this.h);
+      this.h
+    );
+
+    if (this.hitCounter != 0) {
+      ctx.globalAlpha = 1;
+    }
   }
 
   addSpeed(s) {

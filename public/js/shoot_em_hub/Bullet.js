@@ -17,6 +17,8 @@ class Bullet {
     this.pos = pos.copy();
     this.speed = speed.copy();
     this.radius = radius;
+    this.color = new Color(255, 255, 255, 0.9);
+    this.colorString = this.color.asString();
   }
 
   /**
@@ -31,7 +33,7 @@ class Bullet {
   */
   draw(ctx) {
     ctx.beginPath();
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = this.colorString;
     ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2, false);
     ctx.fill();
     ctx.closePath();
@@ -50,5 +52,14 @@ class Bullet {
       && this.pos.y - this.radius < ennemy.pos.y + ennemy.h / 2) {
         return true;
     }
+  }
+
+  /**
+    Set the colot of the bullet
+      color: object of type Color
+  */
+  setColor(color) {
+    this.color = color;
+    this.colorString = this.color.asString();
   }
 }

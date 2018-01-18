@@ -73,16 +73,16 @@ class Canon {
 
   shoot(x, y) {
     if (this.fireRate == 0) {
-      this.bullets.push(
-          new Bullet(
-            new CartesianVector(x, y),
-            this.direction,
-            3
-          )
-        );
-        this.fireRate = this.fireRate + 1;
-      }
+      const b = new Bullet(
+        new CartesianVector(x, y),
+        this.direction,
+        3
+      );
+      b.setColor(this.color);
+      this.bullets.push(b);
+      this.fireRate = this.fireRate + 1;
     }
+  }
 
   draw(ctx, x, y) {
     for (let i = this.bullets.length - 1; i >= 0; --i) {
