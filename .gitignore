@@ -1,4 +1,5 @@
 .DS_Store
+nbproject/
 nbproject/private/
 build/
 nbbuild/
