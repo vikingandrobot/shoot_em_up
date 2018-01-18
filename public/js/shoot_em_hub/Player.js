@@ -23,6 +23,7 @@ class Player {
       switch(e.keyCode) {
         case 37:
           this.left = true;
+          this.right = false;
           break;
 
         case 38:
@@ -31,6 +32,7 @@ class Player {
 
         case 39:
           this.right = true;
+          this.left = false;
           break;
       }
         // use e.keyCode
@@ -61,9 +63,11 @@ class Player {
 
     if (left) {
       this.spaceShip.addSpeed(new CartesianVector(-1, 0));
-    } else if (right) {
+    }
+    if (right) {
       this.spaceShip.addSpeed(new CartesianVector(1, 0));
-    } else {
+    }
+    if (!left && !right) {
       this.spaceShip.looseSpeed(0.75);
     }
 
