@@ -14,8 +14,14 @@ class SpaceShip {
     this.h = h;
     this.CANON_SPACE = 20;
 
-    this.leftCanon = new Canon(this);
-    this.rightCanon = new Canon(this);
+    this.leftCanon = new MegaCanon(
+      this,
+      new CartesianVector(-34, 0)
+    );
+    this.rightCanon = new MegaCanon(
+      this,
+      new CartesianVector(34, 0)
+    );
 
     this.particles = [];
     this.nbOfParticles = 10;
@@ -55,16 +61,10 @@ class SpaceShip {
 
   shoot() {
     if (this.leftCanon !== undefined) {
-      this.leftCanon.shoot(
-        this.pos.x + this.CANON_SPACE,
-        this.pos.y
-      );
+      this.leftCanon.shoot();
     }
     if (this.rightCanon !== undefined) {
-      this.rightCanon.shoot(
-        this.pos.x - this.CANON_SPACE,
-        this.pos.y
-      );
+      this.rightCanon.shoot();
     }
   }
 
@@ -176,18 +176,10 @@ class SpaceShip {
   */
   drawCanons(ctx) {
     if (this.leftCanon !== undefined) {
-      this.leftCanon.draw(
-        ctx,
-        this.pos.x + this.CANON_SPACE,
-        this.pos.y
-      );
+      this.leftCanon.draw(ctx);
     }
     if (this.rightCanon !== undefined) {
-      this.rightCanon.draw(
-        ctx,
-        this.pos.x - this.CANON_SPACE,
-        this.pos.y
-      );
+      this.rightCanon.draw(ctx);
     }
 
     // Draw the canon supports

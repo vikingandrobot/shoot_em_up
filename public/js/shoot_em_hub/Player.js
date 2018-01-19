@@ -2,8 +2,8 @@ class Player {
   constructor(c) {
     this.spaceShip = new SpaceShip(
       new CartesianVector(c.width/2, c.height - 50),
-      30,
-      60
+      60,
+      120
     );
 
     this.bounds = {
