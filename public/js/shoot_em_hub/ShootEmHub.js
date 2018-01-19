@@ -92,8 +92,10 @@ class ShootEmHub {
       // Collision with player
       if (this.ennemies[i].collision(this.player.spaceShip)) {
         // Do stuff
-        this.player.spaceShip.hit(1);
-        this.ennemies[i].hit(1);
+        if (this.player.spaceShip.hitCounter == 0 && this.ennemies[i].hitCounter == 0) {
+          this.player.spaceShip.hit(1);
+          this.ennemies[i].hit(1);
+        }
       }
 
       // Delete dead ennemies
