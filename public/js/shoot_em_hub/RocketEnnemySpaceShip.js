@@ -6,6 +6,5 @@ class RocketEnnemySpaceShip extends EnnemySpaceShip {
     this.img = EnnemySpaceShipImage;
     this.life = 1;
     this.maxLife = 1;
-    this.speed = new CartesianVector(0, -20);
   }
 }

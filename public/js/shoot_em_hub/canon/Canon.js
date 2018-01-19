@@ -21,8 +21,6 @@ class Canon {
     this.maxFireRate = 10;
     this.BOUNDS_TOLERANCE = 30;
 
-    this.explosions = [];
-
     this.color = new Color(255, 255, 255, 1);
     this.colorString = this.color.asString();
 
@@ -42,14 +40,6 @@ class Canon {
           for (let j = ennemies.length - 1; j >= 0; --j) {
             if (this.bullets[i].collision(ennemies[j])) {
               ennemies[j].hit(this.bullets[i].power);
-              if (ennemies[j].life <= 0) {
-                this.explosions.push(
-                  new Explosion(
-                    ennemies[j].pos,
-                    ennemies[j].speed.toPolar().scale(0.5).toCartesian()
-                  )
-                );
-              }
 
               this.bullets.splice(i, 1);
               this.spaceShip.countScore();
@@ -59,14 +49,6 @@ class Canon {
         }
       } else {
         this.bullets.splice(i, 1);
-      }
-    }
-
-    for (let i = this.explosions.length - 1; i >= 0; --i) {
-      if (this.explosions[i].isFinished()) {
-        this.explosions.splice(i, 1);
-      } else {
-        this.explosions[i].logic();
       }
     }
   }
@@ -109,10 +91,7 @@ class Canon {
     for (let i = this.bullets.length - 1; i >= 0; --i) {
       this.bullets[i].draw(ctx);
     }
-
-    for (let i = this.explosions.length - 1; i >= 0; --i) {
-      this.explosions[i].draw(ctx);
-    }
+    
     const x = this.spaceShip.pos.x + this.pos.x;
     const y = this.spaceShip.pos.y + this.pos.y;
 
