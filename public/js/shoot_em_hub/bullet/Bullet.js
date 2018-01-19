@@ -51,13 +51,11 @@ class Bullet {
     and a h for h property.
   */
   collision(ennemy) {
-    if (
+    return (
       this.pos.x + this.radius > ennemy.pos.x - ennemy.w / 2
       && this.pos.x - this.radius < ennemy.pos.x + ennemy.w / 2
       && this.pos.y + this.radius > ennemy.pos.y - ennemy.h / 2
-      && this.pos.y - this.radius < ennemy.pos.y + ennemy.h / 2) {
-        return true;
-    }
+      && this.pos.y - this.radius < ennemy.pos.y + ennemy.h / 2);
   }
 
   /**

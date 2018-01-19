@@ -196,6 +196,14 @@ class SpaceShip {
     }
   }
 
+  collision(ennemy) {
+    return (
+      this.pos.x + this.w / 2 > ennemy.pos.x - ennemy.w / 2
+      && this.pos.x - this.w / 2 < ennemy.pos.x + ennemy.w / 2
+      && this.pos.y + this.h / 2 > ennemy.pos.y - ennemy.h / 2
+      && this.pos.y - this.h / 2 < ennemy.pos.y + ennemy.h / 2);
+  }
+
   addSpeed(s) {
     this.speed.add(s);
     if (this.speed.x < -this.maxSpeed) {

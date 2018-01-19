@@ -89,6 +89,13 @@ class ShootEmHub {
       Do the logic of ennemies
     */
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
+      // Collision with player
+      if (this.ennemies[i].collision(this.player.spaceShip)) {
+        // Do stuff
+        this.player.spaceShip.hit(1);
+        this.ennemies[i].hit(1);
+      }
+
       // Delete dead ennemies
       if (this.ennemies[i].life <= 0) {
         this.ennemies.splice(i, 1);
