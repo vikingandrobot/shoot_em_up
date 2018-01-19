@@ -15,5 +15,42 @@ class EnnemySpaceShip extends SpaceShip {
     this.rightCanon.direction.y = 5;
     this.img = EnnemySpaceShipImage;
     this.life = 1;
+    this.maxLife = 1;
+  }
+
+  draw(ctx) {
+    // Draw the spaceship
+    super.draw(ctx);
+
+    // draw the life of the spaceship
+    if (this.life != this.maxLife) {
+      this.drawLife(ctx);
+    }
+  }
+
+  /**
+    Draw life of the space ship.
+  */
+  drawLife(ctx) {
+    ctx.beginPath();
+    ctx.fillStyle = this.colorString;
+    ctx.fillRect(
+      this.pos.x - this.w,
+      this.pos.y - this.h / 2 - 20,
+      this.w * 2,
+      10
+    );
+    ctx.fill();
+
+
+    ctx.fillStyle = '#57d646';
+    ctx.fillRect(
+      this.pos.x - this.w,
+      this.pos.y - this.h / 2 - 20,
+      this.w * 2 / this.maxLife * this.life,
+      10
+    );
+    ctx.fill();
+    ctx.closePath();
   }
 }

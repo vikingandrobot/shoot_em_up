@@ -22,6 +22,7 @@ class LaserEnnemySpaceShip extends EnnemySpaceShip {
     this.shooting = false;
     this.direction = direction;
     this.life = 10;
+    this.maxLife = 10;
   }
 
   /**
@@ -61,6 +62,8 @@ class LaserEnnemySpaceShip extends EnnemySpaceShip {
     Draw the space ship
   */
   draw(ctx) {
+    super.draw(ctx);
+
     // number of steps in the beams
     const N = 20;
 
@@ -84,14 +87,5 @@ class LaserEnnemySpaceShip extends EnnemySpaceShip {
       ctx.stroke();
       ctx.closePath();
     }
-
-    // Draw the image
-    ctx.drawImage(
-      this.img,
-      this.pos.x - this.w / 2,
-      this.pos.y - this.h / 2,
-      this.w,
-      this.h
-    );
   }
 }
