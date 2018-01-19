@@ -41,13 +41,16 @@ class Canon {
         if (ennemies !== undefined) {
           for (let j = ennemies.length - 1; j >= 0; --j) {
             if (this.bullets[i].collision(ennemies[j])) {
-              this.explosions.push(
-                new Explosion(
-                  ennemies[j].pos,
-                  ennemies[j].speed.toPolar().scale(0.5).toCartesian()
-                )
-              );
               ennemies[j].hit(this.bullets[i].power);
+              if (ennemies[j].life <= 0) {
+                this.explosions.push(
+                  new Explosion(
+                    ennemies[j].pos,
+                    ennemies[j].speed.toPolar().scale(0.5).toCartesian()
+                  )
+                );
+              }
+
               this.bullets.splice(i, 1);
               this.spaceShip.countScore();
               break;

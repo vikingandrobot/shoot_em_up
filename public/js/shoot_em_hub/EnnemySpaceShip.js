@@ -16,6 +16,7 @@ class EnnemySpaceShip extends SpaceShip {
     this.img = EnnemySpaceShipImage;
     this.life = 1;
     this.maxLife = 1;
+    this.recuperationTime = 5;
   }
 
   draw(ctx) {

@@ -21,8 +21,8 @@ class LaserEnnemySpaceShip extends EnnemySpaceShip {
     this.img = LaserEnnemySpaceShipImage;
     this.shooting = false;
     this.direction = direction;
-    this.life = 10;
-    this.maxLife = 10;
+    this.life = 25;
+    this.maxLife = 25;
     this.leftCanon = undefined;
     this.rightCanon = undefined;
   }

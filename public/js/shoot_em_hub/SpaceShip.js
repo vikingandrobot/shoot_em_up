@@ -14,19 +14,19 @@ class SpaceShip {
     this.h = h;
     this.CANON_SPACE = 20;
 
-    this.leftCanon = new MegaCanon(
+    this.leftCanon = new SmallCanon(
       this,
-      new CartesianVector(-34, 0)
+      new CartesianVector(-this.w, 0)
     );
-    this.rightCanon = new MegaCanon(
+    this.rightCanon = new SmallCanon(
       this,
-      new CartesianVector(34, 0)
+      new CartesianVector(this.w, 0)
     );
 
     this.particles = [];
     this.nbOfParticles = 10;
 
-    this.maxSpeed = 10;
+    this.maxSpeed = 8;
 
     this.color = new Color(255, 255, 255, 1);
     this.colorString = this.color.asString();
@@ -212,11 +212,17 @@ class SpaceShip {
     }
   }
 
-  looseSpeed(factor) {
-    if (this.speed.toPolar().radius > 0.5) {
-      this.speed = this.speed.toPolar().scale(factor).toCartesian();
+  looseSpeed(factorX, factorY) {
+    if (this.speed.x > 0.5 || this.speed.x < -0.5) {
+      this.speed.x *= factorX;
     } else {
-      this.speed = new CartesianVector(0, 0);
+      this.speed.x = 0;
+    }
+
+    if (this.speed.y > 0.5 || this.speed.y < -0.5) {
+      this.speed.y *= factorY;
+    } else {
+      this.speed.y = 0;
     }
   }
 
