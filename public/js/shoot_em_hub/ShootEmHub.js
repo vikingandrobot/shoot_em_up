@@ -197,15 +197,22 @@ class ShootEmHub {
   */
   spawnEnnemy(x, y) {
     let ennemy;
-    if (Math.random() > 0.8) {
+    let rand = Math.random();
+    if (rand < 0.4) {
       ennemy = new LaserEnnemySpaceShip(
         new CartesianVector(x, y),
         50,
         50,
         (Math.random() > 0.5 ? 1 : -1)
       );
-    } else {
+    } else if (rand < 0.8) {
       ennemy = new EnnemySpaceShip(
+        new CartesianVector(x, y),
+        30,
+        60
+      );
+    } else {
+      ennemy = new RocketEnnemySpaceShip(
         new CartesianVector(x, y),
         30,
         60
