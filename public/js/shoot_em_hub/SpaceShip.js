@@ -190,6 +190,7 @@ class SpaceShip {
       );
     }
 
+    // Draw the canon supports
     if (this.leftCanon !== undefined || this.rightCanon !== undefined) {
       ctx.beginPath();
       ctx.fillStyle = this.colorString;

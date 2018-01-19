@@ -72,12 +72,11 @@ class Canon {
 
   shoot(x, y) {
     if (this.fireRate == 0) {
-      const b = new Bullet(
+      const b = new MegaBullet(
         new CartesianVector(x, y),
         this.direction,
         3
       );
-      b.setColor(this.color);
       this.bullets.push(b);
       this.fireRate = this.fireRate + 1;
     }

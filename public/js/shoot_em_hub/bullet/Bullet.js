@@ -38,6 +38,11 @@ class Bullet {
     ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2, false);
     ctx.fill();
     ctx.closePath();
+    ctx.beginPath();
+    ctx.fillStyle = 'white';
+    ctx.arc(this.pos.x, this.pos.y, this.radius / 2, 0, Math.PI * 2, false);
+    ctx.fill();
+    ctx.closePath();
   }
 
   /*
