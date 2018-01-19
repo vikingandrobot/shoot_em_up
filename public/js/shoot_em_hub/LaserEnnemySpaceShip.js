@@ -23,6 +23,8 @@ class LaserEnnemySpaceShip extends EnnemySpaceShip {
     this.direction = direction;
     this.life = 10;
     this.maxLife = 10;
+    this.leftCanon = undefined;
+    this.rightCanon = undefined;
   }
 
   /**

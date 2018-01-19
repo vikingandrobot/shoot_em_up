@@ -54,14 +54,18 @@ class SpaceShip {
   }
 
   shoot() {
-    this.leftCanon.shoot(
-      this.pos.x + this.CANON_SPACE,
-      this.pos.y
-    );
-    this.rightCanon.shoot(
-      this.pos.x - this.CANON_SPACE,
-      this.pos.y
-    );
+    if (this.leftCanon !== undefined) {
+      this.leftCanon.shoot(
+        this.pos.x + this.CANON_SPACE,
+        this.pos.y
+      );
+    }
+    if (this.rightCanon !== undefined) {
+      this.rightCanon.shoot(
+        this.pos.x - this.CANON_SPACE,
+        this.pos.y
+      );
+    }
   }
 
   logic(bounds, ennemies) {
@@ -84,8 +88,12 @@ class SpaceShip {
       this.speed.y = 0;
     }
 
-    this.leftCanon.logic(bounds, ennemies);
-    this.rightCanon.logic(bounds, ennemies);
+    if (this.leftCanon !== undefined) {
+      this.leftCanon.logic(bounds, ennemies);
+    }
+    if (this.rightCanon !== undefined) {
+      this.rightCanon.logic(bounds, ennemies);
+    }
 
     for (let i = this.particles.length - 1; i >= 0; i--) {
       if (this.particles[i].intensity <= 0) {
@@ -141,32 +149,15 @@ class SpaceShip {
       ctx.globalAlpha = 0.5
     }
 
-    this.leftCanon.draw(
-      ctx,
-      this.pos.x + this.CANON_SPACE,
-      this.pos.y
-    );
-    this.rightCanon.draw(
-      ctx,
-      this.pos.x - this.CANON_SPACE,
-      this.pos.y
-    );
-
+    // Draw the particles
     for (let i = this.particles.length - 1; i >= 0; i--) {
       this.particles[i].draw(ctx);
     }
 
-    ctx.beginPath();
-    ctx.rect(
-      this.pos.x - this.CANON_SPACE,
-      this.pos.y - this.h / 24,
-      this.CANON_SPACE * 2,
-      this.h / 7
-    );
-    ctx.fillStyle = this.colorString;
-    ctx.fill();
-    ctx.closePath();
+    // Draw the canons
+    this.drawCanons(ctx);
 
+    // Draw the ship image
     ctx.drawImage(
       this.img,
       this.pos.x - this.w / 2,
@@ -177,6 +168,38 @@ class SpaceShip {
 
     if (this.hitCounter != 0) {
       ctx.globalAlpha = 1;
+    }
+  }
+
+  /**
+    Draw the canons if they are sets.
+  */
+  drawCanons(ctx) {
+    if (this.leftCanon !== undefined) {
+      this.leftCanon.draw(
+        ctx,
+        this.pos.x + this.CANON_SPACE,
+        this.pos.y
+      );
+    }
+    if (this.rightCanon !== undefined) {
+      this.rightCanon.draw(
+        ctx,
+        this.pos.x - this.CANON_SPACE,
+        this.pos.y
+      );
+    }
+
+    if (this.leftCanon !== undefined || this.rightCanon !== undefined) {
+      ctx.beginPath();
+      ctx.fillStyle = this.colorString;
+      ctx.fillRect(
+        this.pos.x - this.CANON_SPACE,
+        this.pos.y - this.h / 24,
+        this.CANON_SPACE * 2,
+        this.h / 7
+      );
+      ctx.closePath();
     }
   }
 
@@ -207,7 +230,11 @@ class SpaceShip {
   setColor(color) {
     this.color = color;
     this.colorString = this.color.asString();
-    this.leftCanon.setColor(color);
-    this.rightCanon.setColor(color);
+    if (this.leftCanon !== undefined) {
+      this.leftCanon.setColor(color);
+    }
+    if (this.rightCanon !== undefined) {
+      this.rightCanon.setColor(color);
+    }
   }
 }

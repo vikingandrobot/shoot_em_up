@@ -32,23 +32,25 @@ class EnnemySpaceShip extends SpaceShip {
     Draw life of the space ship.
   */
   drawLife(ctx) {
+
+    // Draw full life bar
     ctx.beginPath();
-    ctx.fillStyle = this.colorString;
+    ctx.fillStyle = '#cdcdcd';
     ctx.fillRect(
-      this.pos.x - this.w,
+      this.pos.x - this.w * 0.75,
       this.pos.y - this.h / 2 - 20,
-      this.w * 2,
-      10
+      this.w * 1.5,
+      5
     );
     ctx.fill();
 
-
-    ctx.fillStyle = '#57d646';
+    // Draw life value
+    ctx.fillStyle = 'white';
     ctx.fillRect(
-      this.pos.x - this.w,
+      this.pos.x - this.w * 0.75,
       this.pos.y - this.h / 2 - 20,
-      this.w * 2 / this.maxLife * this.life,
-      10
+      this.w * 1.5 / this.maxLife * this.life,
+      5
     );
     ctx.fill();
     ctx.closePath();
