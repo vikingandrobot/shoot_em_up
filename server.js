@@ -18,7 +18,7 @@ app.use(session({
   secret: 'this-is-a-secret-token', 
   cookie: { maxAge: 60000 },
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: true
 }));
 
 // Set view engine
