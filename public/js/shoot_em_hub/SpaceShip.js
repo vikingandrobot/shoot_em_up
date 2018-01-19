@@ -34,6 +34,7 @@ class SpaceShip {
     this.comboDuration = 60;
 
     this.life = 3;
+    this.maxLife = 3;
 
     this.hitCounter = 0;
     this.recuperationTime = 80;
@@ -45,9 +46,9 @@ class SpaceShip {
     this.comboTime = 0;
   }
 
-  hit() {
+  hit(power) {
     if (this.hitCounter == 0) {
-      this.life -= 1;
+      this.life -= power;
       this.hitCounter++;
     }
   }

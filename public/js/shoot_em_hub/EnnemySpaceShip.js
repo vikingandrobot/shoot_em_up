@@ -14,5 +14,6 @@ class EnnemySpaceShip extends SpaceShip {
     this.leftCanon.direction.y = 5;
     this.rightCanon.direction.y = 5;
     this.img = EnnemySpaceShipImage;
+    this.life = 1;
   }
 }

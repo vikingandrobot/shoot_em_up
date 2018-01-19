@@ -36,8 +36,7 @@ class Canon {
                   ennemies[j].speed.toPolar().scale(0.5).toCartesian()
                 )
               );
-              ennemies[j].hit();
-              ennemies.splice(j, 1);
+              ennemies[j].hit(this.bullets[i].power);
               this.bullets.splice(i, 1);
               this.spaceShip.countScore();
               break;

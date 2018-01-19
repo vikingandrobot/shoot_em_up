@@ -19,6 +19,7 @@ class Bullet {
     this.radius = radius;
     this.color = new Color(255, 255, 255, 0.9);
     this.colorString = this.color.asString();
+    this.power = 1;
   }
 
   /**

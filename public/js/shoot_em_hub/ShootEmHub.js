@@ -89,6 +89,12 @@ class ShootEmHub {
       Do the logic of ennemies
     */
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
+      // Delete dead ennemies
+      if (this.ennemies[i].life <= 0) {
+        this.ennemies.splice(i, 1);
+        break;
+      }
+
       // If the ennemy is out of the game area
       if (this.ennemies[i].pos.y -  this.ennemies[i].h > this.c.height) {
         this.ennemies.splice(i, 1);

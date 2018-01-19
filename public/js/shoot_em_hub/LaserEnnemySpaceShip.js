@@ -15,12 +15,13 @@ LaserEnnemySpaceShipImage.src = '/img/sphere_small.png';
   horizontal lasers on their right or on their left.
 */
 
-class LaserEnnemySpaceShip extends SpaceShip {
+class LaserEnnemySpaceShip extends EnnemySpaceShip {
   constructor(pos, w, h, direction) {
     super(pos, w, h);
     this.img = LaserEnnemySpaceShipImage;
     this.shooting = false;
     this.direction = direction;
+    this.life = 10;
   }
 
   /**
@@ -49,7 +50,7 @@ class LaserEnnemySpaceShip extends SpaceShip {
             || (this.direction > 0 && this.pos.x <= ennemies[i].pos.x))
         ) {
             // Hit the ennemy
-            ennemies[i].hit();
+            ennemies[i].hit(1);
           }
       }
     }
