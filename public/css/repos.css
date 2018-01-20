@@ -35,6 +35,10 @@
   z-index: 2;
 }
 
+.repo-id {
+  display: none;
+}
+
 /* Canvas styling */
 #repos-canvas {
   position: absolute;

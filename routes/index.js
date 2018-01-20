@@ -25,7 +25,6 @@ router.get('/', (req, res) => {
 
   github.users.get({
   }, (err, r) => {
-    
     if(err && err.code === 401) {
       res.render('../views/index', {
         link: 'https://github.com/login/oauth/authorize?scope=user:email&client_id=' + 
@@ -63,8 +62,90 @@ router.get('/callback', (req, res) => {
   });
 });
 
-router.get('/repos', (req, res) => {
-  res.render('../views/repos');
+router.get('/repos/:page(\\d+)?', (req, res) => {
+  // Get the token from the session
+  const token = req.session.token;
+  
+  // Check if the session is defined
+  if(token === undefined) {
+    res.redirect('/');
+    return;
+  }
+  
+  const github = new GitHubApi();
+
+  // Try to connect with the token
+  github.authenticate({
+    type: 'oauth',
+    token: token
+  });
+
+  // Get the current page
+  let currentPage = Number(req.params.page) || 1;
+
+  // Request all the repositories of the user
+  github.repos.getAll({
+    page : currentPage,
+    per_page: 5
+  }, (err, r) => {
+    if(err) throw err;
+
+    // Get the all the repositories
+    let repos = r.data;
+    const meta = r.meta;
+
+    // Get the last page
+    let lastPage = 1;
+    
+    if(meta) {
+      const lastPageLink = meta.link.match(/page=(\d+)&.{65}; rel="last"/);
+      if(lastPageLink) {
+        lastPage = Number(lastPageLink[1]);
+      }
+      else {
+        const prevPageLink = meta.link.match(/page=(\d+)&.{65}; rel="prev"/);
+        if(prevPageLink) {
+          lastPage = Number(prevPageLink[1]) + 1;
+        }
+      }
+    }
+    
+    // Output necessary data
+    const process = (repos, page, lastPage) => {
+      // For each repo get the id and name
+      let result = [];
+
+      for(let i = 0; i < repos.length; i++) {
+        result[i] = {
+          id:repos[i].id, 
+          name:repos[i].name,
+          full_name:repos[i].full_name
+        };
+      }
+
+      res.render('../views/repos', {
+        repos: result, 
+        current: page,
+        pages: lastPage
+      });
+    };
+    
+    // If the current page is greater than the last page
+    if(currentPage > lastPage) {
+      currentPage = lastPage;
+      
+      github.repos.getAll({
+        page : currentPage,
+        per_page: 5
+      }, (err, r) => {
+        repos = r.data;
+        process(repos, currentPage, lastPage);
+      });
+    }
+    else {
+      process(repos, currentPage, lastPage);
+    }
+  });  
 });
 
 router.get('/play', (req, res) => {

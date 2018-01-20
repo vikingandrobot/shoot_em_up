@@ -35,41 +35,54 @@
 
         <section class="repos-list">
           <h2>Your repositories</h2>
-          <article class="repo-overview">
-            <div class="left">
-              <div class="picto">
+          
+          <% for(var i = 0; i < repos.length; i++) { %>
+            <article class="repo-overview">
+              <div class="left">
+                <div class="picto">
 
+                </div>
               </div>
-            </div>
-            <div class="right">
-              <h2>Repository name</h2>
-              <h3>Repository link</h3>
-            </div>
-          </article>
-
-          <article class="repo-overview">
-            <div class="left">
-              <div class="picto">
-
+              <div class="right">
+                <h2><%= repos[i].name %></h2>
+                <h3><%= repos[i].full_name %></h3>
+                <span class="repo-id"><%= repos[i].id %></span>
               </div>
-            </div>
-            <div class="right">
-              <h2>Repository name</h2>
-              <h3>Repository link</h3>
-            </div>
-          </article>
+            </article>
+          <% } %>
+          
+          <% if(pages > 1) { %>
+            <% if(current === 1) { %>
+              <a>previous</a>
+            <% } else { %>
+              <a href="/repos/<%= current - 1 %>">previous</a>
+            <% } %>
 
-          <article class="repo-overview">
-            <div class="left">
-              <div class="picto">
+            
+            <% let i = (current) > 5 ? current - 4 : 1 %>
+            <% if (i !== 1) { %>
+              <span>...</span>
+            <% } %>
+            
+            <% for (; i <= current + 4 && i <= pages; i++) { %>
+                <% if (i === current) { %>
+                    <a><%= i %></a>
+                <% } else { %>
+                    <a href="/repos/<%= i %>"><%= i %></a>
+                <% } %>
+                <% if (i === current + 4 && i < pages) { %>
+                    <span>...</span>
+                <% } %>
+            <% } %>
+            
+            
+            <% if(current === pages) { %>
+              <a>next</a>
+            <% } else { %>
+              <a href="/repos/<%= current + 1 %>">next</a>
+            <% } %>
+          <% } %>
 
-              </div>
-            </div>
-            <div class="right">
-              <h2>Repository name</h2>
-              <h3>Repository link</h3>
-            </div>
-          </article>
         </section>
       </article>
 
