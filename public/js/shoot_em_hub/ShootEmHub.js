@@ -30,6 +30,9 @@ class ShootEmHub {
     // Array of ennemies
     this.ennemies = [];
 
+    // Array of explosions
+    this.explosions = [];
+
     // Bounds in which the ennemies can move
     this.ennemyBounds = {
       x: 0,
@@ -89,6 +92,27 @@ class ShootEmHub {
       Do the logic of ennemies
     */
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
+      // Collision with player
+      if (this.ennemies[i].collision(this.player.spaceShip)) {
+        // Do stuff
+        if (this.player.spaceShip.hitCounter == 0 && this.ennemies[i].hitCounter == 0) {
+          this.player.spaceShip.hit(1);
+          this.ennemies[i].hit(1);
+        }
+      }
+
+      // Delete dead ennemies
+      if (this.ennemies[i].life <= 0) {
+        this.explosions.push(
+          new Explosion(
+            this.ennemies[i].pos,
+            this.ennemies[i].speed.toPolar().scale(0.1).toCartesian()
+          )
+        );
+        this.ennemies.splice(i, 1);
+        break;
+      }
+
       // If the ennemy is out of the game area
       if (this.ennemies[i].pos.y -  this.ennemies[i].h > this.c.height) {
         this.ennemies.splice(i, 1);
@@ -99,6 +123,15 @@ class ShootEmHub {
           this.ennemyBounds,
           [this.player.spaceShip]
         );
+      }
+
+      // Logic for explosions
+      for (let i = this.explosions.length - 1; i >= 0; --i) {
+        if (this.explosions[i].isFinished()) {
+          this.explosions.splice(i, 1);
+        } else {
+          this.explosions[i].logic();
+        }
       }
     }
 
@@ -126,6 +159,11 @@ class ShootEmHub {
     // Draw ennemies
     for (let i = this.ennemies.length - 1; i >= 0; --i) {
       this.ennemies[i].draw(this.ctx);
+    }
+
+    // Draw explosions
+    for (let i = this.explosions.length - 1; i >= 0; --i) {
+      this.explosions[i].draw(this.ctx);
     }
 
     // Check and display UI information
@@ -182,24 +220,34 @@ class ShootEmHub {
   */
   spawnEnnemy(x, y) {
     let ennemy;
-    if (Math.random() > 0.8) {
+    let rand = Math.random();
+    if (rand < 0.4) {
       ennemy = new LaserEnnemySpaceShip(
         new CartesianVector(x, y),
         50,
         50,
         (Math.random() > 0.5 ? 1 : -1)
       );
-    } else {
+
+      // Ennemies go down
+      ennemy.speed = new CartesianVector(0, 3);
+    } else if (rand < 0.8) {
       ennemy = new EnnemySpaceShip(
         new CartesianVector(x, y),
         30,
         60
       );
+      // Ennemies go down
+      ennemy.speed = new CartesianVector(0, 3);
+    } else {
+      ennemy = new RocketEnnemySpaceShip(
+        new CartesianVector(x, y),
+        30,
+        60
+      );
+      // Ennemies go down
+      ennemy.speed = new CartesianVector(0, 7);
     }
-
-
-    // Ennemies go down
-    ennemy.speed = new CartesianVector(0, 3);
 
     // Ennemies are red
     ennemy.setColor(new Color(186, 53, 5, 1));

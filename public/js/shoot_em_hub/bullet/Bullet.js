@@ -19,6 +19,7 @@ class Bullet {
     this.radius = radius;
     this.color = new Color(255, 255, 255, 0.9);
     this.colorString = this.color.asString();
+    this.power = 1;
   }
 
   /**
@@ -37,6 +38,11 @@ class Bullet {
     ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2, false);
     ctx.fill();
     ctx.closePath();
+    ctx.beginPath();
+    ctx.fillStyle = 'white';
+    ctx.arc(this.pos.x, this.pos.y, this.radius / 2, 0, Math.PI * 2, false);
+    ctx.fill();
+    ctx.closePath();
   }
 
   /*
@@ -45,13 +51,11 @@ class Bullet {
     and a h for h property.
   */
   collision(ennemy) {
-    if (
+    return (
       this.pos.x + this.radius > ennemy.pos.x - ennemy.w / 2
       && this.pos.x - this.radius < ennemy.pos.x + ennemy.w / 2
       && this.pos.y + this.radius > ennemy.pos.y - ennemy.h / 2
-      && this.pos.y - this.radius < ennemy.pos.y + ennemy.h / 2) {
-        return true;
-    }
+      && this.pos.y - this.radius < ennemy.pos.y + ennemy.h / 2);
   }
 
   /**

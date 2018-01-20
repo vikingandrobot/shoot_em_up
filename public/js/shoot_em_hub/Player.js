@@ -13,7 +13,7 @@ class Player {
       h: c.height
     };
 
-    this.left = this.up = this.right;
+    this.left = this.up = this.right = this.down = this.space = false;
 
     this.registerKeyListeners();
   }
@@ -28,11 +28,21 @@ class Player {
 
         case 38:
           this.up = true;
+          this.down = false;
           break;
 
         case 39:
           this.right = true;
           this.left = false;
+          break;
+
+        case 40:
+          this.down = true;
+          this.up = false;
+          break;
+
+        case 32:
+          this.space = true;
           break;
       }
         // use e.keyCode
@@ -51,6 +61,14 @@ class Player {
         case 39:
           this.right = false;
           break;
+
+        case 40:
+          this.down = false;
+          break;
+
+        case 32:
+          this.space = false;
+          break;
       }
         // use e.keyCode
     });
@@ -64,25 +82,34 @@ class Player {
     const left = this.left;
     const up = this.up;
     const right = this.right;
+    const down = this.down;
+    const space = this.space;
 
     if (left) {
-      this.spaceShip.addSpeed(new CartesianVector(-1, 0));
+      this.spaceShip.addSpeed(new CartesianVector(-3, 0));
     }
     if (right) {
-      this.spaceShip.addSpeed(new CartesianVector(1, 0));
+      this.spaceShip.addSpeed(new CartesianVector(3, 0));
     }
-    if (!left && !right) {
-      this.spaceShip.looseSpeed(0.75);
+    if (up) {
+      this.spaceShip.addSpeed(new CartesianVector(0, -3));
+    }
+    if (down) {
+      this.spaceShip.addSpeed(new CartesianVector(0, 3));
     }
 
-    if (up) {
-      this.spaceShip.shoot();
-      if (this.spaceShip.speed.x > 2) {
-        this.spaceShip.speed.x = 2;
-      } else if (this.spaceShip.speed.x < -2){
-        this.spaceShip.speed.x = -2;
-      }
+    if (!left && !right) {
+      this.spaceShip.looseSpeed(0.65, 1);
     }
+    if (!up && !down) {
+      this.spaceShip.looseSpeed(1, 0.65);
+    }
+
+    if (space) {
+      this.spaceShip.shoot();
+    }
+
+
 
     this.spaceShip.logic(this.bounds, ennemies);
 
