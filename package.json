@@ -4,6 +4,7 @@
   "description": "*Imagine a world where you can play with the experience you gain from your hard work...*",
   "main": "server.js",
   "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js **.js routes/**.js test/**.js public/js/**.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,9 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
     "mocha": "^4.1.0"
   }
 }
