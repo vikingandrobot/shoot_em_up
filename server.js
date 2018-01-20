@@ -16,7 +16,7 @@ app.use(express.static('public'));
 // Use cookie for the sessions
 app.use(session({ 
   secret: 'this-is-a-secret-token', 
-  cookie: { maxAge: 60000 },
+  cookie: { maxAge: 3600000 },
   resave: false,
   saveUninitialized: true
 }));
