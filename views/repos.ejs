@@ -52,10 +52,11 @@
           <% } %>
 
           <% if(pages > 1) { %>
+            <div class="repo-navigation">
             <% if(current === 1) { %>
-              <a>previous</a>
+              <a class="previous disabled">previous</a>
             <% } else { %>
-              <a href="/repos/<%= current - 1 %>">previous</a>
+              <a class="previous" href="/repos/<%= current - 1 %>">previous</a>
             <% } %>
 
 
@@ -66,7 +67,7 @@
 
             <% for (; i <= current + 4 && i <= pages; i++) { %>
                 <% if (i === current) { %>
-                    <a><%= i %></a>
+                    <a class="current"><%= i %></a>
                 <% } else { %>
                     <a href="/repos/<%= i %>"><%= i %></a>
                 <% } %>
@@ -77,11 +78,13 @@
 
 
             <% if(current === pages) { %>
-              <a>next</a>
+              <a class="next disabled">next</a>
             <% } else { %>
-              <a href="/repos/<%= current + 1 %>">next</a>
+              <a class="next" href="/repos/<%= current + 1 %>">next</a>
             <% } %>
+            </div> <!-- repos-navigation -->
           <% } %>
+
 
         </section>
       </article>
