@@ -48,7 +48,7 @@
 }
 
 .repos .repos-list {
-  padding: 5% 15%;
+  padding: 5% 5%;
 }
 
 .repos-list h2 {
@@ -59,14 +59,13 @@
 
 .repos-list .repo-overview {
   position: relative;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 2.5%;
   display: flex;
   flex-direction: row;
   align-items: center;
   content: center;
-  cursor: pointer;
   border-bottom: solid 1px #999999;
 }
 .repos-list .repo-overview:last-child {
@@ -81,15 +80,6 @@
   height: 30px;
 
   margin-top: -15px;
-
-  background-image: url('../img/right_arrow.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.repos-list .repo-overview:hover:after {
-  right: 20px;
-  opacity: 0.5;
 }
 
 .repo-overview h2 {
@@ -109,7 +99,39 @@
 .repo-overview .left {
   margin-right: 30px;
 }
+.repo-overview .right {
+  margin-left: 30px;
+  flex: 1;
+}
 
+.repo-overview a {
+  width: 200px;
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+.repo-overview .play-link {
+  color: white;
+  background-color: #1a2c44;
+  border: solid 2px #1a2c44;
+}
+.repo-overview .play-link:hover {
+  opacity: 0.5;
+}
+.repo-overview .score-link {
+  color: #1a2c44;
+  background-color: white;
+  border: solid 2px #1a2c44;
+}
+.repo-overview .score-link:hover {
+  opacity: 0.5;
+}
 
 .repo-overview .picto {
   position: relative;

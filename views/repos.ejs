@@ -43,10 +43,18 @@
 
                 </div>
               </div>
-              <div class="right">
+              <div class="middle">
                 <h2><%= repos[i].name %></h2>
                 <h3><%= repos[i].full_name %></h3>
                 <span class="repo-id"><%= repos[i].id %></span>
+              </div>
+              <div class="right">
+                <a class="play-link" href="/play?repo=<%= repos[i].full_name %>" title="Repository scoreboard.">
+                  Play
+                </a>
+                <a class="score-link" href="/score?repo=<%= repos[i].full_name %>" title="Repository scoreboard.">
+                  Scoreboard
+                </a>
               </div>
             </article>
           <% } %>
