@@ -97,6 +97,8 @@ class ShootEmHub {
     // Do the player logic
     this.player.logic(this.ennemies);
 
+    console.log(this.explosions.length)
+
     /**
       Do the logic of ennemies
     */
@@ -115,8 +117,7 @@ class ShootEmHub {
         this.explosions.push(
           new Explosion(
             this.ennemies[i].pos,
-            this.ennemies[i].speed.toPolar().scale(0.1).toCartesian()
-          )
+          ),
         );
         this.ennemies.splice(i, 1);
         break;
@@ -133,14 +134,14 @@ class ShootEmHub {
           [this.player.spaceShip]
         );
       }
+    }
 
-      // Logic for explosions
-      for (let i = this.explosions.length - 1; i >= 0; --i) {
-        if (this.explosions[i].isFinished()) {
-          this.explosions.splice(i, 1);
-        } else {
-          this.explosions[i].logic();
-        }
+    // Logic for explosions
+    for (let i = this.explosions.length - 1; i >= 0; --i) {
+      if (this.explosions[i].isFinished()) {
+        this.explosions.splice(i, 1);
+      } else {
+        this.explosions[i].logic();
       }
     }
 

@@ -18,7 +18,7 @@ class Canon {
 
     this.bullets = [];
     this.fireRate = 0;
-    this.maxFireRate = 10;
+    this.maxFireRate = 30;
     this.BOUNDS_TOLERANCE = 30;
 
     this.color = new Color(255, 255, 255, 1);
@@ -91,7 +91,7 @@ class Canon {
     for (let i = this.bullets.length - 1; i >= 0; --i) {
       this.bullets[i].draw(ctx);
     }
-    
+
     const x = this.spaceShip.pos.x + this.pos.x;
     const y = this.spaceShip.pos.y + this.pos.y;
 
