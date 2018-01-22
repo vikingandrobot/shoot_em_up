@@ -145,3 +145,18 @@
 #game-over .button-row .button {
   margin: 1.5% 0;
 }
+
+#game-over .credits {
+  padding: 5px;
+  color : white;
+  text-align: center;
+  font-weight: lighter;
+  letter-spacing: 0.05em;
+  font-size: 0.8em;
+}
+#game-over .credits a {
+  color : white;
+}
+#game-over .credits a:hover {
+  color : white;
+}
