@@ -9,9 +9,6 @@ class Player {
 
     this.computePlayerLevel(level);
 
-    console.log(this.spaceShip.leftCanon);
-        console.log(this.spaceShip.rightCanon);
-
     this.bounds = {
       x: 0,
       y: 0,
@@ -35,6 +32,8 @@ class Player {
         this.spaceShip,
         new CartesianVector(this.spaceShip.w / 2, 0),
       );
+      this.spaceShip.leftCanon.maxFireRate = 25;
+      this.spaceShip.rightCanon.maxFireRate = 25;
     } else if (level < 1) {
       this.spaceShip.leftCanon = new SmallCanon(
         this.spaceShip,
@@ -44,6 +43,8 @@ class Player {
         this.spaceShip,
         new CartesianVector(this.spaceShip.w / 2, 0),
       );
+      this.spaceShip.leftCanon.maxFireRate = 25;
+      this.spaceShip.rightCanon.maxFireRate = 25;
     } else if (level < 1.5) {
       this.spaceShip.leftCanon = new MediumCanon(
         this.spaceShip,
@@ -53,6 +54,8 @@ class Player {
         this.spaceShip,
         new CartesianVector(this.spaceShip.w / 2, 0),
       );
+      this.spaceShip.leftCanon.maxFireRate = 20;
+      this.spaceShip.rightCanon.maxFireRate = 20;
     } else if (level < 2) {
       this.spaceShip.leftCanon = new LargeCanon(
         this.spaceShip,
@@ -62,6 +65,8 @@ class Player {
         this.spaceShip,
         new CartesianVector(this.spaceShip.w / 2, 0),
       );
+      this.spaceShip.leftCanon.maxFireRate = 15;
+      this.spaceShip.rightCanon.maxFireRate = 15;
     } else {
       this.spaceShip.leftCanon = new MegaCanon(
         this.spaceShip,
@@ -71,6 +76,8 @@ class Player {
         this.spaceShip,
         new CartesianVector(this.spaceShip.w / 2, 0),
       );
+      this.spaceShip.leftCanon.maxFireRate = 10;
+      this.spaceShip.rightCanon.maxFireRate = 10;
     }
 
   }
