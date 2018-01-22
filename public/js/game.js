@@ -21,6 +21,7 @@ $(document).ready(() => {
   // load the player level from the server and start the game.
   loadPlayerLevel((playerLevel) => {
     const game = new ShootEmHub('game-canvas', playerLevel);
+    $('#loader').removeClass('active');
     game.start();
   }, (xhr, status, error) => {
     console.log('error occured');
@@ -30,10 +31,13 @@ $(document).ready(() => {
   $('.try-again').click((e) => {
     e.preventDefault();
 
+    $('#game-over').removeClass('active');
+    $('#loader').addClass('active');
+
     loadPlayerLevel((playerLevel) => {
       const game = new ShootEmHub('game-canvas', playerLevel);
+      $('#loader').removeClass('active');
       game.start();
-      $('#game-over').removeClass('active');
     }, (xhr, status, error) => {
       console.log('error occured');
     });
