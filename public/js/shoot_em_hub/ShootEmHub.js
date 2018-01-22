@@ -27,8 +27,17 @@ class ShootEmHub {
     // Create a player
     this.player = new Player(this.c);
 
+    // Generator of enemies
+    this.generator = ENEMY_GENERATOR;
+
     // Array of ennemies
     this.ennemies = [];
+
+    // Wave count
+    this.wave = 0;
+
+    // Counting of the wave duration
+    this.waveDuration = 0;
 
     // Array of explosions
     this.explosions = [];
@@ -36,9 +45,9 @@ class ShootEmHub {
     // Bounds in which the ennemies can move
     this.ennemyBounds = {
       x: 0,
-      y: -200,
+      y: -this.c.height * 2,
       w: this.c.width,
-      h: this.c.height + 400
+      h: (this.c.height * 3) + 300,
     };
 
     // Last score
@@ -114,7 +123,7 @@ class ShootEmHub {
       }
 
       // If the ennemy is out of the game area
-      if (this.ennemies[i].pos.y -  this.ennemies[i].h > this.c.height) {
+      if (this.ennemies[i].pos.y - this.ennemies[i].h > this.c.height + 200) {
         this.ennemies.splice(i, 1);
       } else {
         // Else, shoot and do the ennmy logic
@@ -136,14 +145,7 @@ class ShootEmHub {
     }
 
     // Randomly spawn an ennemy
-    if (Math.random() < 0.03) {
-      this.ennemies.push(
-        this.spawnEnnemy(
-          Math.random() * this.c.width,
-          Math.random() * -100
-        )
-      );
-    }
+    this.spawnEnemies();
   }
 
   /**
@@ -218,8 +220,45 @@ class ShootEmHub {
   /**
     Spawn an ennemy at the (x, y) position
   */
-  spawnEnnemy(x, y) {
-    let ennemy;
+  spawnEnemies() {
+
+    const index = this.wave % this.generator.length;
+
+    if (this.waveDuration > 0 && this.waveDuration < this.generator[index].duration) {
+      this.waveDuration = (this.waveDuration + 1) % this.generator[index].duration;
+      return;
+    }
+
+    this.waveDuration += 1;
+    this.wave = this.wave + 1;
+
+    for (let i = 0; i < this.generator[index].enemies.length; ++i) {
+      const pos = new CartesianVector(
+        this.generator[index].enemies[i].pos.x * this.c.width,
+        this.generator[index].enemies[i].pos.y * this.c.height,
+      );
+      const speed = new CartesianVector(
+        this.generator[index].enemies[i].speed.x,
+        this.generator[index].enemies[i].speed.y,
+      );
+
+      let enemy;
+
+      switch(this.generator[index].enemies[i].type) {
+        case 'BASIC':
+        default:
+          enemy = new EnnemySpaceShip(pos, 30, 60);
+          enemy.speed = speed.copy();
+          break;
+      }
+
+      // Add the enemy
+      this.ennemies.push(enemy);
+    }
+    return;
+
+    let enemy;
+
     let rand = Math.random();
     if (rand < 0.4) {
       ennemy = new LaserEnnemySpaceShip(
@@ -229,14 +268,6 @@ class ShootEmHub {
         (Math.random() > 0.5 ? 1 : -1)
       );
 
-      // Ennemies go down
-      ennemy.speed = new CartesianVector(0, 3);
-    } else if (rand < 0.8) {
-      ennemy = new EnnemySpaceShip(
-        new CartesianVector(x, y),
-        30,
-        60
-      );
       // Ennemies go down
       ennemy.speed = new CartesianVector(0, 3);
     } else {
