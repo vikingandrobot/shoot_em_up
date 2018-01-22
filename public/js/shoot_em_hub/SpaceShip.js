@@ -14,11 +14,11 @@ class SpaceShip {
     this.h = h;
     this.CANON_SPACE = 20;
 
-    this.leftCanon = new SmallCanon(
+    this.leftCanon = new MiniCanon(
       this,
       new CartesianVector(-this.w, 0)
     );
-    this.rightCanon = new SmallCanon(
+    this.rightCanon = new MiniCanon(
       this,
       new CartesianVector(this.w, 0)
     );

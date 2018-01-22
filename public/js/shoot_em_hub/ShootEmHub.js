@@ -34,7 +34,7 @@ class ShootEmHub {
     this.ennemies = [];
 
     // Wave count
-    this.wave = 0;
+    this.wave = 9;
 
     // Counting of the wave duration
     this.waveDuration = 0;
@@ -45,9 +45,9 @@ class ShootEmHub {
     // Bounds in which the ennemies can move
     this.ennemyBounds = {
       x: 0,
-      y: -this.c.height * 2,
+      y: -this.c.height * 4,
       w: this.c.width,
-      h: (this.c.height * 3) + 300,
+      h: (this.c.height * 5) + 300,
     };
 
     // Last score
@@ -225,12 +225,15 @@ class ShootEmHub {
     const index = this.wave % this.generator.length;
 
     if (this.waveDuration > 0 && this.waveDuration < this.generator[index].duration) {
-      this.waveDuration = (this.waveDuration + 1) % this.generator[index].duration;
+      this.waveDuration += 1;
+      return;
+    } else if (this.waveDuration >= this.generator[index].duration) {
+      this.wave = this.wave + 1;
+      this.waveDuration = 0;
       return;
     }
 
     this.waveDuration += 1;
-    this.wave = this.wave + 1;
 
     for (let i = 0; i < this.generator[index].enemies.length; ++i) {
       const pos = new CartesianVector(
@@ -245,12 +248,25 @@ class ShootEmHub {
       let enemy;
 
       switch(this.generator[index].enemies[i].type) {
+        case 'ELECTRIC':
+          enemy = new LaserEnnemySpaceShip(
+            pos,
+            50,
+            50,
+            this.generator[index].enemies[i].direction,
+          );
+          break;
+
+        case 'ROCKET':
+          enemy = new RocketEnnemySpaceShip(pos, 30, 60);
+          break;
+
         case 'BASIC':
         default:
           enemy = new EnnemySpaceShip(pos, 30, 60);
-          enemy.speed = speed.copy();
           break;
       }
+      enemy.speed = speed.copy();
 
       // Add the enemy
       this.ennemies.push(enemy);
@@ -261,28 +277,17 @@ class ShootEmHub {
 
     let rand = Math.random();
     if (rand < 0.4) {
-      ennemy = new LaserEnnemySpaceShip(
-        new CartesianVector(x, y),
-        50,
-        50,
-        (Math.random() > 0.5 ? 1 : -1)
-      );
+
 
       // Ennemies go down
       ennemy.speed = new CartesianVector(0, 3);
     } else {
-      ennemy = new RocketEnnemySpaceShip(
-        new CartesianVector(x, y),
-        30,
-        60
-      );
+
       // Ennemies go down
       ennemy.speed = new CartesianVector(0, 7);
     }
 
     // Ennemies are red
     ennemy.setColor(new Color(186, 53, 5, 1));
-
-    return ennemy;
   }
 }
