@@ -147,4 +147,8 @@ router.get('/play', (req, res) => {
   res.render('../views/play');
 });
 
+router.get('/score', (req, res) => {
+  res.render('../views/score');
+});
+
 module.exports = router;

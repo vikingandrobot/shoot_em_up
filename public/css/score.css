@@ -1,0 +1,54 @@
+.score .title-section {
+  position: relative;
+  min-height: 40vh;
+  padding: 20vh 5% 5%;
+  background-color: #1a2c44;
+  overflow: auto;
+}
+
+.score .title-section h1, p {
+  position: relative;
+  color: #999999;
+  text-align: center;
+  z-index: 2;
+}
+
+.scoreboard {
+  max-width: 960px;
+  margin: 2.5% auto;
+  padding: 2.5%;
+}
+.scoreboard table, .scoreboard tbody, .scoreboard tr {
+  width: 100%;
+}
+.scoreboard table {
+  border-collapse: collapse;
+}
+.scoreboard table td, .scoreboard table th {
+  text-align: left;
+  padding: 2.5%;
+}
+.scoreboard table td:first-child, .scoreboard table th:first-child {
+  width: 20%;
+}
+.scoreboard table td:nth-child(2), .scoreboard table th:nth-child(2) {
+  width: 40%;
+}
+.scoreboard table td:nth-child(3), .scoreboard table th:nth-child(3) {
+  width: 40%;
+}
+.scoreboard table th {
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: 0.03em;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #1a2c44;
+}
+.scoreboard table tr:nth-child(even) {
+  background-color: #efefef;
+}
+.scoreboard table tbody tr:first-child {
+  font-weight: bold;
+  font-size: 1.2em;
+}
