@@ -1,3 +1,10 @@
+/* Transitions */
+.score .play-link, .score .play-link:after, .back-link {
+  -webkit-transition: all 0.5; /* Safari */
+  transition: all 0.5s;
+}
+
+/* Title styling */
 .score .title-section {
   position: relative;
   min-height: 40vh;
@@ -13,8 +20,61 @@
   z-index: 2;
 }
 
+/* Styling play again button */
+.score .play-link {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px 25px;
+  color: white;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #1a2c44;
+  text-decoration: none;
+}
+.score .play-link:after {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  width: 35px;
+  height: 100%;
+  content: "";
+
+  background-image: url('../img/play.svg');
+  background-size: 35px;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+.score .play-link:hover {
+  background-color: white;
+  color: #1a2c44;
+  padding-right: 65px;
+}
+.score .play-link:hover:after {
+  right: 10px;
+}
+
+.score .back-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 25px;
+  color: white;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #1a2c44;
+  text-decoration: none;
+}
+.score .back-link:hover {
+  background-color: white;
+  color: #1a2c44;
+}
+
+/* Scoreboard styling */
 .scoreboard {
-  max-width: 960px;
+  max-width: 840px;
   margin: 2.5% auto;
   padding: 2.5%;
 }
