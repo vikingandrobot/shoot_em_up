@@ -297,7 +297,10 @@ router.get('/skills/:owner/:repo', (req, res) => {
       res.status(200).send("" + (r.nbTotalUserCommits / (r.nbTotalCommits / r.nbTotalContributors)));
       return;
     });
-  
+});
+
+router.get('/score', (req, res) => {
+  res.render('../views/score');
 });
 
 module.exports = router;

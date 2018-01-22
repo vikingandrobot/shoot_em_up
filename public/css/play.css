@@ -4,6 +4,17 @@
   transition: all 0.5s;
 }
 
+/* Score animation */
+@keyframes score-animation {
+    0% {transform: scale(1, 1);}
+    50% {transform: scale(1.8, 1.8); color: #f4ce42;}
+    100% {transform: scale(1, 1);}
+}
+.score-animating {
+  /* Animation */
+  animation: score-animation 0.3s ease-in;
+}
+
 #play {
   position: fixed;
   left: 0;
@@ -39,18 +50,18 @@
 #game-ui .life {
   position: absolute;
   left: 20px;
-  top: 20px;
+  top: 10px;
   width: 200px;
-  height: 30px;
+  height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   content: center;
 }
 #game-ui .life div {
-  width: 12px;
-  height: 12px;
-  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
   background-color: rgba(0, 0, 0, 0.7);
   border: solid 1px #999;
   border-radius: 50%;
@@ -63,12 +74,13 @@
   position: absolute;
   right: 20px;
   top: 20px;
-  height: 30px;
+  height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   content: center;
-  color: #999;
+  color: white;
+  font-size: 26px;
 }
 
 /* Game Over */
@@ -132,4 +144,19 @@
 }
 #game-over .button-row .button {
   margin: 1.5% 0;
+}
+
+#game-over .credits {
+  padding: 5px;
+  color : white;
+  text-align: center;
+  font-weight: lighter;
+  letter-spacing: 0.05em;
+  font-size: 0.8em;
+}
+#game-over .credits a {
+  color : white;
+}
+#game-over .credits a:hover {
+  color : white;
 }

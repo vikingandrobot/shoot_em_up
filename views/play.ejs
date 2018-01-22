@@ -11,20 +11,21 @@
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
 
-    <script src="js/vector/Vector.js" charset="utf-8"></script>
-    <script src="js/color/Color.js" charset="utf-8"></script>
-    <script src="js/light/LightParticle.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/Explosion.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/bullet/Bullet.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/bullet/BulletTypes.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/canon/Canon.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/canon/CanonTypes.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/SpaceShip.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/EnnemySpaceShip.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/LaserEnnemySpaceShip.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/RocketEnnemySpaceShip.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/Player.js" charset="utf-8"></script>
-    <script src="js/shoot_em_hub/ShootEmHub.js" charset="utf-8"></script>
+    <script src="/js/vector/Vector.js" charset="utf-8"></script>
+    <script src="/js/color/Color.js" charset="utf-8"></script>
+    <script src="/js/light/LightParticle.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/Explosion.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/bullet/Bullet.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/bullet/BulletTypes.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/canon/Canon.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/canon/CanonTypes.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/SpaceShip.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/EnnemySpaceShip.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/LaserEnnemySpaceShip.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/RocketEnnemySpaceShip.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/Player.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/enemy/Generator.js" charset="utf-8"></script>
+    <script src="/js/shoot_em_hub/ShootEmHub.js" charset="utf-8"></script>
 
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/play.css">
@@ -58,23 +59,29 @@
           <table>
             <tr>
               <td valign="middle">Your score:</td>
-              <td valign="middle">23009 pts</td>
+              <td valign="middle" class="game-score">0 pts</td>
             </tr>
             <tr>
               <td valign="middle">Your record:</td>
-              <td valign="middle">37009 pts</td>
+              <td valign="middle" class="best-score">0 pts</td>
             </tr>
           </table>
 
           <!-- Button call to action -->
           <div class="button-row">
-            <a class="button try-again" href="https://github.com" title="Login with GitHub" alt="Login with GitHub">
+            <a class="button try-again" href="#" title="Login with GitHub" alt="Login with GitHub">
               <span class="normal">Try Again</span>
             </a>
             <br/>
-            <a class="button" href="https://github.com" title="Login with GitHub" alt="Login with GitHub">
+            <a class="button" href="/repos" title="Login with GitHub" alt="Login with GitHub">
               <span class="normal">Repository list</span>
             </a>
+          </div>
+
+          <div class="credits">
+            Music: <a href="https://freesound.org/people/joshuaempyre/sounds/251461/" target="_blank">Arcade Music Loop</a>
+            by <a href="https://freesound.org/people/joshuaempyre/" target="_blank">joshuaempyre</a>,
+            licensed under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>
           </div>
         </article>
       </div>
@@ -82,5 +89,5 @@
 
   </body>
 
-  <script src="js/game.js" charset="utf-8"></script>
+  <script src="/js/game.js" charset="utf-8"></script>
 </html>

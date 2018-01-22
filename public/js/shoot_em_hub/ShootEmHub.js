@@ -7,6 +7,22 @@
   this class will allow the user to start a new game.
 */
 
+const SpaceBg = new Image();
+
+SpaceBg.onload = function(){
+  // image  has been loaded
+};
+
+SpaceBg.src = '/img/space_bg.png';
+
+const SpaceBg2 = new Image();
+
+SpaceBg2.onload = function(){
+  // image  has been loaded
+};
+
+SpaceBg2.src = '/img/space_bg_2.png';
+
 class ShootEmHub {
 
   /**
@@ -27,18 +43,37 @@ class ShootEmHub {
     // Create a player
     this.player = new Player(this.c);
 
+    // Generator of enemies
+    this.generator = ENEMY_GENERATOR;
+
     // Array of ennemies
     this.ennemies = [];
+
+    // Wave count
+    this.wave = 0;
+
+    // Counting of the wave duration
+    this.waveDuration = 0;
 
     // Array of explosions
     this.explosions = [];
 
+    // Delta for drawing the bg
+    this.deltaBg = 0;
+    this.deltaBg2 = -this.c.height;
+
+    this.audio = new Audio('/sound/music.wav');
+    this.audio.addEventListener('ended', function loopMusic() {
+      this.currentTime = 0;
+      this.play();
+    }, false);
+
     // Bounds in which the ennemies can move
     this.ennemyBounds = {
       x: 0,
-      y: -200,
+      y: -this.c.height * 4,
       w: this.c.width,
-      h: this.c.height + 400
+      h: (this.c.height * 5) + 300,
     };
 
     // Last score
@@ -57,6 +92,8 @@ class ShootEmHub {
       this.core();
     }, 1000/50);
 
+    this.audio.play();
+
     // Display the UI a first time
     this.displayUI(this.player.getScore(), this.player.getLife());
   }
@@ -68,6 +105,7 @@ class ShootEmHub {
     if (this.gameHeart !== undefined) {
       clearInterval(this.gameHeart);
     }
+    this.audio.pause();
   }
 
   /**
@@ -106,15 +144,15 @@ class ShootEmHub {
         this.explosions.push(
           new Explosion(
             this.ennemies[i].pos,
-            this.ennemies[i].speed.toPolar().scale(0.1).toCartesian()
-          )
+          ),
         );
         this.ennemies.splice(i, 1);
+        this.player.spaceShip.countScore();
         break;
       }
 
       // If the ennemy is out of the game area
-      if (this.ennemies[i].pos.y -  this.ennemies[i].h > this.c.height) {
+      if (this.ennemies[i].pos.y - this.ennemies[i].h > this.c.height + 200) {
         this.ennemies.splice(i, 1);
       } else {
         // Else, shoot and do the ennmy logic
@@ -124,26 +162,19 @@ class ShootEmHub {
           [this.player.spaceShip]
         );
       }
+    }
 
-      // Logic for explosions
-      for (let i = this.explosions.length - 1; i >= 0; --i) {
-        if (this.explosions[i].isFinished()) {
-          this.explosions.splice(i, 1);
-        } else {
-          this.explosions[i].logic();
-        }
+    // Logic for explosions
+    for (let i = this.explosions.length - 1; i >= 0; --i) {
+      if (this.explosions[i].isFinished()) {
+        this.explosions.splice(i, 1);
+      } else {
+        this.explosions[i].logic();
       }
     }
 
     // Randomly spawn an ennemy
-    if (Math.random() < 0.03) {
-      this.ennemies.push(
-        this.spawnEnnemy(
-          Math.random() * this.c.width,
-          Math.random() * -100
-        )
-      );
-    }
+    this.spawnEnemies();
   }
 
   /**
@@ -152,6 +183,18 @@ class ShootEmHub {
   draw() {
     // Clear canvas
     this.ctx.clearRect(0, 0, this.c.width, this.c.height);
+
+    this.ctx.drawImage(SpaceBg, 0, this.deltaBg, this.c.width, this.c.height);
+    this.ctx.drawImage(SpaceBg2, 0, this.deltaBg2, this.c.width, this.c.height);
+    this.deltaBg += 10;
+    this.deltaBg2 += 10;
+    if (this.deltaBg > this.c.height) {
+      this.deltaBg = -this.c.height;
+    }
+    if (this.deltaBg2 > this.c.height) {
+      this.deltaBg2 = -this.c.height;
+    }
+
 
     // Draw player
     this.player.draw(this.ctx);
@@ -179,7 +222,8 @@ class ShootEmHub {
     if (this.player.getLife() <= 0) {
       this.pause();
 
-      // Display Game Over screen.
+      // Display Game Over screen
+      $('.game-score').html(`${this.player.getScore()} pts`);
       $('#game-over').addClass('active');
     }
   }
@@ -205,6 +249,11 @@ class ShootEmHub {
   */
   displayUI(playerScore, playerLife) {
     $('#game-ui .score .score-value').html(playerScore);
+    $('#game-ui .score .score-value').removeClass('score-animating');
+    setTimeout(() => {
+      $('#game-ui .score .score-value').addClass('score-animating');
+    }, 1);
+
     let i = 0;
     $('#game-ui .life div').removeClass('point');
     $('#game-ui .life div').each(function() {
@@ -218,40 +267,74 @@ class ShootEmHub {
   /**
     Spawn an ennemy at the (x, y) position
   */
-  spawnEnnemy(x, y) {
-    let ennemy;
+  spawnEnemies() {
+
+    const index = this.wave % this.generator.length;
+
+    if (this.waveDuration > 0 && this.waveDuration < this.generator[index].duration) {
+      this.waveDuration += 1;
+      return;
+    } else if (this.waveDuration >= this.generator[index].duration) {
+      this.wave = this.wave + 1;
+      this.waveDuration = 0;
+      return;
+    }
+
+    this.waveDuration += 1;
+
+    for (let i = 0; i < this.generator[index].enemies.length; ++i) {
+      const pos = new CartesianVector(
+        this.generator[index].enemies[i].pos.x * this.c.width,
+        this.generator[index].enemies[i].pos.y * this.c.height,
+      );
+      const speed = new CartesianVector(
+        this.generator[index].enemies[i].speed.x,
+        this.generator[index].enemies[i].speed.y,
+      );
+
+      let enemy;
+
+      switch(this.generator[index].enemies[i].type) {
+        case 'ELECTRIC':
+          enemy = new LaserEnnemySpaceShip(
+            pos,
+            50,
+            50,
+            this.generator[index].enemies[i].direction,
+          );
+          break;
+
+        case 'ROCKET':
+          enemy = new RocketEnnemySpaceShip(pos, 30, 60);
+          break;
+
+        case 'BASIC':
+        default:
+          enemy = new EnnemySpaceShip(pos, 30, 60);
+          break;
+      }
+      enemy.speed = speed.copy();
+
+      // Add the enemy
+      this.ennemies.push(enemy);
+    }
+    return;
+
+    let enemy;
+
     let rand = Math.random();
     if (rand < 0.4) {
-      ennemy = new LaserEnnemySpaceShip(
-        new CartesianVector(x, y),
-        50,
-        50,
-        (Math.random() > 0.5 ? 1 : -1)
-      );
+
 
       // Ennemies go down
       ennemy.speed = new CartesianVector(0, 3);
-    } else if (rand < 0.8) {
-      ennemy = new EnnemySpaceShip(
-        new CartesianVector(x, y),
-        30,
-        60
-      );
-      // Ennemies go down
-      ennemy.speed = new CartesianVector(0, 3);
     } else {
-      ennemy = new RocketEnnemySpaceShip(
-        new CartesianVector(x, y),
-        30,
-        60
-      );
+
       // Ennemies go down
       ennemy.speed = new CartesianVector(0, 7);
     }
 
     // Ennemies are red
     ennemy.setColor(new Color(186, 53, 5, 1));
-
-    return ennemy;
   }
 }

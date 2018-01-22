@@ -42,7 +42,9 @@ class Canon {
               ennemies[j].hit(this.bullets[i].power);
 
               this.bullets.splice(i, 1);
-              this.spaceShip.countScore();
+              if (ennemies[j].life > 0) {
+                this.spaceShip.score += 5;
+              }
               break;
             };
           }
@@ -83,7 +85,7 @@ class Canon {
   spawnBullet(x, y) {
     return new MiniBullet(
       new CartesianVector(x, y),
-      this.direction
+      this.direction,
     );
   }
 
@@ -91,7 +93,7 @@ class Canon {
     for (let i = this.bullets.length - 1; i >= 0; --i) {
       this.bullets[i].draw(ctx);
     }
-    
+
     const x = this.spaceShip.pos.x + this.pos.x;
     const y = this.spaceShip.pos.y + this.pos.y;
 

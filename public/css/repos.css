@@ -125,3 +125,24 @@
 .repo-overview:hover .picto {
   transform: rotateZ(0);
 }
+
+/* Repository navigation */
+.repo-navigation {
+  padding: 2% 0;
+}
+.repo-navigation a {
+  display: inline-block;
+  padding: 10px;
+  color: #1a2c44;
+}
+.repo-navigation a.current {
+  color: white;
+  background-color: #1a2c44;
+  text-decoration: none;
+}
+.repo-navigation a.previous, .repo-navigation a.next {
+  background-color: #efefef;
+}
+.repo-navigation a.previous.disabled, .repo-navigation a.next.disabled {
+  opacity: 0.5;
+}

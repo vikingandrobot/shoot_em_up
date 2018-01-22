@@ -35,7 +35,7 @@
 
         <section class="repos-list">
           <h2>Your repositories</h2>
-          
+
           <% for(var i = 0; i < repos.length; i++) { %>
             <article class="repo-overview">
               <div class="left">
@@ -50,23 +50,24 @@
               </div>
             </article>
           <% } %>
-          
+
           <% if(pages > 1) { %>
+            <div class="repo-navigation">
             <% if(current === 1) { %>
-              <a>previous</a>
+              <a class="previous disabled">previous</a>
             <% } else { %>
-              <a href="/repos/<%= current - 1 %>">previous</a>
+              <a class="previous" href="/repos/<%= current - 1 %>">previous</a>
             <% } %>
 
-            
+
             <% let i = (current) > 5 ? current - 4 : 1 %>
             <% if (i !== 1) { %>
               <span>...</span>
             <% } %>
-            
+
             <% for (; i <= current + 4 && i <= pages; i++) { %>
                 <% if (i === current) { %>
-                    <a><%= i %></a>
+                    <a class="current"><%= i %></a>
                 <% } else { %>
                     <a href="/repos/<%= i %>"><%= i %></a>
                 <% } %>
@@ -74,21 +75,23 @@
                     <span>...</span>
                 <% } %>
             <% } %>
-            
-            
+
+
             <% if(current === pages) { %>
-              <a>next</a>
+              <a class="next disabled">next</a>
             <% } else { %>
-              <a href="/repos/<%= current + 1 %>">next</a>
+              <a class="next" href="/repos/<%= current + 1 %>">next</a>
             <% } %>
+            </div> <!-- repos-navigation -->
           <% } %>
+
 
         </section>
       </article>
 
     </section>
 
-    <script src="js/repos.js" charset="utf-8"></script>
+    <script src="/js/repos.js" charset="utf-8"></script>
 
   </body>
 </html>

@@ -1,0 +1,116 @@
+/* Transitions */
+.score .play-link, .score .play-link:after, .back-link {
+  -webkit-transition: all 0.5; /* Safari */
+  transition: all 0.5s;
+}
+
+/* Title styling */
+.score .title-section {
+  position: relative;
+  min-height: 40vh;
+  padding: 20vh 5% 5%;
+  background-color: #1a2c44;
+  overflow: auto;
+}
+
+.score .title-section h1, p {
+  position: relative;
+  color: #999999;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Styling play again button */
+.score .play-link {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px 25px;
+  color: white;
+  font-size: 0.85em;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #1a2c44;
+  text-decoration: none;
+}
+.score .play-link:after {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  width: 35px;
+  height: 100%;
+  content: "";
+
+  background-image: url('../img/play.svg');
+  background-size: 25px;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+.score .play-link:hover {
+  background-color: white;
+  color: #1a2c44;
+  padding-right: 65px;
+}
+.score .play-link:hover:after {
+  right: 10px;
+}
+
+.score .back-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 25px;
+  color: white;
+  font-size: 0.85em;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #1a2c44;
+  text-decoration: none;
+}
+.score .back-link:hover {
+  background-color: white;
+  color: #1a2c44;
+}
+
+/* Scoreboard styling */
+.scoreboard {
+  max-width: 840px;
+  margin: 2.5% auto;
+  padding: 2.5%;
+}
+.scoreboard table, .scoreboard tbody, .scoreboard tr {
+  width: 100%;
+}
+.scoreboard table {
+  border-collapse: collapse;
+}
+.scoreboard table td, .scoreboard table th {
+  text-align: left;
+  padding: 2.5%;
+}
+.scoreboard table td:first-child, .scoreboard table th:first-child {
+  width: 20%;
+}
+.scoreboard table td:nth-child(2), .scoreboard table th:nth-child(2) {
+  width: 40%;
+}
+.scoreboard table td:nth-child(3), .scoreboard table th:nth-child(3) {
+  width: 40%;
+}
+.scoreboard table th {
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: 0.03em;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #1a2c44;
+}
+.scoreboard table tr:nth-child(even) {
+  background-color: #efefef;
+}
+.scoreboard table tbody tr:first-child {
+  font-weight: bold;
+  font-size: 1.2em;
+}

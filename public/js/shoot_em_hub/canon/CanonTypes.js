@@ -9,7 +9,7 @@ class MiniCanon extends Canon {
   spawnBullet(x, y) {
     return new MiniBullet(
       new CartesianVector(x, y),
-      this.direction
+      this.direction,
     );
   }
 }
