@@ -48,6 +48,8 @@
 }
 
 .repos .repos-list {
+  max-width: 760px;
+  margin: 0 auto;
   padding: 5% 5%;
 }
 
@@ -59,7 +61,6 @@
 
 .repos-list .repo-overview {
   position: relative;
-  max-width: 700px;
   margin: 0 auto;
   padding: 2.5%;
   display: flex;

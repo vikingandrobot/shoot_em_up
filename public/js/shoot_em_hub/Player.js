@@ -59,22 +59,22 @@ class Player {
     } else if (level < 2) {
       this.spaceShip.leftCanon = new LargeCanon(
         this.spaceShip,
-        new CartesianVector(-this.spaceShip.w / 2, 0),
+        new CartesianVector(-this.spaceShip.w, 0),
       );
       this.spaceShip.rightCanon = new LargeCanon(
         this.spaceShip,
-        new CartesianVector(this.spaceShip.w / 2, 0),
+        new CartesianVector(this.spaceShip.w, 0),
       );
       this.spaceShip.leftCanon.maxFireRate = 15;
       this.spaceShip.rightCanon.maxFireRate = 15;
     } else {
       this.spaceShip.leftCanon = new MegaCanon(
         this.spaceShip,
-        new CartesianVector(-this.spaceShip.w / 2, 0),
+        new CartesianVector(-this.spaceShip.w, 0),
       );
       this.spaceShip.rightCanon = new MegaCanon(
         this.spaceShip,
-        new CartesianVector(this.spaceShip.w / 2, 0),
+        new CartesianVector(this.spaceShip.w, 0),
       );
       this.spaceShip.leftCanon.maxFireRate = 10;
       this.spaceShip.rightCanon.maxFireRate = 10;

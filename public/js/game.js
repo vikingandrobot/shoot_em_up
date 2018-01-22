@@ -24,7 +24,7 @@ $(document).ready(() => {
     $('#loader').removeClass('active');
     game.start();
   }, (xhr, status, error) => {
-    console.log('error occured');
+    alert(`Error fetching player level: ${xhr.status}`);
   });
 
 
@@ -39,7 +39,7 @@ $(document).ready(() => {
       $('#loader').removeClass('active');
       game.start();
     }, (xhr, status, error) => {
-      console.log('error occured');
+      alert(`Error fetching player level: ${xhr.status}`);
     });
   });
 });
