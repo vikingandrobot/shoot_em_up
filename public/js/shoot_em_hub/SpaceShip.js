@@ -16,11 +16,11 @@ class SpaceShip {
 
     this.leftCanon = new MiniCanon(
       this,
-      new CartesianVector(-this.w, 0)
+      new CartesianVector(-this.w / 2, 0)
     );
     this.rightCanon = new MiniCanon(
       this,
-      new CartesianVector(this.w, 0)
+      new CartesianVector(this.w / 2, 0)
     );
 
     this.particles = [];

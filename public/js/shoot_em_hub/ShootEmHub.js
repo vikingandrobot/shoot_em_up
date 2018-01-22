@@ -147,6 +147,7 @@ class ShootEmHub {
           ),
         );
         this.ennemies.splice(i, 1);
+        this.player.spaceShip.countScore();
         break;
       }
 

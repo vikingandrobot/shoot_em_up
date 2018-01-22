@@ -42,7 +42,9 @@ class Canon {
               ennemies[j].hit(this.bullets[i].power);
 
               this.bullets.splice(i, 1);
-              this.spaceShip.countScore();
+              if (ennemies[j].life > 0) {
+                this.spaceShip.score += 5;
+              }
               break;
             };
           }
