@@ -7,6 +7,22 @@
   this class will allow the user to start a new game.
 */
 
+const SpaceBg = new Image();
+
+SpaceBg.onload = function(){
+  // image  has been loaded
+};
+
+SpaceBg.src = '/img/space_bg.png';
+
+const SpaceBg2 = new Image();
+
+SpaceBg2.onload = function(){
+  // image  has been loaded
+};
+
+SpaceBg2.src = '/img/space_bg_2.png';
+
 class ShootEmHub {
 
   /**
@@ -34,13 +50,17 @@ class ShootEmHub {
     this.ennemies = [];
 
     // Wave count
-    this.wave = 9;
+    this.wave = 0;
 
     // Counting of the wave duration
     this.waveDuration = 0;
 
     // Array of explosions
     this.explosions = [];
+
+    // Delta for drawing the bg
+    this.deltaBg = 0;
+    this.deltaBg2 = -this.c.height;
 
     this.audio = new Audio('sound/music.wav');
     this.audio.addEventListener('ended', function loopMusic() {
@@ -162,6 +182,18 @@ class ShootEmHub {
   draw() {
     // Clear canvas
     this.ctx.clearRect(0, 0, this.c.width, this.c.height);
+
+    this.ctx.drawImage(SpaceBg, 0, this.deltaBg, this.c.width, this.c.height);
+    this.ctx.drawImage(SpaceBg2, 0, this.deltaBg2, this.c.width, this.c.height);
+    this.deltaBg += 10;
+    this.deltaBg2 += 10;
+    if (this.deltaBg > this.c.height) {
+      this.deltaBg = -this.c.height;
+    }
+    if (this.deltaBg2 > this.c.height) {
+      this.deltaBg2 = -this.c.height;
+    }
+
 
     // Draw player
     this.player.draw(this.ctx);
