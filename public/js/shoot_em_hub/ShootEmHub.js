@@ -42,6 +42,12 @@ class ShootEmHub {
     // Array of explosions
     this.explosions = [];
 
+    this.audio = new Audio('sound/music.wav');
+    this.audio.addEventListener('ended', function loopMusic() {
+      this.currentTime = 0;
+      this.play();
+    }, false);
+
     // Bounds in which the ennemies can move
     this.ennemyBounds = {
       x: 0,
@@ -66,6 +72,8 @@ class ShootEmHub {
       this.core();
     }, 1000/50);
 
+    this.audio.play();
+
     // Display the UI a first time
     this.displayUI(this.player.getScore(), this.player.getLife());
   }
@@ -77,6 +85,7 @@ class ShootEmHub {
     if (this.gameHeart !== undefined) {
       clearInterval(this.gameHeart);
     }
+    this.audio.pause();
   }
 
   /**

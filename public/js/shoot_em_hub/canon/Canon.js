@@ -18,7 +18,7 @@ class Canon {
 
     this.bullets = [];
     this.fireRate = 0;
-    this.maxFireRate = 30;
+    this.maxFireRate = 10;
     this.BOUNDS_TOLERANCE = 30;
 
     this.color = new Color(255, 255, 255, 1);
