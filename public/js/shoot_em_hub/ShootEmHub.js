@@ -62,7 +62,7 @@ class ShootEmHub {
     this.deltaBg = 0;
     this.deltaBg2 = -this.c.height;
 
-    this.audio = new Audio('sound/music.wav');
+    this.audio = new Audio('/sound/music.wav');
     this.audio.addEventListener('ended', function loopMusic() {
       this.currentTime = 0;
       this.play();
