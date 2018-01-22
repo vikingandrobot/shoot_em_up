@@ -97,8 +97,6 @@ class ShootEmHub {
     // Do the player logic
     this.player.logic(this.ennemies);
 
-    console.log(this.explosions.length)
-
     /**
       Do the logic of ennemies
     */
@@ -182,7 +180,8 @@ class ShootEmHub {
     if (this.player.getLife() <= 0) {
       this.pause();
 
-      // Display Game Over screen.
+      // Display Game Over screen
+      $('.game-score').html(`${this.player.getScore()} pts`);
       $('#game-over').addClass('active');
     }
   }
