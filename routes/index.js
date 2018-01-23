@@ -372,8 +372,8 @@ router.get('/score/:owner/:repo', (req, res) => {
     collection
       .find({'repo': repo, 'owner': owner, })
       .project({'repo': 0, 'owner': 0, '_id': 0})
-      .sort( { score: -1 } )
-      .limit(20)
+      .sort( { score: 1 } )
+      .limit(15)
       .toArray((err, scores) => {
         database.close();
         res.render('../views/score', {repo: owner + '/' + repo, scores : scores});
