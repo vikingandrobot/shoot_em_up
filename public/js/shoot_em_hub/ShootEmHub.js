@@ -85,6 +85,9 @@ class ShootEmHub {
 
     // The interval id to start/pause the game
     this.gameHeart = undefined;
+
+    // game end listener
+    this.gameEndListener = undefined;
   }
 
   /**
@@ -257,6 +260,11 @@ class ShootEmHub {
       // Display Game Over screen
       $('.game-score').html(`${this.player.getScore()} pts`);
       $('#game-over').addClass('active');
+
+      // call game end listener
+      if (this.gameEndListener !== undefined) {
+        this.gameEndListener(this.player.getScore());
+      }
     }
   }
 

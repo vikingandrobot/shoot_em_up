@@ -31,6 +31,25 @@ $(document).ready(() => {
     });
   }
 
+  /**
+    Listener to send the score at the end of the game
+  */
+  function gameEndListener(playerScore) {
+    console.log('received score')
+    const data = {
+      score: playerScore,
+    };
+
+    $.ajax({
+      type: "POST",
+      url: `/score/${repoUrl}`,
+      data: data,
+      success: () => {
+        console.log('success')
+      },
+    });
+  }
+
   // load the player level from the server and start the game.
   loadPlayerLevel((playerLevel) => {
     // Create the game...

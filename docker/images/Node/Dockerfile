@@ -6,6 +6,7 @@ COPY ["server.js", "package.json", "routes/index.js", "/opt/app/"]
 COPY ["routes", "/opt/app/routes/"]
 COPY ["views", "/opt/app/views/"]
 COPY ["public", "/opt/app/public/"]
+COPY [".env", "/opt/app/.env"]
 
 WORKDIR /opt/app/
 RUN npm install
