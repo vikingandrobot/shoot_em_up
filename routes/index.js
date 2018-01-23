@@ -175,9 +175,9 @@ router.get('/skills/:owner/:repo', (req, res) => {
       github.users.get({
       }, (err, r) => {
         // TODO : 401 ?
-        
+
         result.login = r.data.login;
-        
+
         resolve(result);
       });
     });
@@ -210,7 +210,7 @@ router.get('/skills/:owner/:repo', (req, res) => {
             nbCommits = 1;
           }
         }
-        
+
         result.nbTotalUserCommits = nbCommits;
 
         return resolve(result);
@@ -246,7 +246,7 @@ router.get('/skills/:owner/:repo', (req, res) => {
             nbCommits = 1;
           }
         }
-        
+
         result.nbTotalCommits = nbCommits;
 
         resolve(result);
@@ -280,16 +280,16 @@ router.get('/skills/:owner/:repo', (req, res) => {
             nbContributors = 1;
           }
         }
-        
+
         result.nbTotalContributors = nbContributors;
 
         resolve(result);
       });
     });
   }
-  
+
   let result = {};
-  
+
   getUser(result)
     .then(getTotalUserCommits)
     .then(getTotalCommits)

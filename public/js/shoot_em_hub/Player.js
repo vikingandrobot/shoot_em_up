@@ -1,10 +1,13 @@
 class Player {
-  constructor(c) {
-    this.spaceShip = new SpaceShip(
+  constructor(c, level) {
+
+    this.spaceShip = new SpaceShip (
       new CartesianVector(c.width/2, c.height - 50),
       30,
       60
     );
+
+    this.computePlayerLevel(level);
 
     this.bounds = {
       x: 0,
@@ -16,6 +19,67 @@ class Player {
     this.left = this.up = this.right = this.down = this.space = false;
 
     this.registerKeyListeners();
+  }
+
+  computePlayerLevel(level) {
+
+    if (level < 0.5) {
+      this.spaceShip.leftCanon = new MiniCanon(
+        this.spaceShip,
+        new CartesianVector(-this.spaceShip.w / 2, 0),
+      );
+      this.spaceShip.rightCanon = new MiniCanon(
+        this.spaceShip,
+        new CartesianVector(this.spaceShip.w / 2, 0),
+      );
+      this.spaceShip.leftCanon.maxFireRate = 25;
+      this.spaceShip.rightCanon.maxFireRate = 25;
+    } else if (level < 1) {
+      this.spaceShip.leftCanon = new SmallCanon(
+        this.spaceShip,
+        new CartesianVector(-this.spaceShip.w / 2, 0),
+      );
+      this.spaceShip.rightCanon = new SmallCanon(
+        this.spaceShip,
+        new CartesianVector(this.spaceShip.w / 2, 0),
+      );
+      this.spaceShip.leftCanon.maxFireRate = 25;
+      this.spaceShip.rightCanon.maxFireRate = 25;
+    } else if (level < 1.5) {
+      this.spaceShip.leftCanon = new MediumCanon(
+        this.spaceShip,
+        new CartesianVector(-this.spaceShip.w / 2, 0),
+      );
+      this.spaceShip.rightCanon = new MediumCanon(
+        this.spaceShip,
+        new CartesianVector(this.spaceShip.w / 2, 0),
+      );
+      this.spaceShip.leftCanon.maxFireRate = 20;
+      this.spaceShip.rightCanon.maxFireRate = 20;
+    } else if (level < 2) {
+      this.spaceShip.leftCanon = new LargeCanon(
+        this.spaceShip,
+        new CartesianVector(-this.spaceShip.w, 0),
+      );
+      this.spaceShip.rightCanon = new LargeCanon(
+        this.spaceShip,
+        new CartesianVector(this.spaceShip.w, 0),
+      );
+      this.spaceShip.leftCanon.maxFireRate = 15;
+      this.spaceShip.rightCanon.maxFireRate = 15;
+    } else {
+      this.spaceShip.leftCanon = new MegaCanon(
+        this.spaceShip,
+        new CartesianVector(-this.spaceShip.w, 0),
+      );
+      this.spaceShip.rightCanon = new MegaCanon(
+        this.spaceShip,
+        new CartesianVector(this.spaceShip.w, 0),
+      );
+      this.spaceShip.leftCanon.maxFireRate = 10;
+      this.spaceShip.rightCanon.maxFireRate = 10;
+    }
+
   }
 
   registerKeyListeners() {

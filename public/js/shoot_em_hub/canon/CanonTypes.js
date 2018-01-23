@@ -1,8 +1,4 @@
 class MiniCanon extends Canon {
-  constructor(spaceShip, pos) {
-    super(spaceShip, pos);
-  }
-
   /**
     Spawn a bullet
   */
@@ -15,32 +11,18 @@ class MiniCanon extends Canon {
 }
 
 class SmallCanon extends Canon {
-  constructor(spaceShip, pos) {
-    super(spaceShip, pos);
-
-    this.w = 7;
-    this.h = 22;
-  }
-
   /**
     Spawn a bullet
   */
   spawnBullet(x, y) {
     return new SmallBullet(
       new CartesianVector(x, y),
-      this.direction
+      this.direction,
     );
   }
 }
 
 class MediumCanon extends Canon {
-  constructor(spaceShip, pos) {
-    super(spaceShip, pos);
-
-    this.w = 12;
-    this.h = 35;
-  }
-
   /**
     Spawn a bullet
   */
@@ -48,20 +30,11 @@ class MediumCanon extends Canon {
     return new MediumBullet(
       new CartesianVector(x, y),
       this.direction,
-      3
     );
   }
 }
 
 class LargeCanon extends Canon {
-  constructor(spaceShip, pos) {
-    super(spaceShip, pos);
-
-
-    this.w = 18;
-    this.h = 50;
-  }
-
   /**
     Spawn a bullet
   */
@@ -69,7 +42,6 @@ class LargeCanon extends Canon {
     return new LargeBullet(
       new CartesianVector(x, y),
       this.direction,
-      3
     );
   }
 }
@@ -77,9 +49,6 @@ class LargeCanon extends Canon {
 class MegaCanon extends Canon {
   constructor(spaceShip, pos) {
     super(spaceShip, pos);
-
-    this.w = 25;
-    this.h = 70;
   }
 
   /**
@@ -89,7 +58,6 @@ class MegaCanon extends Canon {
     return new MegaBullet(
       new CartesianVector(x, y),
       this.direction,
-      3
     );
   }
 }

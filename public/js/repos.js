@@ -24,16 +24,15 @@ $(document).ready(() => {
   cloud.start();
 
   // Action on click on repositories
-  $('.repo-overview').click(function repoClickAction(e) {
+  $('.repo-overview a.play-link').click(function repoClickAction(e) {
     e.preventDefault();
 
     // Make the rocket picto fly
-    $(this).find('.picto').addClass('flying');
+    $(this).closest('.repo-overview').find('.picto').addClass('flying');
 
     // move to the game page
-    const repoUrl = $(this).find('h3').html();
     setTimeout(() => {
-      window.location = `/play/?repo=${repoUrl}`;
+      window.location = $(this).attr('href');
     }, 800);
   });
 });

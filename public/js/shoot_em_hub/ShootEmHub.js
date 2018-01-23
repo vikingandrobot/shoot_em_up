@@ -29,7 +29,7 @@ class ShootEmHub {
     Constructor.
       canvasId: the ID of the canvas to use to display the game
   */
-  constructor(canvasId) {
+  constructor(canvasId, level) {
     // Canvas id
     this.canvasId = canvasId;
 
@@ -41,7 +41,7 @@ class ShootEmHub {
     this.ctx = this.c.getContext("2d");
 
     // Create a player
-    this.player = new Player(this.c);
+    this.player = new Player(this.c, level);
 
     // Generator of enemies
     this.generator = ENEMY_GENERATOR;

@@ -1,5 +1,5 @@
 /* Transitions */
-#game-over {
+.screen {
   -webkit-transition: all 0.5s; /* Safari */
   transition: all 0.5s;
 }
@@ -37,6 +37,7 @@
 
 /* Screen */
 .screen {
+  opacity: 0;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -44,6 +45,15 @@
   height: 600px;
   margin-left: -400px;
   margin-top: -300px;
+}
+.screen * {
+  visibility: hidden;
+}
+.screen.active{
+  opacity: 1;
+}
+.screen.active * {
+  visibility: visible;
 }
 
 /* Game UI */
@@ -83,23 +93,42 @@
   font-size: 26px;
 }
 
+/* Loader styling */
+#loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+
+#loader h2 {
+  text-align: center;
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: 0.05em;
+}
+
+#loader img {
+  display: block;
+  margin: 20px auto;
+  width: 150px;
+  height: 150px;
+
+  /* Animation */
+  animation-name: rocket-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
 /* Game Over */
 #game-over {
-  opacity: 0;
   background-color: #1a2c44;
   display: flex;
   flex-direction: center;
   align-items: center;
   content: center;
-}
-#game-over * {
-  visibility: hidden;
-}
-#game-over.active{
-  opacity: 1;
-}
-#game-over.active * {
-  visibility: visible;
 }
 #game-over article {
   width: 100%;
