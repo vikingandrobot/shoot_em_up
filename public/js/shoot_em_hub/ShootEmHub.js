@@ -102,6 +102,7 @@ class ShootEmHub {
     Pause the game. Does nothing if the game is already paused.
   */
   pause() {
+    this.ctx.clearRect(0, 0, this.c.width, this.c.height);
     if (this.gameHeart !== undefined) {
       clearInterval(this.gameHeart);
     }
@@ -156,7 +157,9 @@ class ShootEmHub {
         this.ennemies.splice(i, 1);
       } else {
         // Else, shoot and do the ennmy logic
-        this.ennemies[i].shoot();
+        if (this.ennemies[i].pos.y > -200) {
+          this.ennemies[i].shoot();
+        }
         this.ennemies[i].logic(
           this.ennemyBounds,
           [this.player.spaceShip]
