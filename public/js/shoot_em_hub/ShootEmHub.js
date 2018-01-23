@@ -252,7 +252,7 @@ class ShootEmHub {
     $('#game-ui .score .score-value').removeClass('score-animating');
     setTimeout(() => {
       $('#game-ui .score .score-value').addClass('score-animating');
-    }, 1);
+    }, 100);
 
     let i = 0;
     $('#game-ui .life div').removeClass('point');
