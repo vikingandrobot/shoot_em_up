@@ -1,15 +1,25 @@
 $(document).ready(() => {
-  // Retrieve repository URL
+  // Retrieve repository URL from the current page url
   const repoUrl = new URL(window.location.href).searchParams.get('repo');
 
+  // Dislay an error if we the repo url is not specified
   if (repoUrl === undefined || repoUrl === null) {
     // Manage error
     console.log('Error');
   }
 
-  const h = $('.scoreboard-link').attr('href');
-  $('.scoreboard-link').attr('href', `${h}?repo=${repoUrl}`);
+  // Set the Back to work link
+  $('.back-to-work').attr('href', `https://github.com/${repoUrl}`);
 
+  // Set the scoreboard link
+  const h = $('.scoreboard-link').attr('href');
+  $('.scoreboard-link').attr('href', `${h}/${repoUrl}`);
+
+  /**
+    Loads the player level drom the server.
+    - playerLevelLoaded: callback on success,
+    - errorOccured: callback if an error occured
+  */
   function loadPlayerLevel(playerLevelLoaded, errorOccured) {
     $.ajax({
       url: `skills/${repoUrl}`,
@@ -23,21 +33,59 @@ $(document).ready(() => {
 
   // load the player level from the server and start the game.
   loadPlayerLevel((playerLevel) => {
+    // Create the game...
     const game = new ShootEmHub('game-canvas', playerLevel);
+
+    // Hide the loading screen
     $('#loader').removeClass('active');
-    game.start();
+
+    // Compute the player level percentage
+    let deltaPercent = (playerLevel - 1) * 100;
+    deltaPercent = deltaPercent.toFixed(2);
+
+    // Progress bar display variables
+    let progressBarSelector = '.plus';
+    let sign = '+';
+    let progressbarWidth = (deltaPercent / 5) * 2;
+
+    // Case if the percent is < 0
+    if (deltaPercent < 0) {
+      progressBarSelector = '.minus';
+      sign = '';
+      progressbarWidth *= -1;
+    }
+
+    // Event on the play button
+    $('.play-button').click(() => {
+      $('#game-level').removeClass('active');
+      game.start();
+    });
+
+    // Show the player level screen
+    $('#game-level').addClass('active');
+
+    // Move progress bars
+    $(`#game-level ${progressBarSelector}`).addClass('active');
+    $(`#game-level ${progressBarSelector}`).width(`${progressbarWidth}%`);
+    $(`#game-level ${progressBarSelector} .text`).html(`${sign}${deltaPercent}%`);
   }, (xhr, status, error) => {
     alert(`Error fetching player level: ${xhr.status}`);
   });
 
-
+  /**
+    Action on the try again button. We load the player level from the server
+    again.
+  */
   $('.try-again').click((e) => {
     e.preventDefault();
 
+    // Hide game over screen and show the loading screen
     $('#game-over').removeClass('active');
     $('#loader').addClass('active');
 
+    // Get the player level
     loadPlayerLevel((playerLevel) => {
+      // Create the game and start
       const game = new ShootEmHub('game-canvas', playerLevel);
       $('#loader').removeClass('active');
       game.start();
