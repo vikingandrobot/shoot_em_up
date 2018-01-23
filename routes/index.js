@@ -373,9 +373,10 @@ router.get('/score/:owner/:repo', (req, res) => {
       .find({'repo': repo, 'owner': owner, })
       .project({'repo': 0, 'owner': 0, '_id': 0})
       .sort( { score: -1 } )
+      .limit(5)
       .toArray((err, scores) => {
         database.close();
-        res.render('../views/score', {scores : scores});
+        res.render('../views/score', {repo: owner + '/' + repo, scores : scores});
         return;
       });
   });
