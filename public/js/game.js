@@ -1,3 +1,5 @@
+let game;
+
 $(document).ready(() => {
   // Retrieve repository URL from the current page url
   const repoUrl = new URL(window.location.href).searchParams.get('repo');
@@ -53,7 +55,8 @@ $(document).ready(() => {
   // load the player level from the server and start the game.
   loadPlayerLevel((playerLevel) => {
     // Create the game...
-    const game = new ShootEmHub('game-canvas', playerLevel);
+    game = new ShootEmHub('game-canvas', playerLevel);
+    game.gameEndListener = gameEndListener;
 
     // Hide the loading screen
     $('#loader').removeClass('active');
@@ -106,7 +109,9 @@ $(document).ready(() => {
     // Get the player level
     loadPlayerLevel((playerLevel) => {
       // Create the game and start
-      const game = new ShootEmHub('game-canvas', playerLevel);
+      game = new ShootEmHub('game-canvas', playerLevel);
+      game.gameEndListener = gameEndListener;
+
       $('#loader').removeClass('active');
       game.start();
     }, (xhr, status, error) => {
