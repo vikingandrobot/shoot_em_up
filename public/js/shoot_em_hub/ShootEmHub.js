@@ -188,7 +188,7 @@ class ShootEmHub {
       if (canon.bullets.length === 0) {
         this.remainingCanons.splice(i, 1);
       } else {
-        canon.logic(this.ennemyBounds, this.ennemies);
+        canon.logic(this.ennemyBounds, [this.player.spaceShip]);
       }
     }
     // Logic for explosions
