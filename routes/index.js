@@ -1,6 +1,7 @@
 const GitHubApi = require('github');
 const request = require('request');
 const router = require('express').Router();
+const MongoClient = require('mongodb').MongoClient;
 
 router.get('/', (req, res) => {
   // Check if the session is defined
@@ -299,8 +300,85 @@ router.get('/skills/:owner/:repo', (req, res) => {
     });
 });
 
-router.get('/score', (req, res) => {
-  res.render('../views/score');
+router.post('/score/:owner/:repo', (req, res) => {
+
+  // Check if the session is defined
+  if (req.session.token === undefined) {
+    res.status(401).send("Sorry need to be authenticated!");
+    return;
+  }
+
+  // Get the token from the session
+  const { token } = req.session;
+
+  const github = new GitHubApi();
+
+  // Try to connect with the token
+  github.authenticate({
+    type: 'oauth',
+    token,
+  });
+
+  github.users.get({
+  }, (err, r) => {
+    // TODO : 401 ?
+
+    const login = r.data.login;
+
+    // Get the URI for mongodb
+    const url = process.env.MONGO_URI;
+
+    // Use connect method to connect to the server
+    MongoClient.connect(url, (err, database) => {
+      if(err) throw err;
+
+      const db = database.db('shoot_em_hub');
+
+      const owner = req.params.owner;
+      const repo = req.params.repo;
+      const score = req.body
+
+      let json = {
+        "owner": owner,
+        "repo": repo,
+        "user": login,
+        "score": req.body.score,
+      };
+
+      let collection = db.collection("scores");
+      collection.insertOne(json);
+
+      database.close();
+      
+      res.sendStatus(200);
+    });
+  });
+});
+
+router.get('/score/:owner/:repo', (req, res) => {
+  // Get the URI for mongodb
+  const url = process.env.MONGO_URI;
+
+  // Use connect method to connect to the server
+  MongoClient.connect(url, (err, database) => {
+    if(err) throw err;
+
+    const db = database.db('shoot_em_hub');
+
+    const owner = req.params.owner;
+    const repo = req.params.repo;
+
+    let collection = db.collection("scores");
+    collection
+      .find({'repo': repo, 'owner': owner, })
+      .project({'repo': 0, 'owner': 0, '_id': 0})
+      .sort( { score: -1 } )
+      .toArray((err, scores) => {
+        database.close();
+        res.render('../views/score', {scores : scores});
+        return;
+      });
+  });
 });
 
 module.exports = router;

@@ -2,6 +2,7 @@
 const express = require('express');
 const routes = require('./routes/index.js');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 
 // Load environment variables
 require('dotenv').load();
@@ -12,6 +13,8 @@ const app = express();
 
 // Expose public stuff
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Use cookie for the sessions
 app.use(session({
