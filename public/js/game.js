@@ -56,7 +56,8 @@ $(document).ready(() => {
     }
 
     // Event on the play button
-    $('.play-button').click(() => {
+    $('.play-button').click((e) => {
+      e.preventDefault();
       $('#game-level').removeClass('active');
       game.start();
     });
