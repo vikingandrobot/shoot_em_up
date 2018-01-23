@@ -1,6 +1,7 @@
 const GitHubApi = require('github');
 const request = require('request');
 const router = require('express').Router();
+const MongoClient = require('mongodb').MongoClient;
 
 router.get('/', (req, res) => {
   // Check if the session is defined
@@ -299,7 +300,36 @@ router.get('/skills/:owner/:repo', (req, res) => {
     });
 });
 
-router.get('/score', (req, res) => {
+router.post('/score/:repo', (req, res) => {
+  // Get the URI for mongodb
+  const url = process.env.MONGO_URI;
+  
+  // Use connect method to connect to the server
+  MongoClient.connect(url, (err, db) => {
+    if(err) throw err;
+
+    console.log("Connected successfully to server");
+
+    db.close();
+  });
+  
+  res.sendStatus(200);
+});
+
+router.get('/score/:repo', (req, res) => {
+
+  // Get the URI for mongodb
+  const url = process.env.MONGO_URI;
+  
+  // Use connect method to connect to the server
+  MongoClient.connect(url, (err, db) => {
+    if(err) throw err;
+
+    console.log("Connected successfully to server");
+
+    db.close();
+  });
+
   res.render('../views/score');
 });
 
