@@ -7,6 +7,9 @@ $(document).ready(() => {
     console.log('Error');
   }
 
+  const h = $('.scoreboard-link').attr('href');
+  $('.scoreboard-link').attr('href', `${h}?repo=${repoUrl}`);
+
   function loadPlayerLevel(playerLevelLoaded, errorOccured) {
     $.ajax({
       url: `skills/${repoUrl}`,

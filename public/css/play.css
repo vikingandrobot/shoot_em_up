@@ -147,18 +147,28 @@
   padding: 0 20%;
   overflow: auto;
   color: #999;
-  font-size: 2em;
+  font-size: 1.3em;
 }
 #game-over table tbody {
   display: block;
 }
 #game-over table tr {
   display: block;
+  text-transform: uppercase;
+}
+#game-over table tr.score-row td  {
+  background-color: white;
+}
+#game-over table tr.score-row td:last-child  {
+  color: black;
+}
+#game-over table tr.best-row td {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 #game-over table tr td {
   display: block;
   width: 50%;
-  padding: 1.5% 2.5%;
+  padding: 3.5%;
   float: left;
   text-align: right;
 }
