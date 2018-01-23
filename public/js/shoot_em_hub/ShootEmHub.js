@@ -157,7 +157,9 @@ class ShootEmHub {
         this.ennemies.splice(i, 1);
       } else {
         // Else, shoot and do the ennmy logic
-        this.ennemies[i].shoot();
+        if (this.ennemies[i].pos.y > -200) {
+          this.ennemies[i].shoot();
+        }
         this.ennemies[i].logic(
           this.ennemyBounds,
           [this.player.spaceShip]
