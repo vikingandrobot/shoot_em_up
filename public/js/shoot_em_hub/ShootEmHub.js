@@ -49,6 +49,9 @@ class ShootEmHub {
     // Array of ennemies
     this.ennemies = [];
 
+    // The canons of dead enemies still managing bullets
+    this.remainingCanons = [];
+
     // Wave count
     this.wave = 0;
 
@@ -142,6 +145,14 @@ class ShootEmHub {
 
       // Delete dead ennemies
       if (this.ennemies[i].life <= 0) {
+        if (this.ennemies[i].leftCanon !== undefined
+          && this.ennemies[i].leftCanon.bullets.length > 0) {
+          this.remainingCanons.push(this.ennemies[i].leftCanon);
+        }
+        if (this.ennemies[i].rightCanon !== undefined
+          && this.ennemies[i].rightCanon.bullets.length > 0) {
+          this.remainingCanons.push(this.ennemies[i].rightCanon);
+        }
         this.explosions.push(
           new Explosion(
             this.ennemies[i].pos,
@@ -154,6 +165,7 @@ class ShootEmHub {
 
       // If the ennemy is out of the game area
       if (this.ennemies[i].pos.y - this.ennemies[i].h > this.c.height + 200) {
+        // Salvage canons
         this.ennemies.splice(i, 1);
       } else {
         // Else, shoot and do the ennmy logic
@@ -167,6 +179,15 @@ class ShootEmHub {
       }
     }
 
+    // Manage remaining canons
+    for (let i = this.remainingCanons.length - 1; i >= 0; i -= 1) {
+      const canon = this.remainingCanons[i];
+      if (canon.bullets.length === 0) {
+        this.remainingCanons.splice(i, 1);
+      } else {
+        canon.logic(this.ennemyBounds, this.ennemies);
+      }
+    }
     // Logic for explosions
     for (let i = this.explosions.length - 1; i >= 0; --i) {
       if (this.explosions[i].isFinished()) {
@@ -196,6 +217,14 @@ class ShootEmHub {
     }
     if (this.deltaBg2 > this.c.height) {
       this.deltaBg2 = -this.c.height;
+    }
+
+    // Manage remaining canons
+    for (let i = this.remainingCanons.length - 1; i >= 0; i -= 1) {
+      const b = this.remainingCanons[i].bullets;
+      for (let j = b.length - 1; j >= 0; j -= 1) {
+        b[j].draw(this.ctx);
+      }
     }
 
 
