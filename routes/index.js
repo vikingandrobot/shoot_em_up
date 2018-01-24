@@ -1,7 +1,7 @@
 const GitHubApi = require('github');
 const request = require('request');
 const router = require('express').Router();
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
 router.get('/', (req, res) => {
   // Check if the session is defined
@@ -151,7 +151,7 @@ router.get('/play', (req, res) => {
 router.get('/skills/:owner/:repo', (req, res) => {
   // Check if the session is defined
   if (req.session.token === undefined) {
-    res.status(401).send("Sorry need to be authenticated!");
+    res.status(401).send('Sorry need to be authenticated!');
     return;
   }
 
@@ -166,11 +166,13 @@ router.get('/skills/:owner/:repo', (req, res) => {
     token,
   });
 
-  const owner = req.params.owner;
-  const repo = req.params.repo;
+  const { owner } = req.params;
+  const { repo } = req.params;
 
   // Get user data
-  function getUser(result) {
+  function getUser(object) {
+    const result = object;
+
     return new Promise((resolve, reject) => {
       github.users.get({
       }, (err, r) => {
@@ -184,7 +186,9 @@ router.get('/skills/:owner/:repo', (req, res) => {
   }
 
   // Get total commits for the specified repository and user
-  function getTotalUserCommits(result) {
+  function getTotalUserCommits(object) {
+    const result = object;
+
     return new Promise((resolve, reject) => {
       github.repos.getCommits({
         owner,
@@ -205,10 +209,8 @@ router.get('/skills/:owner/:repo', (req, res) => {
           if (lastPageLink) {
             nbCommits = Number(lastPageLink[1]);
           }
-        } else {
-          if (r.data && r.data.length >= 1) {
-            nbCommits = 1;
-          }
+        } else if (r.data && r.data.length >= 1) {
+          nbCommits = 1;
         }
 
         result.nbTotalUserCommits = nbCommits;
@@ -218,10 +220,10 @@ router.get('/skills/:owner/:repo', (req, res) => {
     });
   }
 
-
-
   // Get total commits for the specified repository
-  function getTotalCommits(result) {
+  function getTotalCommits(object) {
+    const result = object;
+
     return new Promise((resolve, reject) => {
       github.repos.getCommits({
         owner,
@@ -241,10 +243,8 @@ router.get('/skills/:owner/:repo', (req, res) => {
           if (lastPageLink) {
             nbCommits = Number(lastPageLink[1]);
           }
-        } else {
-          if (r.data && r.data.length >= 1) {
-            nbCommits = 1;
-          }
+        } else if (r.data && r.data.length >= 1) {
+          nbCommits = 1;
         }
 
         result.nbTotalCommits = nbCommits;
@@ -255,7 +255,9 @@ router.get('/skills/:owner/:repo', (req, res) => {
   }
 
   // Get total contributors for the specified repository
-  function getTotalContributors(result) {
+  function getTotalContributors(object) {
+    const result = object;
+
     return new Promise((resolve, reject) => {
       github.repos.getContributors({
         owner,
@@ -275,10 +277,8 @@ router.get('/skills/:owner/:repo', (req, res) => {
           if (lastPageLink) {
             nbContributors = Number(lastPageLink[1]);
           }
-        } else {
-          if (r.data && r.data.length >= 1) {
-            nbContributors = 1;
-          }
+        } else if (r.data && r.data.length >= 1) {
+          nbContributors = 1;
         }
 
         result.nbTotalContributors = nbContributors;
@@ -288,23 +288,21 @@ router.get('/skills/:owner/:repo', (req, res) => {
     });
   }
 
-  let result = {};
+  const result = {};
 
   getUser(result)
     .then(getTotalUserCommits)
     .then(getTotalCommits)
     .then(getTotalContributors)
     .then((r) => {
-      res.status(200).send("" + (r.nbTotalUserCommits / (r.nbTotalCommits / r.nbTotalContributors)));
-      return;
+      res.status(200).send(`${r.nbTotalUserCommits / (r.nbTotalCommits / r.nbTotalContributors)}`);
     });
 });
 
 router.post('/score/:owner/:repo', (req, res) => {
-
   // Check if the session is defined
   if (req.session.token === undefined) {
-    res.status(401).send("Sorry need to be authenticated!");
+    res.status(401).send('Sorry need to be authenticated!');
     return;
   }
 
@@ -323,33 +321,33 @@ router.post('/score/:owner/:repo', (req, res) => {
   }, (err, r) => {
     // TODO : 401 ?
 
-    const login = r.data.login;
+    const { login } = r.data;
 
     // Get the URI for mongodb
     const url = process.env.MONGO_URI;
 
     // Use connect method to connect to the server
-    MongoClient.connect(url, (err, database) => {
-      if(err) throw err;
+    MongoClient.connect(url, (errDB, database) => {
+      if (errDB) throw errDB;
 
       const db = database.db('shoot_em_hub');
 
-      const owner = req.params.owner;
-      const repo = req.params.repo;
-      const score = req.body
+      const { owner } = req.params;
+      const { repo } = req.params;
+      const score = req.body;
 
-      let json = {
-        "owner": owner,
-        "repo": repo,
-        "user": login,
-        "score": Number(req.body.score),
+      const json = {
+        owner,
+        repo,
+        user: login,
+        score: Number(score),
       };
 
-      let collection = db.collection("scores");
+      const collection = db.collection('scores');
       collection.insertOne(json);
 
       database.close();
-      
+
       res.sendStatus(200);
     });
   });
@@ -361,23 +359,22 @@ router.get('/score/:owner/:repo', (req, res) => {
 
   // Use connect method to connect to the server
   MongoClient.connect(url, (err, database) => {
-    if(err) throw err;
+    if (err) throw err;
 
     const db = database.db('shoot_em_hub');
 
-    const owner = req.params.owner;
-    const repo = req.params.repo;
+    const { owner } = req.params;
+    const { repo } = req.params;
 
-    let collection = db.collection("scores");
+    const collection = db.collection('scores');
     collection
-      .find({'repo': repo, 'owner': owner, })
-      .project({'repo': 0, 'owner': 0, '_id': 0})
-      .sort( { 'score': -1 } )
+      .find({ repo, owner })
+      .project({ repo: 0, owner: 0, _id: 0 })
+      .sort({ score: -1 })
       .limit(15)
-      .toArray((err, scores) => {
+      .toArray((e, scores) => {
         database.close();
-        res.render('../views/score', {repo: owner + '/' + repo, scores : scores});
-        return; 
+        res.render('../views/score', { repo: `${owner}/${repo}`, scores });
       });
   });
 });
