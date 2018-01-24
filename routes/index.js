@@ -1,4 +1,4 @@
-const GitHubApi = require('github');
+const GitHubApi = require('@octokit/rest');
 const request = require('request');
 const router = require('express').Router();
 const { MongoClient } = require('mongodb');
