@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   // Check if the session is defined
   if (req.session.token === undefined) {
     res.render('../views/index', {
-      link: `https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env.GH_BASIC_CLIENT_ID}`,
+      link: `https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`,
     });
     return;
   }
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
   }, (err, r) => {
     if (err && err.code === 401) {
       res.render('../views/index', {
-        link: `https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env.GH_BASIC_CLIENT_ID}`,
+        link: `https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`,
       });
     } else {
       res.render('../views/index', { link: '/repos' });
