@@ -91,16 +91,18 @@ router.get('/repos/:page(\\d+)?', (req, res) => {
     // Get the all the repositories
     let repositories = r.data;
     const { meta } = r;
+    
+    console.log(meta);
 
     // Get the last page
     let lastPage = 1;
 
     if (meta) {
-      const lastPageLink = meta.link.match(/page=(\d+)&.{65}; rel="last"/);
+      const lastPageLink = meta.link.match(/page=(\d+)&.{11}; rel="last"/);
       if (lastPageLink) {
         lastPage = Number(lastPageLink[1]);
       } else {
-        const prevPageLink = meta.link.match(/page=(\d+)&.{65}; rel="prev"/);
+        const prevPageLink = meta.link.match(/page=(\d+)&.{11}; rel="prev"/);
         if (prevPageLink) {
           lastPage = Number(prevPageLink[1]) + 1;
         }
@@ -205,7 +207,7 @@ router.get('/skills/:owner/:repo', (req, res) => {
         let nbCommits = 0;
 
         if (r.meta && r.meta.link) {
-          const lastPageLink = r.meta.link.match(/page=(\d+)&.{65}; rel="last"/);
+          const lastPageLink = r.meta.link.match(/page=(\d+)&.{11}; rel="last"/);
           if (lastPageLink) {
             nbCommits = Number(lastPageLink[1]);
           }
@@ -239,7 +241,7 @@ router.get('/skills/:owner/:repo', (req, res) => {
         let nbCommits = 0;
 
         if (r.meta && r.meta.link) {
-          const lastPageLink = r.meta.link.match(/page=(\d+)&.{65}; rel="last"/);
+          const lastPageLink = r.meta.link.match(/page=(\d+)&.{11}; rel="last"/);
           if (lastPageLink) {
             nbCommits = Number(lastPageLink[1]);
           }
@@ -273,7 +275,7 @@ router.get('/skills/:owner/:repo', (req, res) => {
         let nbContributors = 0;
 
         if (r.meta && r.meta.link) {
-          const lastPageLink = r.meta.link.match(/page=(\d+)&.{65}; rel="last"/);
+          const lastPageLink = r.meta.link.match(/page=(\d+)&.{11}; rel="last"/);
           if (lastPageLink) {
             nbContributors = Number(lastPageLink[1]);
           }
