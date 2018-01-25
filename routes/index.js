@@ -3,11 +3,21 @@ const request = require('request');
 const router = require('express').Router();
 const { MongoClient } = require('mongodb');
 
+// Link for github oauth
+const GITHUB_AUTHORIZE_LINK = `https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`;
+
+// Link for github token
+const GITHUB_ACCESS_TOKEN = 'https://github.com/login/oauth/access_token';
+
+
+/*
+ * HOMEPAGE ENDPOINT
+ */
 router.get('/', (req, res) => {
   // Check if the session is defined
   if (req.session.token === undefined) {
     res.render('../views/index', {
-      link: `https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`,
+      link: GITHUB_AUTHORIZE_LINK,
     });
     return;
   }
@@ -27,7 +37,7 @@ router.get('/', (req, res) => {
   }, (err, r) => {
     if (err && err.code === 401) {
       res.render('../views/index', {
-        link: `https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`,
+        link: GITHUB_AUTHORIZE_LINK,
       });
     } else {
       res.render('../views/index', { link: '/repos' });
@@ -35,14 +45,26 @@ router.get('/', (req, res) => {
   });
 });
 
+
+/*
+ * CALLBACK ENDPOINT FOR GITHUB
+ */
 router.get('/callback', (req, res) => {
   // Get github code check
   const { code } = req.query;
 
+  // Redirects if the code is not valid
+  if (code === undefined) {
+    res.render('../views/index', {
+      link: GITHUB_AUTHORIZE_LINK,
+    });
+    return;
+  }
+
   // Send back the code check
   request.post({
     headers: { Accept: 'application/json' },
-    url: 'https://github.com/login/oauth/access_token',
+    url: GITHUB_ACCESS_TOKEN,
     body: {
       client_id: process.env.GH_BASIC_CLIENT_ID,
       client_secret: process.env.GH_BASIC_SECRET_ID,
@@ -52,6 +74,14 @@ router.get('/callback', (req, res) => {
   }, (err, response, body) => {
     if (err) throw err;
 
+    const token = body.access_token;
+
+    // Redirects if the token is not valid
+    if (token === undefined) {
+      res.redirect('/');
+      return;
+    }
+
     // Get the token and store in session
     req.session.token = body.access_token;
 
@@ -60,6 +90,10 @@ router.get('/callback', (req, res) => {
   });
 });
 
+
+/*
+ * REPOS ENDPOINT
+ */
 router.get('/repos/:page(\\d+)?', (req, res) => {
   // Get the token from the session
   const { token } = req.session;
@@ -91,8 +125,6 @@ router.get('/repos/:page(\\d+)?', (req, res) => {
     // Get the all the repositories
     let repositories = r.data;
     const { meta } = r;
-    
-    console.log(meta);
 
     // Get the last page
     let lastPage = 1;
@@ -146,10 +178,18 @@ router.get('/repos/:page(\\d+)?', (req, res) => {
   });
 });
 
+
+/*
+ * PLAY ENDPOINT
+ */
 router.get('/play', (req, res) => {
   res.render('../views/play');
 });
 
+
+/*
+ * SKILLS ENDPOINT
+ */
 router.get('/skills/:owner/:repo', (req, res) => {
   // Check if the session is defined
   if (req.session.token === undefined) {
@@ -301,6 +341,10 @@ router.get('/skills/:owner/:repo', (req, res) => {
     });
 });
 
+
+/*
+ * SCORE ENDPOINT
+ */
 router.post('/score/:owner/:repo', (req, res) => {
   // Check if the session is defined
   if (req.session.token === undefined) {
@@ -355,6 +399,10 @@ router.post('/score/:owner/:repo', (req, res) => {
   });
 });
 
+
+/*
+ * SCORE ENDPOINT
+ */
 router.get('/score/:owner/:repo', (req, res) => {
   // Get the URI for mongodb
   const url = process.env.MONGO_URI;
