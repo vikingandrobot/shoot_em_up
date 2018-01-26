@@ -142,7 +142,7 @@ class Player {
     this.spaceShip.shoot();
   }
 
-  logic(ennemies) {
+  logic(enemies) {
     const left = this.left;
     const up = this.up;
     const right = this.right;
@@ -175,7 +175,7 @@ class Player {
 
 
 
-    this.spaceShip.logic(this.bounds, ennemies);
+    this.spaceShip.logic(this.bounds, enemies);
 
   }
 

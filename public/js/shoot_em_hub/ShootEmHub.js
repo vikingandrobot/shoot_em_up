@@ -46,8 +46,8 @@ class ShootEmHub {
     // Generator of enemies
     this.generator = ENEMY_GENERATOR;
 
-    // Array of ennemies
-    this.ennemies = [];
+    // Array of enemies
+    this.enemies = [];
 
     // The canons of dead enemies still managing bullets
     this.remainingCanons = [];
@@ -71,8 +71,8 @@ class ShootEmHub {
       this.play();
     }, false);
 
-    // Bounds in which the ennemies can move
-    this.ennemyBounds = {
+    // Bounds in which the enemies can move
+    this.enemyBounds = {
       x: 0,
       y: -this.c.height * 4,
       w: this.c.width,
@@ -131,52 +131,52 @@ class ShootEmHub {
     this.checkEnd();
 
     // Do the player logic
-    this.player.logic(this.ennemies);
+    this.player.logic(this.enemies);
 
     /**
-      Do the logic of ennemies
+      Do the logic of enemies
     */
-    for (let i = this.ennemies.length - 1; i >= 0; --i) {
+    for (let i = this.enemies.length - 1; i >= 0; --i) {
       // Collision with player
-      if (this.ennemies[i].collision(this.player.spaceShip)) {
+      if (this.enemies[i].collision(this.player.spaceShip)) {
         // Do stuff
-        if (this.player.spaceShip.hitCounter == 0 && this.ennemies[i].hitCounter == 0) {
+        if (this.player.spaceShip.hitCounter == 0 && this.enemies[i].hitCounter == 0) {
           this.player.spaceShip.hit(1);
-          this.ennemies[i].hit(1);
+          this.enemies[i].hit(1);
         }
       }
 
-      // Delete dead ennemies
-      if (this.ennemies[i].life <= 0) {
-        if (this.ennemies[i].leftCanon !== undefined
-          && this.ennemies[i].leftCanon.bullets.length > 0) {
-          this.remainingCanons.push(this.ennemies[i].leftCanon);
+      // Delete dead enemies
+      if (this.enemies[i].life <= 0) {
+        if (this.enemies[i].leftCanon !== undefined
+          && this.enemies[i].leftCanon.bullets.length > 0) {
+          this.remainingCanons.push(this.enemies[i].leftCanon);
         }
-        if (this.ennemies[i].rightCanon !== undefined
-          && this.ennemies[i].rightCanon.bullets.length > 0) {
-          this.remainingCanons.push(this.ennemies[i].rightCanon);
+        if (this.enemies[i].rightCanon !== undefined
+          && this.enemies[i].rightCanon.bullets.length > 0) {
+          this.remainingCanons.push(this.enemies[i].rightCanon);
         }
         this.explosions.push(
           new Explosion(
-            this.ennemies[i].pos,
+            this.enemies[i].pos,
           ),
         );
-        this.ennemies.splice(i, 1);
+        this.enemies.splice(i, 1);
         this.player.spaceShip.countScore();
         break;
       }
 
-      // If the ennemy is out of the game area
-      if (this.ennemies[i].pos.y - this.ennemies[i].h > this.c.height + 200) {
+      // If the enemy is out of the game area
+      if (this.enemies[i].pos.y - this.enemies[i].h > this.c.height + 200) {
         // Salvage canons
-        this.ennemies.splice(i, 1);
+        this.enemies.splice(i, 1);
       } else {
         // Else, shoot and do the ennmy logic
-        if (this.ennemies[i].pos.y > -200) {
-          this.ennemies[i].shoot();
+        if (this.enemies[i].pos.y > -200) {
+          this.enemies[i].shoot();
         }
-        this.ennemies[i].logic(
-          this.ennemyBounds,
+        this.enemies[i].logic(
+          this.enemyBounds,
           [this.player.spaceShip]
         );
       }
@@ -188,7 +188,7 @@ class ShootEmHub {
       if (canon.bullets.length === 0) {
         this.remainingCanons.splice(i, 1);
       } else {
-        canon.logic(this.ennemyBounds, [this.player.spaceShip]);
+        canon.logic(this.enemyBounds, [this.player.spaceShip]);
       }
     }
     // Logic for explosions
@@ -200,7 +200,7 @@ class ShootEmHub {
       }
     }
 
-    // Randomly spawn an ennemy
+    // Randomly spawn an enemy
     this.spawnEnemies();
   }
 
@@ -234,9 +234,9 @@ class ShootEmHub {
     // Draw player
     this.player.draw(this.ctx);
 
-    // Draw ennemies
-    for (let i = this.ennemies.length - 1; i >= 0; --i) {
-      this.ennemies[i].draw(this.ctx);
+    // Draw enemies
+    for (let i = this.enemies.length - 1; i >= 0; --i) {
+      this.enemies[i].draw(this.ctx);
     }
 
     // Draw explosions
@@ -305,7 +305,7 @@ class ShootEmHub {
   }
 
   /**
-    Spawn an ennemy at the (x, y) position
+    Spawn an enemy at the (x, y) position
   */
   spawnEnemies() {
 
@@ -336,7 +336,7 @@ class ShootEmHub {
 
       switch(this.generator[index].enemies[i].type) {
         case 'ELECTRIC':
-          enemy = new LaserEnnemySpaceShip(
+          enemy = new LaserEnemySpaceShip(
             pos,
             50,
             50,
@@ -345,36 +345,18 @@ class ShootEmHub {
           break;
 
         case 'ROCKET':
-          enemy = new RocketEnnemySpaceShip(pos, 30, 60);
+          enemy = new RocketEnemySpaceShip(pos, 30, 60);
           break;
 
         case 'BASIC':
         default:
-          enemy = new EnnemySpaceShip(pos, 30, 60);
+          enemy = new EnemySpaceShip(pos, 30, 60);
           break;
       }
       enemy.speed = speed.copy();
 
       // Add the enemy
-      this.ennemies.push(enemy);
+      this.enemies.push(enemy);
     }
-    return;
-
-    let enemy;
-
-    let rand = Math.random();
-    if (rand < 0.4) {
-
-
-      // Ennemies go down
-      ennemy.speed = new CartesianVector(0, 3);
-    } else {
-
-      // Ennemies go down
-      ennemy.speed = new CartesianVector(0, 7);
-    }
-
-    // Ennemies are red
-    ennemy.setColor(new Color(186, 53, 5, 1));
   }
 }

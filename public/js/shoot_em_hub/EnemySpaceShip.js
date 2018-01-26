@@ -1,12 +1,12 @@
-const EnnemySpaceShipImage = new Image();
+const EnemySpaceShipImage = new Image();
 
-EnnemySpaceShipImage.onload = function(){
+EnemySpaceShipImage.onload = function(){
   // image  has been loaded
 };
 
-EnnemySpaceShipImage.src = '/img/ennemy_rocket.png';
+EnemySpaceShipImage.src = '/img/enemy_rocket.png';
 
-class EnnemySpaceShip extends SpaceShip {
+class EnemySpaceShip extends SpaceShip {
   constructor(pos, w, h) {
     super(pos, w, h);
     this.leftCanon = new MiniCanon(
@@ -21,7 +21,7 @@ class EnnemySpaceShip extends SpaceShip {
     this.rightCanon.maxFireRate = 100;
     this.leftCanon.direction.y = 5;
     this.rightCanon.direction.y = 5;
-    this.img = EnnemySpaceShipImage;
+    this.img = EnemySpaceShipImage;
     this.life = 1;
     this.maxLife = 1;
     this.recuperationTime = 5;

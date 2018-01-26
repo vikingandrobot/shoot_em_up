@@ -46,16 +46,16 @@ class Bullet {
   }
 
   /*
-    Check whether the bullet is in collision with the given ennemy.
-    The ennemy object must have a pos {x, y} property, a w for width property
+    Check whether the bullet is in collision with the given enemy.
+    The enemy object must have a pos {x, y} property, a w for width property
     and a h for h property.
   */
-  collision(ennemy) {
+  collision(enemy) {
     return (
-      this.pos.x + this.radius > ennemy.pos.x - ennemy.w / 2
-      && this.pos.x - this.radius < ennemy.pos.x + ennemy.w / 2
-      && this.pos.y + this.radius > ennemy.pos.y - ennemy.h / 2
-      && this.pos.y - this.radius < ennemy.pos.y + ennemy.h / 2);
+      this.pos.x + this.radius > enemy.pos.x - enemy.w / 2
+      && this.pos.x - this.radius < enemy.pos.x + enemy.w / 2
+      && this.pos.y + this.radius > enemy.pos.y - enemy.h / 2
+      && this.pos.y - this.radius < enemy.pos.y + enemy.h / 2);
   }
 
   /**

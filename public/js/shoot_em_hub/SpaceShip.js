@@ -62,7 +62,7 @@ class SpaceShip {
     }
   }
 
-  logic(bounds, ennemies) {
+  logic(bounds, enemies) {
     this.pos.add(this.speed);
 
     if (this.pos.x - this.w / 2 < bounds.x) {
@@ -83,10 +83,10 @@ class SpaceShip {
     }
 
     if (this.leftCanon !== undefined) {
-      this.leftCanon.logic(bounds, ennemies);
+      this.leftCanon.logic(bounds, enemies);
     }
     if (this.rightCanon !== undefined) {
-      this.rightCanon.logic(bounds, ennemies);
+      this.rightCanon.logic(bounds, enemies);
     }
 
     for (let i = this.particles.length - 1; i >= 0; i--) {
@@ -190,12 +190,12 @@ class SpaceShip {
     }
   }
 
-  collision(ennemy) {
+  collision(enemy) {
     return (
-      this.pos.x + this.w / 2 > ennemy.pos.x - ennemy.w / 2
-      && this.pos.x - this.w / 2 < ennemy.pos.x + ennemy.w / 2
-      && this.pos.y + this.h / 2 > ennemy.pos.y - ennemy.h / 2
-      && this.pos.y - this.h / 2 < ennemy.pos.y + ennemy.h / 2);
+      this.pos.x + this.w / 2 > enemy.pos.x - enemy.w / 2
+      && this.pos.x - this.w / 2 < enemy.pos.x + enemy.w / 2
+      && this.pos.y + this.h / 2 > enemy.pos.y - enemy.h / 2
+      && this.pos.y - this.h / 2 < enemy.pos.y + enemy.h / 2);
   }
 
   addSpeed(s) {

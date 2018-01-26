@@ -1,9 +1,9 @@
-class RocketEnnemySpaceShip extends EnnemySpaceShip {
+class RocketEnemySpaceShip extends EnemySpaceShip {
   constructor(pos, w, h) {
     super(pos, w, h);
     this.leftCanon = undefined;
     this.rightCanon = undefined;
-    this.img = EnnemySpaceShipImage;
+    this.img = EnemySpaceShipImage;
     this.life = 1;
     this.maxLife = 1;
   }

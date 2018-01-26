@@ -1,11 +1,10 @@
+// Load environment variables
+require('dotenv').load();
 
 const express = require('express');
 const routes = require('./routes/index.js');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-
-// Load environment variables
-require('dotenv').load();
 
 const port = process.env.PORT || 9090;
 

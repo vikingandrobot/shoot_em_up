@@ -1,24 +1,24 @@
-const LaserEnnemySpaceShipImage = new Image();
+const LaserEnemySpaceShipImage = new Image();
 
-LaserEnnemySpaceShipImage.onload = function(){
+LaserEnemySpaceShipImage.onload = function(){
   // image  has been loaded
 };
 
-LaserEnnemySpaceShipImage.src = '/img/sphere_small.png';
+LaserEnemySpaceShipImage.src = '/img/sphere_small.png';
 
 /**
-  File: LaserEnnemySpaceShip
+  File: LaserEnemySpaceShip
   Date: 18.01.18
   Authors: Mathieu Monteverde & Sathiya Kirushnapillai
 
-  The class LaserEnnemySpaceShip represents ennemies that shoot
+  The class LaserEnemySpaceShip represents enemies that shoot
   horizontal lasers on their right or on their left.
 */
 
-class LaserEnnemySpaceShip extends EnnemySpaceShip {
+class LaserEnemySpaceShip extends EnemySpaceShip {
   constructor(pos, w, h, direction) {
     super(pos, w, h);
-    this.img = LaserEnnemySpaceShipImage;
+    this.img = LaserEnemySpaceShipImage;
     this.shooting = false;
     this.direction = direction;
     this.life = 25;
@@ -37,23 +37,23 @@ class LaserEnnemySpaceShip extends EnnemySpaceShip {
   /**
     Apply logic
   */
-  logic(bounds, ennemies) {
-    super.logic(bounds, ennemies);
+  logic(bounds, enemies) {
+    super.logic(bounds, enemies);
 
     if (this.shooting) {
-      // For all ennemies
-      for (let i = ennemies.length - 1; i >= 0; --i) {
-        // If the ennemies crosses the beam and is on the correct side
+      // For all enemies
+      for (let i = enemies.length - 1; i >= 0; --i) {
+        // If the enemies crosses the beam and is on the correct side
         if (
-          ennemies[i].pos.y - ennemies[i].h/2 < this.pos.y
+          enemies[i].pos.y - enemies[i].h/2 < this.pos.y
           &&
-          ennemies[i].pos.y + ennemies[i].h/2 > this.pos.y
+          enemies[i].pos.y + enemies[i].h/2 > this.pos.y
           &&
-          ((this.direction < 0 && this.pos.x >= ennemies[i].pos.x)
-            || (this.direction > 0 && this.pos.x <= ennemies[i].pos.x))
+          ((this.direction < 0 && this.pos.x >= enemies[i].pos.x)
+            || (this.direction > 0 && this.pos.x <= enemies[i].pos.x))
         ) {
-            // Hit the ennemy
-            ennemies[i].hit(1);
+            // Hit the enemy
+            enemies[i].hit(1);
           }
       }
     }

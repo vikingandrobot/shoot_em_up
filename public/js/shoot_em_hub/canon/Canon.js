@@ -27,7 +27,7 @@ class Canon {
     this.img = canonImage;
   }
 
-  logic(bounds, ennemies) {
+  logic(bounds, enemies) {
     if (this.fireRate != 0) {
       this.fireRate = (this.fireRate + 1) % this.maxFireRate;
     }
@@ -36,13 +36,13 @@ class Canon {
       if (this.inBounds(this.bullets[i], bounds)) {
         this.bullets[i].logic();
 
-        if (ennemies !== undefined) {
-          for (let j = ennemies.length - 1; j >= 0; --j) {
-            if (this.bullets[i].collision(ennemies[j])) {
-              ennemies[j].hit(this.bullets[i].power);
+        if (enemies !== undefined) {
+          for (let j = enemies.length - 1; j >= 0; --j) {
+            if (this.bullets[i].collision(enemies[j])) {
+              enemies[j].hit(this.bullets[i].power);
 
               this.bullets.splice(i, 1);
-              if (ennemies[j].life > 0) {
+              if (enemies[j].life > 0) {
                 this.spaceShip.score += 5;
               }
               break;

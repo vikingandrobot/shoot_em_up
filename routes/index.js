@@ -380,7 +380,7 @@ router.post('/score/:owner/:repo', (req, res) => {
 
       const { owner } = req.params;
       const { repo } = req.params;
-      const score = req.body;
+      const { score } = req.body;
 
       const json = {
         owner,
