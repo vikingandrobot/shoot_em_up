@@ -1,5 +1,6 @@
 # Shoot'Em Hub
-* The game where your hard work actually pays off. *
+
+The game where your hard work actually pays off.
 
 ## The project
 
