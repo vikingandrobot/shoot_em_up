@@ -1,20 +1,38 @@
 const GitHubApi = require('@octokit/rest');
+const path = require('path');
 const request = require('request');
 const router = require('express').Router();
 const { MongoClient } = require('mongodb');
 
+
 // Link for github oauth
-const GITHUB_AUTHORIZE_LINK = `https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`;
+const GITHUB_AUTHORIZE_LINK = `https://github.com/login/oauth/authorize?
+  scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`;
 
 // Link for github token
 const GITHUB_ACCESS_TOKEN = 'https://github.com/login/oauth/access_token';
 
 
 /*
+ * Middleware route function
+ * 
+ * Allow to check if the user is autenticated. If the user is not autenticated,
+ * the server redirects to the home page.
+ */
+function isAutenticated(req, res, next) {
+  // Check if the session is defined
+  if (req.session.token !== undefined) {
+    return next();
+  }
+
+  res.redirect('/');
+}
+
+
+/*
  * HOMEPAGE ENDPOINT
  */
 router.get('/', (req, res) => {
-  // Check if the session is defined
   if (req.session.token === undefined) {
     res.render('../views/index', {
       link: GITHUB_AUTHORIZE_LINK,
@@ -22,20 +40,19 @@ router.get('/', (req, res) => {
     return;
   }
 
-  // Get the token from the session
-  const { token } = req.session;
-
   const github = new GitHubApi();
 
   // Try to connect with the token
   github.authenticate({
     type: 'oauth',
-    token,
+    token: req.session.token,
   });
 
   github.users.get({
   }, (err, r) => {
     if (err && err.code === 401) {
+      req.session.token = undefined;
+
       res.render('../views/index', {
         link: GITHUB_AUTHORIZE_LINK,
       });
@@ -49,16 +66,13 @@ router.get('/', (req, res) => {
 /*
  * CALLBACK ENDPOINT FOR GITHUB
  */
-router.get('/callback', (req, res) => {
+router.get('/callback', (req, res, next) => {
   // Get github code check
   const { code } = req.query;
 
   // Redirects if the code is not valid
   if (code === undefined) {
-    res.render('../views/index', {
-      link: GITHUB_AUTHORIZE_LINK,
-    });
-    return;
+    return res.redirect('/');
   }
 
   // Send back the code check
@@ -72,14 +86,16 @@ router.get('/callback', (req, res) => {
     },
     json: true,
   }, (err, response, body) => {
-    if (err) throw err;
+    if (err) {
+      return next(err);
+    };
 
     const token = body.access_token;
 
     // Redirects if the token is not valid
     if (token === undefined) {
-      res.redirect('/');
-      return;
+      return next(new Error(`Failed to get a token. Please check github client 
+        id and client secret`));
     }
 
     // Get the token and store in session
@@ -94,15 +110,9 @@ router.get('/callback', (req, res) => {
 /*
  * REPOS ENDPOINT
  */
-router.get('/repos/:page(\\d+)?', (req, res) => {
+router.get('/repos/:page(\\d+)?', isAutenticated, (req, res, next) => {
   // Get the token from the session
   const { token } = req.session;
-
-  // Check if the session is defined
-  if (token === undefined) {
-    res.redirect('/');
-    return;
-  }
 
   const github = new GitHubApi();
 
@@ -120,7 +130,9 @@ router.get('/repos/:page(\\d+)?', (req, res) => {
     page: currentPage,
     per_page: 5,
   }, (err, r) => {
-    if (err) throw err;
+    if (err) {
+      return next(err);
+    }
 
     // Get the all the repositories
     let repositories = r.data;
@@ -169,6 +181,10 @@ router.get('/repos/:page(\\d+)?', (req, res) => {
         page: currentPage,
         per_page: 5,
       }, (error, result) => {
+        if (error) {
+          return next(error);
+        }
+
         repositories = result.data;
         process(repositories, currentPage, lastPage);
       });
@@ -182,7 +198,7 @@ router.get('/repos/:page(\\d+)?', (req, res) => {
 /*
  * PLAY ENDPOINT
  */
-router.get('/play', (req, res) => {
+router.get('/play', isAutenticated, (req, res) => {
   res.render('../views/play');
 });
 
@@ -190,13 +206,7 @@ router.get('/play', (req, res) => {
 /*
  * SKILLS ENDPOINT
  */
-router.get('/skills/:owner/:repo', (req, res) => {
-  // Check if the session is defined
-  if (req.session.token === undefined) {
-    res.status(401).send('Sorry need to be authenticated!');
-    return;
-  }
-
+router.get('/skills/:owner/:repo', isAutenticated, (req, res, next) => {
   // Get the token from the session
   const { token } = req.session;
 
@@ -218,7 +228,9 @@ router.get('/skills/:owner/:repo', (req, res) => {
     return new Promise((resolve, reject) => {
       github.users.get({
       }, (err, r) => {
-        // TODO : 401 ?
+        if (err) {
+          return reject(err);
+        }
 
         result.login = r.data.login;
 
@@ -239,8 +251,8 @@ router.get('/skills/:owner/:repo', (req, res) => {
         page: 1,
         per_page: 1,
       }, (err, r) => {
-        if (err && err.code === 404) {
-          return reject(new Error("Sorry can't find that owner/repo!"));
+        if (err) {
+          return reject(err);
         }
 
         // Get response header
@@ -273,8 +285,8 @@ router.get('/skills/:owner/:repo', (req, res) => {
         page: 1,
         per_page: 1,
       }, (err, r) => {
-        if (err && err.code === 404) {
-          reject(new Error("Sorry can't find that owner/repo!"));
+        if (err) {
+          return reject(err);
         }
 
         // Get response header
@@ -307,8 +319,8 @@ router.get('/skills/:owner/:repo', (req, res) => {
         page: 1,
         per_page: 1,
       }, (err, r) => {
-        if (err && err.code === 404) {
-          reject(new Error("Sorry can't find that owner/repo!"));
+        if (err) {
+          return reject(err);
         }
 
         // Get response header
@@ -338,6 +350,9 @@ router.get('/skills/:owner/:repo', (req, res) => {
     .then(getTotalContributors)
     .then((r) => {
       res.status(200).send(`${r.nbTotalUserCommits / (r.nbTotalCommits / r.nbTotalContributors)}`);
+    })
+    .catch((error) => {
+      return next(error);
     });
 });
 
@@ -345,13 +360,7 @@ router.get('/skills/:owner/:repo', (req, res) => {
 /*
  * SCORE ENDPOINT
  */
-router.post('/score/:owner/:repo', (req, res) => {
-  // Check if the session is defined
-  if (req.session.token === undefined) {
-    res.status(401).send('Sorry need to be authenticated!');
-    return;
-  }
-
+router.post('/score/:owner/:repo', isAutenticated, (req, res, next) => {
   // Get the token from the session
   const { token } = req.session;
 
@@ -365,7 +374,9 @@ router.post('/score/:owner/:repo', (req, res) => {
 
   github.users.get({
   }, (err, r) => {
-    // TODO : 401 ?
+    if (err) {
+      return next(err);
+    }
 
     const { login } = r.data;
 
@@ -374,7 +385,9 @@ router.post('/score/:owner/:repo', (req, res) => {
 
     // Use connect method to connect to the server
     MongoClient.connect(url, (errDB, database) => {
-      if (errDB) throw errDB;
+      if (errDB) {
+        return next(errDB);
+      }
 
       const db = database.db('shoot_em_hub');
 
@@ -403,13 +416,15 @@ router.post('/score/:owner/:repo', (req, res) => {
 /*
  * SCORE ENDPOINT
  */
-router.get('/score/:owner/:repo', (req, res) => {
+router.get('/score/:owner/:repo', isAutenticated, (req, res, next) => {
   // Get the URI for mongodb
   const url = process.env.MONGO_URI;
 
   // Use connect method to connect to the server
   MongoClient.connect(url, (err, database) => {
-    if (err) throw err;
+    if (err) {
+      return next(err);
+    }
 
     const db = database.db('shoot_em_hub');
 

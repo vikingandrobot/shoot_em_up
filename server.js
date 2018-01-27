@@ -10,12 +10,12 @@ const port = process.env.PORT || 9090;
 
 const app = express();
 
-// Expose public stuff
+// Set view engine
+app.set('view engine', 'ejs');
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Use cookie for the sessions
 app.use(session({
   secret: 'this-is-a-secret-token',
   cookie: { maxAge: 3600000 },
@@ -23,11 +23,27 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-// Set view engine
-app.set('view engine', 'ejs');
-
 // Set routes
 app.use(routes);
+
+// 404 Error
+app.use((req, res) => res.render('404'));
+
+// Error handler
+app.use((err, req, res, next) => {
+  const status = err.code || 500;
+  res.status(status);
+
+  if (status === 404) {
+    return res.render('404');
+  }
+
+  // TODO : Log the error
+
+  return res.render('error', {
+    error: (app.get('env') === 'development') ? err : {},
+  });
+});
 
 // Start the server
 app.listen(port, () => {
