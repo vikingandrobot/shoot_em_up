@@ -14,6 +14,7 @@ The advantages he has in the game are chosen based on his participation to said 
 
 You want to deploy this application on your server? First, you need to create and register an OAuth App on Github.
 You can just follow this guide : [Creating an OAuth App](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/).
+The authorization callback URL is `http://yourdomaine:yourport/callback`.
 
 Afterward, you can get the application code : 
 
