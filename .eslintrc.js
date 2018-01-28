@@ -13,6 +13,11 @@ module.exports = {
     "CartesianVector": false,
     "PolarVector": false,
     "Planet": false,
+    "SpaceShip": false,
+    "ShootEmHub": false,
+    "RocketEnemySpaceShip": false,
+    "Player": false,
+    "LaserEnemySpaceShip": false,
   },
   "rules": {
     "import/no-extraneous-dependencies": [

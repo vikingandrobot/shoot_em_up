@@ -1,10 +1,29 @@
+const rocketSpaceShipImage = new Image();
+rocketSpaceShipImage.src = '/img/rocket_enemy.png';
+const bigRocketSpaceShipImage = new Image();
+bigRocketSpaceShipImage.src = '/img/rocket_enemy_x.png';
+
 class RocketEnemySpaceShip extends EnemySpaceShip {
-  constructor(pos, w, h) {
-    super(pos, w, h);
+  constructor(pos, SIZE_TYPE) {
+    super(pos, 30, 60);
+    switch (SIZE_TYPE) {
+      case 'BIG':
+        this.w = 45;
+        this.h = 90;
+        this.img = rocketSpaceShipImage;
+        this.life = 2;
+        this.maxLife = 2;
+        break;
+
+      case 'SMALL':
+      default:
+        this.img = bigRocketSpaceShipImage;
+        this.life = 1;
+        this.maxLife = 1;
+        break;
+    }
     this.leftCanon = undefined;
     this.rightCanon = undefined;
-    this.img = EnemySpaceShipImage;
-    this.life = 1;
-    this.maxLife = 1;
+    this.spriteRatios = { x: 1, y: 1 };
   }
 }

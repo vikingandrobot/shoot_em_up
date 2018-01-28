@@ -4,7 +4,7 @@ spaceShipImage.onload = function(){
   // image  has been loaded
 };
 
-spaceShipImage.src = '/img/rocket_white_small.png';
+spaceShipImage.src = '/img/spaceship_player.png';
 
 class SpaceShip {
   constructor(pos, w, h) {
@@ -38,6 +38,8 @@ class SpaceShip {
 
     this.hitCounter = 0;
     this.recuperationTime = 80;
+
+    this.spriteRatios = { x: 2.4, y: 1 };
   }
 
   countScore() {
@@ -139,7 +141,7 @@ class SpaceShip {
   */
   draw(ctx) {
 
-    if (this.hitCounter != 0) {
+    if (this.hitCounter !== 0) {
       ctx.globalAlpha = 0.5
     }
 
@@ -154,13 +156,13 @@ class SpaceShip {
     // Draw the ship image
     ctx.drawImage(
       this.img,
-      this.pos.x - this.w / 2,
-      this.pos.y - this.h / 2,
-      this.w,
-      this.h
+      this.pos.x - ((this.w * this.spriteRatios.x) / 2),
+      this.pos.y - ((this.h * this.spriteRatios.y) / 2),
+      this.w * this.spriteRatios.x,
+      this.h * this.spriteRatios.y,
     );
 
-    if (this.hitCounter != 0) {
+    if (this.hitCounter !== 0) {
       ctx.globalAlpha = 1;
     }
   }
@@ -174,19 +176,6 @@ class SpaceShip {
     }
     if (this.rightCanon !== undefined) {
       this.rightCanon.draw(ctx);
-    }
-
-    // Draw the canon supports
-    if (this.leftCanon !== undefined || this.rightCanon !== undefined) {
-      ctx.beginPath();
-      ctx.fillStyle = this.colorString;
-      ctx.fillRect(
-        this.pos.x - this.CANON_SPACE,
-        this.pos.y - this.h / 24,
-        this.CANON_SPACE * 2,
-        this.h / 7
-      );
-      ctx.closePath();
     }
   }
 

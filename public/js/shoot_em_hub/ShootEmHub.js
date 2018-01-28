@@ -8,23 +8,12 @@
 */
 
 const SpaceBg = new Image();
-
-SpaceBg.onload = function(){
-  // image  has been loaded
-};
-
 SpaceBg.src = '/img/space_bg.png';
 
 const SpaceBg2 = new Image();
-
-SpaceBg2.onload = function(){
-  // image  has been loaded
-};
-
 SpaceBg2.src = '/img/space_bg_2.png';
 
 class ShootEmHub {
-
   /**
     Constructor.
       canvasId: the ID of the canvas to use to display the game
@@ -53,7 +42,7 @@ class ShootEmHub {
     this.remainingCanons = [];
 
     // Wave count
-    this.wave = 0;
+    this.wave = 4;
 
     // Counting of the wave duration
     this.waveDuration = 0;
@@ -310,6 +299,7 @@ class ShootEmHub {
   spawnEnemies() {
 
     const index = this.wave % this.generator.length;
+    const SIZE = this.wave > this.generator.length - 1 ? 'BIG' : 'SMALL';
 
     if (this.waveDuration > 0 && this.waveDuration < this.generator[index].duration) {
       this.waveDuration += 1;
@@ -338,14 +328,13 @@ class ShootEmHub {
         case 'ELECTRIC':
           enemy = new LaserEnemySpaceShip(
             pos,
-            50,
-            50,
+            SIZE,
             this.generator[index].enemies[i].direction,
           );
           break;
 
         case 'ROCKET':
-          enemy = new RocketEnemySpaceShip(pos, 30, 60);
+          enemy = new RocketEnemySpaceShip(pos, SIZE);
           break;
 
         case 'BASIC':
