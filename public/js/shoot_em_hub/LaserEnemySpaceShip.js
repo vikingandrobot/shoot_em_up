@@ -1,8 +1,3 @@
-const laserEnemySpaceShipImage = new Image();
-laserEnemySpaceShipImage.src = '/img/laser_enemy.png';
-const bigLaserEnemySpaceShipImage = new Image();
-bigLaserEnemySpaceShipImage.src = '/img/laser_enemy_x.png';
-
 /**
   File: LaserEnemySpaceShip
   Date: 18.01.18
@@ -11,6 +6,29 @@ bigLaserEnemySpaceShipImage.src = '/img/laser_enemy_x.png';
   The class LaserEnemySpaceShip represents enemies that shoot
   horizontal lasers on their right or on their left.
 */
+
+const laserEnemySpaceShipImage = new Image();
+laserEnemySpaceShipImage.src = '/img/laser_enemy.png';
+const bigLaserEnemySpaceShipImage = new Image();
+bigLaserEnemySpaceShipImage.src = '/img/laser_enemy_x.png';
+const BIG_COLORS = [];
+for (let i = 0; i < 10; i += 1) {
+  BIG_COLORS.push(new Color(
+    255,
+    parseInt(30 + (Math.random() * 225), 10),
+    239,
+    1,
+  ).asString());
+}
+const SMALL_COLORS = [];
+for (let i = 0; i < 10; i += 1) {
+  SMALL_COLORS.push(new Color(
+    parseInt(40 + (Math.random() * 215), 10),
+    211,
+    255,
+    1,
+  ).asString());
+}
 
 class LaserEnemySpaceShip extends EnemySpaceShip {
   constructor(pos, SIZE_TYPE, direction) {
@@ -25,14 +43,7 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
         this.h = 75;
         this.img = bigLaserEnemySpaceShipImage;
         this.damage = 2;
-        for (let i = 0; i < 10; i += 1) {
-          this.colors.push(new Color(
-            255,
-            parseInt(30 + (Math.random() * 225), 10),
-            239,
-            1,
-          ).asString());
-        }
+        this.color = BIG_COLORS;
         this.life = 50;
         this.maxLife = 50;
         break;
@@ -43,14 +54,7 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
         this.h = 50;
         this.img = laserEnemySpaceShipImage;
         this.damage = 1;
-        for (let i = 0; i < 10; i += 1) {
-          this.colors.push(new Color(
-            parseInt(40 + (Math.random() * 215), 10),
-            211,
-            255,
-            1,
-          ).asString());
-        }
+        this.color = SMALL_COLORS;
         this.life = 25;
         this.maxLife = 25;
         break;
@@ -78,12 +82,12 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
 
     if (this.shooting) {
       // For all enemies
-      for (let i = enemies.length - 1; i >= 0; --i) {
+      for (let i = enemies.length - 1; i >= 0; i -= 1) {
         // If the enemies crosses the beam and is on the correct side
         if (
-          enemies[i].pos.y - enemies[i].h/2 < this.pos.y
+          enemies[i].pos.y - (enemies[i].h / 2) < this.pos.y
           &&
-          enemies[i].pos.y + enemies[i].h/2 > this.pos.y
+          enemies[i].pos.y + (enemies[i].h / 2) > this.pos.y
           &&
           ((this.direction < 0 && this.pos.x >= enemies[i].pos.x)
             || (this.direction > 0 && this.pos.x <= enemies[i].pos.x))
@@ -93,14 +97,12 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
         }
       }
     }
-
   }
 
   /**
     Draw the space ship
   */
   draw(ctx) {
-
     // number of steps in the beams
     const N = 20;
 
@@ -111,14 +113,14 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
     for (let j = 1; j <= 10; j += 1) {
       ctx.beginPath();
       ctx.strokeStyle = this.colors[j - 1];
-      ctx.lineWidth = parseInt(Math.random() * 10);
+      ctx.lineWidth = parseInt(Math.random() * 10, 10);
       ctx.moveTo(this.pos.x, this.pos.y);
 
       // Draw the N steps of each beam
-      for (let i = 1; i <= N; ++i) {;
+      for (let i = 1; i <= N; i += 1) {
         ctx.lineTo(
-          this.pos.x + i * delta * (Math.random() + 1),
-          this.pos.y + Math.random() * 20 - 10
+          this.pos.x + (i * delta * (Math.random() + 1)),
+          (this.pos.y + (Math.random() * 20)) - 10,
         );
       }
       ctx.stroke();
