@@ -5,8 +5,7 @@ const { MongoClient } = require('mongodb');
 
 
 // Link for github oauth
-const GITHUB_AUTHORIZE_LINK = `https://github.com/login/oauth/authorize?
-  scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`;
+const GITHUB_AUTHORIZE_LINK = `https://github.com/login/oauth/authorize?scope=repo&client_id=${process.env.GH_BASIC_CLIENT_ID}`;
 
 // Link for github token
 const GITHUB_ACCESS_TOKEN = 'https://github.com/login/oauth/access_token';
