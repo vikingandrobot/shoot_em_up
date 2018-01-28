@@ -1,5 +1,4 @@
 const GitHubApi = require('@octokit/rest');
-const path = require('path');
 const request = require('request');
 const router = require('express').Router();
 const { MongoClient } = require('mongodb');
@@ -15,7 +14,7 @@ const GITHUB_ACCESS_TOKEN = 'https://github.com/login/oauth/access_token';
 
 /*
  * Middleware route function
- * 
+ *
  * Allow to check if the user is autenticated. If the user is not autenticated,
  * the server redirects to the home page.
  */
@@ -25,7 +24,7 @@ function isAutenticated(req, res, next) {
     return next();
   }
 
-  res.redirect('/');
+  return res.redirect('/');
 }
 
 
@@ -72,7 +71,8 @@ router.get('/callback', (req, res, next) => {
 
   // Redirects if the code is not valid
   if (code === undefined) {
-    return res.redirect('/');
+    res.redirect('/');
+    return;
   }
 
   // Send back the code check
@@ -87,15 +87,17 @@ router.get('/callback', (req, res, next) => {
     json: true,
   }, (err, response, body) => {
     if (err) {
-      return next(err);
-    };
+      next(err);
+      return;
+    }
 
     const token = body.access_token;
 
     // Redirects if the token is not valid
     if (token === undefined) {
-      return next(new Error(`Failed to get a token. Please check github client 
+      next(new Error(`Failed to get a token. Please check github client 
         id and client secret`));
+      return;
     }
 
     // Get the token and store in session
@@ -131,7 +133,8 @@ router.get('/repos/:page(\\d+)?', isAutenticated, (req, res, next) => {
     per_page: 5,
   }, (err, r) => {
     if (err) {
-      return next(err);
+      next(err);
+      return;
     }
 
     // Get the all the repositories
@@ -182,7 +185,8 @@ router.get('/repos/:page(\\d+)?', isAutenticated, (req, res, next) => {
         per_page: 5,
       }, (error, result) => {
         if (error) {
-          return next(error);
+          next(error);
+          return;
         }
 
         repositories = result.data;
@@ -229,7 +233,8 @@ router.get('/skills/:owner/:repo', isAutenticated, (req, res, next) => {
       github.users.get({
       }, (err, r) => {
         if (err) {
-          return reject(err);
+          reject(err);
+          return;
         }
 
         result.login = r.data.login;
@@ -286,7 +291,8 @@ router.get('/skills/:owner/:repo', isAutenticated, (req, res, next) => {
         per_page: 1,
       }, (err, r) => {
         if (err) {
-          return reject(err);
+          reject(err);
+          return;
         }
 
         // Get response header
@@ -320,7 +326,8 @@ router.get('/skills/:owner/:repo', isAutenticated, (req, res, next) => {
         per_page: 1,
       }, (err, r) => {
         if (err) {
-          return reject(err);
+          reject(err);
+          return;
         }
 
         // Get response header
@@ -352,7 +359,7 @@ router.get('/skills/:owner/:repo', isAutenticated, (req, res, next) => {
       res.status(200).send(`${r.nbTotalUserCommits / (r.nbTotalCommits / r.nbTotalContributors)}`);
     })
     .catch((error) => {
-      return next(error);
+      next(error);
     });
 });
 
@@ -375,7 +382,8 @@ router.post('/score/:owner/:repo', isAutenticated, (req, res, next) => {
   github.users.get({
   }, (err, r) => {
     if (err) {
-      return next(err);
+      next(err);
+      return;
     }
 
     const { login } = r.data;
@@ -386,7 +394,8 @@ router.post('/score/:owner/:repo', isAutenticated, (req, res, next) => {
     // Use connect method to connect to the server
     MongoClient.connect(url, (errDB, database) => {
       if (errDB) {
-        return next(errDB);
+        next(errDB);
+        return;
       }
 
       const db = database.db('shoot_em_hub');
@@ -423,7 +432,8 @@ router.get('/score/:owner/:repo', isAutenticated, (req, res, next) => {
   // Use connect method to connect to the server
   MongoClient.connect(url, (err, database) => {
     if (err) {
-      return next(err);
+      next(err);
+      return;
     }
 
     const db = database.db('shoot_em_hub');
