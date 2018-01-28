@@ -11,7 +11,6 @@
 */
 
 class LightParticleCloud {
-
   /**
     Constructor.
     Parameters
@@ -32,10 +31,13 @@ class LightParticleCloud {
 
     // Retrieve the canvas
     this.c = document.getElementById(this.canvasId);
-    if (this.c == undefined) {
-      throw "Impossible to retrieve the canvas. canvasId returned undefined";
+    if (this.c === undefined) {
+      const error = {
+        cause: 'Impossible to retrieve the canvas. canvasId returned undefined',
+      };
+      throw error;
     }
-    this.ctx = this.c.getContext("2d");
+    this.ctx = this.c.getContext('2d');
 
     // Resize the canvas on load
     this.resizeCanvas(this.c);
@@ -56,7 +58,7 @@ class LightParticleCloud {
     // Interval to display light particles
     setInterval(() => {
       this.drawLightParticles();
-    }, 1000/25);
+    }, 1000 / 25);
   }
 
   /**
@@ -67,7 +69,7 @@ class LightParticleCloud {
     this.ctx.clearRect(0, 0, this.c.width, this.c.height);
 
     // Move and draw
-    for (let i = this.lightParticles.length - 1; i >= 0; i--) {
+    for (let i = this.lightParticles.length - 1; i >= 0; i -= 1) {
       if (this.lightParticles[i].intensity <= 0) {
         this.lightParticles.splice(i, 1);
       } else {
@@ -78,10 +80,7 @@ class LightParticleCloud {
 
     // Spawn light particles
     if (this.lightParticles.length < this.nbOfParticles || Math.random() < 0.05) {
-
-      this.lightParticles.push(
-        this.particleGenerator(this.c)
-      );
+      this.lightParticles.push(this.particleGenerator(this.c));
     }
   }
 
