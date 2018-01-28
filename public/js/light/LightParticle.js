@@ -6,7 +6,6 @@
   fade away loosing a random amount of light intensity per frame
 */
 class LightParticle {
-
   /**
     Constructor of LightParticle.
 
@@ -20,7 +19,7 @@ class LightParticle {
     this.intensity = 1;
 
     // The intensity the particle looses per frame
-    this.intensityLoss = Math.random() * 0.05 + 0.005;
+    this.intensityLoss = (Math.random() * 0.05) + 0.005;
 
     // The velocity of the particle as a CartesianVector
     this.velocity = initialSpeed;
@@ -57,5 +56,4 @@ class LightParticle {
     }
     ctx.closePath();
   }
-
 }
