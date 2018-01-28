@@ -2,7 +2,6 @@
   Class to represent cartesian vectors.
 */
 class CartesianVector {
-
   /**
     Constructor to build the vector.
     x: x coordinate
@@ -42,9 +41,9 @@ class CartesianVector {
     return: a new PolarVector equivalent to this CartesianVector
   */
   toPolar() {
-    const magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
+    const magnitude = Math.sqrt((this.x * this.x) + (this.y * this.y));
     let angle = 0;
-    if (magnitude != 0) {
+    if (magnitude !== 0) {
       angle = Math.acos(this.x / magnitude);
     }
     if (this.y < 0) {
@@ -72,7 +71,7 @@ class CartesianVector {
   distance(other) {
     const x = this.x - other.x;
     const y = this.y - other.y;
-    return Math.sqrt(x * x + y * y);
+    return Math.sqrt((x * x) + (y * y));
   }
 
   /**
@@ -80,7 +79,7 @@ class CartesianVector {
     will have a length of 1.
   */
   normalize() {
-    const normalizeVector = toPolar.magnitude(1).toCartesian();
+    const normalizeVector = this.toPolar.magnitude(1).toCartesian();
     this.x = normalizeVector.x;
     this.y = normalizeVector.y;
 
@@ -92,13 +91,12 @@ class CartesianVector {
   Class that represents polar vectors.
 */
 class PolarVector {
-
   /**
     Constructor to build a PolarVector.
     angle: the angle
     radius: the radius
   */
-  constructor (angle, radius) {
+  constructor(angle, radius) {
     this.angle = angle;
     this.radius = radius;
   }
