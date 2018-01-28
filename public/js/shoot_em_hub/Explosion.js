@@ -3,24 +3,23 @@ class Explosion {
     this.pos = pos.copy();
 
     this.particles = [];
-    for (let i = 0; i < 7; ++i) {
-      this.particles.push(
-        new LightParticle(
-          new CartesianVector(
-            this.pos.x + (Math.random() * 30) - 15,
-            this.pos.y + (Math.random() * 30) - 15
-          ),
-          (Math.random() * 15) + 5,
-          new CartesianVector(
-            (Math.random() * 2) - 1,
-            (Math.random() * 2) - 1)
-        )
-      )
+    for (let i = 0; i < 7; i += 1) {
+      this.particles.push(new LightParticle(
+        new CartesianVector(
+          (this.pos.x + (Math.random() * 30)) - 15,
+          (this.pos.y + (Math.random() * 30)) - 15,
+        ),
+        (Math.random() * 15) + 5,
+        new CartesianVector(
+          (Math.random() * 2) - 1,
+          (Math.random() * 2) - 1,
+        ),
+      ));
     }
   }
 
   logic() {
-    for (let i = this.particles.length - 1; i >= 0; --i) {
+    for (let i = this.particles.length - 1; i >= 0; i -= 1) {
       if (this.particles[i].intensity === 0) {
         this.particles.splice(i, 1);
       } else {
@@ -30,7 +29,7 @@ class Explosion {
   }
 
   draw(ctx) {
-    for (let i = this.particles.length - 1; i >= 0; --i) {
+    for (let i = this.particles.length - 1; i >= 0; i -= 1) {
       this.particles[i].draw(ctx);
     }
   }
