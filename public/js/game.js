@@ -37,17 +37,17 @@ $(document).ready(() => {
     Listener to send the score at the end of the game
   */
   function gameEndListener(playerScore) {
-    console.log('received score')
+    console.log('received score');
     const data = {
       score: playerScore,
     };
 
     $.ajax({
-      type: "POST",
+      type: 'POST',
       url: `/score/${repoUrl}`,
-      data: data,
+      data,
       success: () => {
-        console.log('success')
+        console.log('success');
       },
     });
   }
@@ -92,7 +92,7 @@ $(document).ready(() => {
     $(`#game-level ${progressBarSelector}`).width(`${progressbarWidth}%`);
     $(`#game-level ${progressBarSelector} .text`).html(`${sign}${deltaPercent}%`);
   }, (xhr, status, error) => {
-    alert(`Error fetching player level: ${xhr.status}`);
+    alert(`Error fetching player level: ${xhr.status} : ${error}`);
   });
 
   /**
@@ -115,7 +115,7 @@ $(document).ready(() => {
       $('#loader').removeClass('active');
       game.start();
     }, (xhr, status, error) => {
-      alert(`Error fetching player level: ${xhr.status}`);
+      alert(`Error fetching player level: ${xhr.status} : ${error}`);
     });
   });
 });

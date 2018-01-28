@@ -1,5 +1,4 @@
 $(document).ready(() => {
-
   /*
     Create a cloud of light particles for the header
   */

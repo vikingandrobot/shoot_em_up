@@ -36,6 +36,7 @@ module.exports = {
     "LightParticle": false,
     "LightParticleCloud": false,
     "Color": false,
+    "URL": false,
   },
   "rules": {
     "import/no-extraneous-dependencies": [
