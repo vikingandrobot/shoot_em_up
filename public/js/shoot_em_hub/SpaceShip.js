@@ -1,9 +1,4 @@
 const spaceShipImage = new Image();
-
-spaceShipImage.onload = function(){
-  // image  has been loaded
-};
-
 spaceShipImage.src = '/img/spaceship_player.png';
 
 class SpaceShip {
@@ -44,14 +39,14 @@ class SpaceShip {
 
   countScore() {
     this.score += this.DEFAULT_COMBO_VALUE * this.comboCount;
-    ++this.comboCount;
+    this.comboCount += 1;
     this.comboTime = 0;
   }
 
   hit(power) {
-    if (this.hitCounter == 0) {
+    if (this.hitCounter === 0) {
       this.life -= power;
-      this.hitCounter++;
+      this.hitCounter += 1;
     }
   }
 
@@ -67,20 +62,20 @@ class SpaceShip {
   logic(bounds, enemies) {
     this.pos.add(this.speed);
 
-    if (this.pos.x - this.w / 2 < bounds.x) {
-      this.pos.x = bounds.x + this.w / 2;
+    if (this.pos.x - (this.w / 2) < bounds.x) {
+      this.pos.x = bounds.x + (this.w / 2);
       this.speed.x = 0;
     }
-    if (this.pos.x + this.w / 2 > bounds.x + bounds.w) {
-      this.pos.x = bounds.x + bounds.w - this.w / 2;
+    if (this.pos.x + (this.w / 2) > bounds.x + bounds.w) {
+      this.pos.x = (bounds.x + bounds.w) - (this.w / 2);
       this.speed.x = 0;
     }
-    if (this.pos.y - this.h / 2 < bounds.y) {
-      this.pos.y = bounds.y + this.h / 2;
+    if (this.pos.y - (this.h / 2) < bounds.y) {
+      this.pos.y = bounds.y + (this.h / 2);
       this.speed.y = 0;
     }
-    if (this.pos.y + this.h / 2 > bounds.y + bounds.h) {
-      this.pos.y = bounds.y + bounds.h - this.h / 2;
+    if (this.pos.y + (this.h / 2) > bounds.y + bounds.h) {
+      this.pos.y = (bounds.y + bounds.h) - (this.h / 2);
       this.speed.y = 0;
     }
 
@@ -91,7 +86,7 @@ class SpaceShip {
       this.rightCanon.logic(bounds, enemies);
     }
 
-    for (let i = this.particles.length - 1; i >= 0; i--) {
+    for (let i = this.particles.length - 1; i >= 0; i -= 1) {
       if (this.particles[i].intensity <= 0) {
         this.particles.splice(i, 1);
       } else {
@@ -100,8 +95,8 @@ class SpaceShip {
     }
 
     if (this.particles.length < this.nbOfParticles) {
-      const x = Math.random() * this.w - this.w / 2 + this.pos.x;
-      let y = Math.random() * this.h - this.h / 2 + this.pos.y;
+      const x = ((Math.random() * this.w) - (this.w / 2)) + this.pos.x;
+      let y = ((Math.random() * this.h) - (this.h / 2)) + this.pos.y;
 
       let speed;
       if (this.speed.x === 0 && this.speed.y === 0) {
@@ -111,25 +106,23 @@ class SpaceShip {
         speed = this.speed.toPolar().scale(-0.05).toCartesian();
       }
 
-      this.particles.push(
-        new LightParticle(
-          new CartesianVector(x, y),
-          Math.random() * 2 + 1,
-          speed
-        )
-      )
+      this.particles.push(new LightParticle(
+        new CartesianVector(x, y),
+        (Math.random() * 2) + 1,
+        speed,
+      ));
     }
 
     // Reset combo
-    ++this.comboTime;
+    this.comboTime += 1;
 
     if (this.comboTime >= this.comboDuration) {
       this.comboCount = Math.max(this.comboCount - 1, 1);
       this.comboTime = 0;
     }
 
-    if (this.hitCounter != 0) {
-      ++this.hitCounter;
+    if (this.hitCounter !== 0) {
+      this.hitCounter += 1;
     }
     if (this.hitCounter >= this.recuperationTime) {
       this.hitCounter = 0;
@@ -140,13 +133,12 @@ class SpaceShip {
     Draw the space ship
   */
   draw(ctx) {
-
     if (this.hitCounter !== 0) {
-      ctx.globalAlpha = 0.5
+      ctx.globalAlpha = 0.5;
     }
 
     // Draw the particles
-    for (let i = this.particles.length - 1; i >= 0; i--) {
+    for (let i = this.particles.length - 1; i >= 0; i -= 1) {
       this.particles[i].draw(ctx);
     }
 
@@ -181,22 +173,22 @@ class SpaceShip {
 
   collision(enemy) {
     return (
-      this.pos.x + this.w / 2 > enemy.pos.x - enemy.w / 2
-      && this.pos.x - this.w / 2 < enemy.pos.x + enemy.w / 2
-      && this.pos.y + this.h / 2 > enemy.pos.y - enemy.h / 2
-      && this.pos.y - this.h / 2 < enemy.pos.y + enemy.h / 2);
+      this.pos.x + (this.w / 2) > enemy.pos.x - (enemy.w / 2)
+      && this.pos.x - (this.w / 2) < enemy.pos.x + (enemy.w / 2)
+      && this.pos.y + (this.h / 2) > enemy.pos.y - (enemy.h / 2)
+      && this.pos.y - (this.h / 2) < enemy.pos.y + (enemy.h / 2));
   }
 
   addSpeed(s) {
     this.speed.add(s);
     if (this.speed.x < -this.maxSpeed) {
-      this.speed.x  = -this.maxSpeed;
+      this.speed.x = -this.maxSpeed;
     }
     if (this.speed.x > this.maxSpeed) {
       this.speed.x = this.maxSpeed;
     }
     if (this.speed.y < -this.maxSpeed) {
-      this.speed.y  = -this.maxSpeed;
+      this.speed.y = -this.maxSpeed;
     }
     if (this.speed.y > this.maxSpeed) {
       this.speed.y = this.maxSpeed;
