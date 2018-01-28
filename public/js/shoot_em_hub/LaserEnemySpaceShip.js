@@ -11,24 +11,6 @@ const laserEnemySpaceShipImage = new Image();
 laserEnemySpaceShipImage.src = '/img/laser_enemy.png';
 const bigLaserEnemySpaceShipImage = new Image();
 bigLaserEnemySpaceShipImage.src = '/img/laser_enemy_x.png';
-const BIG_COLORS = [];
-for (let i = 0; i < 10; i += 1) {
-  BIG_COLORS.push(new Color(
-    255,
-    parseInt(30 + (Math.random() * 225), 10),
-    239,
-    1,
-  ).asString());
-}
-const SMALL_COLORS = [];
-for (let i = 0; i < 10; i += 1) {
-  SMALL_COLORS.push(new Color(
-    parseInt(40 + (Math.random() * 215), 10),
-    211,
-    255,
-    1,
-  ).asString());
-}
 
 class LaserEnemySpaceShip extends EnemySpaceShip {
   constructor(pos, SIZE_TYPE, direction) {
@@ -43,7 +25,14 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
         this.h = 75;
         this.img = bigLaserEnemySpaceShipImage;
         this.damage = 2;
-        this.color = BIG_COLORS;
+        for (let i = 0; i < 10; i += 1) {
+          this.colors.push(new Color(
+            255,
+            parseInt(30 + (Math.random() * 225), 10),
+            239,
+            1,
+          ).asString());
+        }
         this.life = 50;
         this.maxLife = 50;
         break;
@@ -54,7 +43,14 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
         this.h = 50;
         this.img = laserEnemySpaceShipImage;
         this.damage = 1;
-        this.color = SMALL_COLORS;
+        for (let i = 0; i < 10; i += 1) {
+          this.colors.push(new Color(
+            parseInt(40 + (Math.random() * 215), 10),
+            211,
+            255,
+            1,
+          ).asString());
+        }
         this.life = 25;
         this.maxLife = 25;
         break;
