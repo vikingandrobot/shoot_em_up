@@ -52,10 +52,10 @@ class Bullet {
   */
   collision(enemy) {
     return (
-      this.pos.x + this.radius > enemy.pos.x - enemy.w / 2
-      && this.pos.x - this.radius < enemy.pos.x + enemy.w / 2
-      && this.pos.y + this.radius > enemy.pos.y - enemy.h / 2
-      && this.pos.y - this.radius < enemy.pos.y + enemy.h / 2);
+      this.pos.x + this.radius > enemy.pos.x - (enemy.w / 2)
+      && this.pos.x - this.radius < enemy.pos.x + (enemy.w / 2)
+      && this.pos.y + this.radius > enemy.pos.y - (enemy.h / 2)
+      && this.pos.y - this.radius < enemy.pos.y + (enemy.h / 2));
   }
 
   /**
