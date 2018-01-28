@@ -1,10 +1,9 @@
 class Player {
   constructor(c, level) {
-
-    this.spaceShip = new SpaceShip (
-      new CartesianVector(c.width/2, c.height - 50),
+    this.spaceShip = new SpaceShip(
+      new CartesianVector(c.width / 2, c.height - 50),
       30,
-      60
+      60,
     );
 
     this.computePlayerLevel(level);
@@ -13,16 +12,21 @@ class Player {
       x: 0,
       y: 0,
       w: c.width,
-      h: c.height
+      h: c.height,
     };
 
-    this.left = this.up = this.right = this.down = this.space = false;
+    // Player direction variable
+    this.left = false;
+    this.up = false;
+    this.right = false;
+    this.down = false;
+    this.space = false;
 
+    // Register the key listeners
     this.registerKeyListeners();
   }
 
   computePlayerLevel(level) {
-
     if (level < 0.5) {
       this.spaceShip.leftCanon = new MiniCanon(
         this.spaceShip,
@@ -79,12 +83,11 @@ class Player {
       this.spaceShip.leftCanon.maxFireRate = 10;
       this.spaceShip.rightCanon.maxFireRate = 10;
     }
-
   }
 
   registerKeyListeners() {
-    document.addEventListener("keydown", (e) => {
-      switch(e.keyCode) {
+    document.addEventListener('keydown', (e) => {
+      switch (e.keyCode) {
         case 37:
           this.left = true;
           this.right = false;
@@ -108,12 +111,14 @@ class Player {
         case 32:
           this.space = true;
           break;
+
+        default:
+          break;
       }
-        // use e.keyCode
     });
 
-    document.addEventListener("keyup", (e) => {
-      switch(e.keyCode) {
+    document.addEventListener('keyup', (e) => {
+      switch (e.keyCode) {
         case 37:
           this.left = false;
           break;
@@ -133,8 +138,10 @@ class Player {
         case 32:
           this.space = false;
           break;
+
+        default:
+          break;
       }
-        // use e.keyCode
     });
   }
 
@@ -143,11 +150,11 @@ class Player {
   }
 
   logic(enemies) {
-    const left = this.left;
-    const up = this.up;
-    const right = this.right;
-    const down = this.down;
-    const space = this.space;
+    const { left } = this;
+    const { up } = this;
+    const { right } = this;
+    const { down } = this;
+    const { space } = this;
 
     if (left) {
       this.spaceShip.addSpeed(new CartesianVector(-3, 0));
@@ -173,10 +180,7 @@ class Player {
       this.spaceShip.shoot();
     }
 
-
-
     this.spaceShip.logic(this.bounds, enemies);
-
   }
 
   draw(ctx) {
