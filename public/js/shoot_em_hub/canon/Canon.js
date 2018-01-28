@@ -1,9 +1,4 @@
 const canonImage = new Image();
-
-canonImage.onload = function(){
-  // image  has been loaded
-};
-
 canonImage.src = '/img/canon.png';
 
 class Canon {
@@ -28,16 +23,16 @@ class Canon {
   }
 
   logic(bounds, enemies) {
-    if (this.fireRate != 0) {
+    if (this.fireRate !== 0) {
       this.fireRate = (this.fireRate + 1) % this.maxFireRate;
     }
 
-    for (let i = this.bullets.length - 1; i >= 0; --i) {
+    for (let i = this.bullets.length - 1; i >= 0; i -= 1) {
       if (this.inBounds(this.bullets[i], bounds)) {
         this.bullets[i].logic();
 
         if (enemies !== undefined) {
-          for (let j = enemies.length - 1; j >= 0; --j) {
+          for (let j = enemies.length - 1; j >= 0; j -= 1) {
             if (this.bullets[i].collision(enemies[j])) {
               enemies[j].hit(this.bullets[i].power);
 
@@ -46,7 +41,7 @@ class Canon {
                 this.spaceShip.score += 5;
               }
               break;
-            };
+            }
           }
         }
       } else {
@@ -69,10 +64,10 @@ class Canon {
   }
 
   shoot() {
-    if (this.fireRate == 0) {
+    if (this.fireRate === 0) {
       const b = this.spawnBullet(
         this.spaceShip.pos.x + this.pos.x,
-        this.spaceShip.pos.y + this.pos.y - this.h / 2
+        (this.spaceShip.pos.y + this.pos.y) - (this.h / 2),
       );
       this.bullets.push(b);
       this.fireRate = this.fireRate + 1;
@@ -90,7 +85,7 @@ class Canon {
   }
 
   draw(ctx) {
-    for (let i = this.bullets.length - 1; i >= 0; --i) {
+    for (let i = this.bullets.length - 1; i >= 0; i -= 1) {
       this.bullets[i].draw(ctx);
     }
 
@@ -100,13 +95,11 @@ class Canon {
     ctx.beginPath();
     ctx.drawImage(
       this.img,
-      x - this.w / 2,
-      y - this.h / 2,
+      x - (this.w / 2),
+      y - (this.h / 2),
       this.w,
-      this.h
-    )
+      this.h,
+    );
     ctx.closePath();
-
-
   }
 }

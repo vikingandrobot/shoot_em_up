@@ -47,10 +47,6 @@ class LargeCanon extends Canon {
 }
 
 class MegaCanon extends Canon {
-  constructor(spaceShip, pos) {
-    super(spaceShip, pos);
-  }
-
   /**
     Spawn a bullet
   */
