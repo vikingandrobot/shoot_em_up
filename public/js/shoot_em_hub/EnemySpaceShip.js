@@ -1,9 +1,4 @@
 const EnemySpaceShipImage = new Image();
-
-EnemySpaceShipImage.onload = function(){
-  // image  has been loaded
-};
-
 EnemySpaceShipImage.src = '/img/enemy_rocket.png';
 
 class EnemySpaceShip extends SpaceShip {
@@ -25,6 +20,7 @@ class EnemySpaceShip extends SpaceShip {
     this.life = 1;
     this.maxLife = 1;
     this.recuperationTime = 5;
+    this.spriteRatios = { x: 1, y: 1 };
   }
 
   draw(ctx) {
@@ -32,7 +28,7 @@ class EnemySpaceShip extends SpaceShip {
     super.draw(ctx);
 
     // draw the life of the spaceship
-    if (this.life != this.maxLife) {
+    if (this.life !== this.maxLife) {
       this.drawLife(ctx);
     }
   }

@@ -1,10 +1,7 @@
-const LaserEnemySpaceShipImage = new Image();
-
-LaserEnemySpaceShipImage.onload = function(){
-  // image  has been loaded
-};
-
-LaserEnemySpaceShipImage.src = '/img/sphere_small.png';
+const laserEnemySpaceShipImage = new Image();
+laserEnemySpaceShipImage.src = '/img/laser_enemy.png';
+const bigLaserEnemySpaceShipImage = new Image();
+bigLaserEnemySpaceShipImage.src = '/img/laser_enemy_x.png';
 
 /**
   File: LaserEnemySpaceShip
@@ -16,15 +13,50 @@ LaserEnemySpaceShipImage.src = '/img/sphere_small.png';
 */
 
 class LaserEnemySpaceShip extends EnemySpaceShip {
-  constructor(pos, w, h, direction) {
-    super(pos, w, h);
-    this.img = LaserEnemySpaceShipImage;
+  constructor(pos, SIZE_TYPE, direction) {
+    super(pos, 50, 50);
+
+    // Create a selection of colors for electirc beams
+    this.colors = [];
+
+    switch (SIZE_TYPE) {
+      case 'BIG':
+        this.w = 75;
+        this.h = 75;
+        this.img = bigLaserEnemySpaceShipImage;
+        this.damage = 2;
+        for (let i = 0; i < 10; i += 1) {
+          this.colors.push(new Color(
+            255,
+            parseInt(30 + (Math.random() * 225), 10),
+            239,
+            1,
+          ).asString());
+        }
+        break;
+
+      case 'SMALL':
+      default:
+        this.img = laserEnemySpaceShipImage;
+        this.damage = 1;
+        for (let i = 0; i < 10; i += 1) {
+          this.colors.push(new Color(
+            parseInt(40 + (Math.random() * 215), 10),
+            211,
+            255,
+            1,
+          ).asString());
+        }
+        break;
+    }
+
     this.shooting = false;
     this.direction = direction;
     this.life = 25;
     this.maxLife = 25;
     this.leftCanon = undefined;
     this.rightCanon = undefined;
+    this.spriteRatios = { x: 1.3, y: 1 };
   }
 
   /**
@@ -52,9 +84,9 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
           ((this.direction < 0 && this.pos.x >= enemies[i].pos.x)
             || (this.direction > 0 && this.pos.x <= enemies[i].pos.x))
         ) {
-            // Hit the enemy
-            enemies[i].hit(1);
-          }
+          // Hit the enemy
+          enemies[i].hit(this.damage);
+        }
       }
     }
 
@@ -64,18 +96,17 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
     Draw the space ship
   */
   draw(ctx) {
-    super.draw(ctx);
 
     // number of steps in the beams
     const N = 20;
 
     // Size of a step
-    const delta = 600 * this.direction / N;
+    const delta = 600 * (this.direction / N);
 
     // Draw ten beams
-    for (let j = 1; j <= 10; ++j) {
+    for (let j = 1; j <= 10; j += 1) {
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(255, 255, 255, ${Math.random() / 2})`;
+      ctx.strokeStyle = this.colors[j - 1];
       ctx.lineWidth = parseInt(Math.random() * 10);
       ctx.moveTo(this.pos.x, this.pos.y);
 
@@ -88,6 +119,8 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
       }
       ctx.stroke();
       ctx.closePath();
+
+      super.draw(ctx);
     }
   }
 }
