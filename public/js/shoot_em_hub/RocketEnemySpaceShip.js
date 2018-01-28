@@ -10,16 +10,18 @@ class RocketEnemySpaceShip extends EnemySpaceShip {
       case 'BIG':
         this.w = 45;
         this.h = 90;
-        this.img = rocketSpaceShipImage;
-        this.life = 2;
-        this.maxLife = 2;
+        this.img = bigRocketSpaceShipImage;
+        this.life = 1;
+        this.maxLife = 1;
         break;
 
       case 'SMALL':
       default:
-        this.img = bigRocketSpaceShipImage;
+        this.img = rocketSpaceShipImage;
         this.life = 1;
         this.maxLife = 1;
+        this.w = 30;
+        this.h = 60;
         break;
     }
     this.leftCanon = undefined;

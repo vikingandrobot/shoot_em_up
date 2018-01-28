@@ -14,7 +14,7 @@ bigLaserEnemySpaceShipImage.src = '/img/laser_enemy_x.png';
 
 class LaserEnemySpaceShip extends EnemySpaceShip {
   constructor(pos, SIZE_TYPE, direction) {
-    super(pos, 50, 50);
+    super(pos, SIZE_TYPE);
 
     // Create a selection of colors for electirc beams
     this.colors = [];
@@ -33,10 +33,14 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
             1,
           ).asString());
         }
+        this.life = 50;
+        this.maxLife = 50;
         break;
 
       case 'SMALL':
       default:
+        this.w = 50;
+        this.h = 50;
         this.img = laserEnemySpaceShipImage;
         this.damage = 1;
         for (let i = 0; i < 10; i += 1) {
@@ -47,13 +51,13 @@ class LaserEnemySpaceShip extends EnemySpaceShip {
             1,
           ).asString());
         }
+        this.life = 25;
+        this.maxLife = 25;
         break;
     }
 
     this.shooting = false;
     this.direction = direction;
-    this.life = 25;
-    this.maxLife = 25;
     this.leftCanon = undefined;
     this.rightCanon = undefined;
     this.spriteRatios = { x: 1.3, y: 1 };

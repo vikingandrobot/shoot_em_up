@@ -1,24 +1,55 @@
-const EnemySpaceShipImage = new Image();
-EnemySpaceShipImage.src = '/img/enemy_rocket.png';
+const enemySpaceShipImage = new Image();
+enemySpaceShipImage.src = '/img/bullet_enemy.png';
+
+const bigEnemySpaceShipImage = new Image();
+bigEnemySpaceShipImage.src = '/img/bullet_enemy_x.png';
 
 class EnemySpaceShip extends SpaceShip {
-  constructor(pos, w, h) {
-    super(pos, w, h);
-    this.leftCanon = new MiniCanon(
-      this,
-      new CartesianVector(-this.w / 2, 0),
-    );
-    this.rightCanon = new MiniCanon(
-      this,
-      new CartesianVector(this.w / 2, 0),
-    );
-    this.leftCanon.maxFireRate = 100;
-    this.rightCanon.maxFireRate = 100;
+  constructor(pos, SIZE_TYPE) {
+    super(pos, 50, 60);
+
+    switch (SIZE_TYPE) {
+      case 'BIG':
+        this.w = 75;
+        this.h = 90;
+        this.img = bigEnemySpaceShipImage;
+        this.life = 2;
+        this.maxLife = 2;
+        this.leftCanon = new SmallCanon(
+          this,
+          new CartesianVector(-this.w / 2, 0),
+        );
+        this.leftCanon.w = 12;
+        this.leftCanon.h = 70;
+        this.rightCanon = new SmallCanon(
+          this,
+          new CartesianVector(this.w / 2, 0),
+        );
+        this.rightCanon.w = 12;
+        this.rightCanon.h = 70;
+        this.leftCanon.maxFireRate = 80;
+        this.rightCanon.maxFireRate = 80;
+        break;
+
+      case 'SMALL':
+      default:
+        this.img = enemySpaceShipImage;
+        this.life = 1;
+        this.maxLife = 1;
+        this.leftCanon = new MiniCanon(
+          this,
+          new CartesianVector(-this.w / 2, 0),
+        );
+        this.rightCanon = new MiniCanon(
+          this,
+          new CartesianVector(this.w / 2, 0),
+        );
+        this.leftCanon.maxFireRate = 100;
+        this.rightCanon.maxFireRate = 100;
+        break;
+    }
     this.leftCanon.direction.y = 5;
     this.rightCanon.direction.y = 5;
-    this.img = EnemySpaceShipImage;
-    this.life = 1;
-    this.maxLife = 1;
     this.recuperationTime = 5;
     this.spriteRatios = { x: 1, y: 1 };
   }

@@ -42,7 +42,7 @@ class ShootEmHub {
     this.remainingCanons = [];
 
     // Wave count
-    this.wave = 4;
+    this.wave = 0;
 
     // Counting of the wave duration
     this.waveDuration = 0;
@@ -339,7 +339,7 @@ class ShootEmHub {
 
         case 'BASIC':
         default:
-          enemy = new EnemySpaceShip(pos, 30, 60);
+          enemy = new EnemySpaceShip(pos, SIZE);
           break;
       }
       enemy.speed = speed.copy();
