@@ -45,7 +45,7 @@ Prerequisites for Docker:
 + [Docker](https://www.docker.com/get-docker)
 + [Docker Compose](https://docs.docker.com/compose/install/)
 
-You can now access to the application via: [http://<yourdomain>:<yourport>](http://<yourdomain>:<yourport>)
+You can now access to the application via: [http://yourdomain:yourport](http://yourdomain:yourport)
 
 ## About
 
