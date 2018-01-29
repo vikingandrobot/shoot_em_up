@@ -83,9 +83,6 @@ $(document).ready(() => {
       type: 'POST',
       url: `/score/${repoUrl}`,
       data,
-      success: () => {
-        console.log('success');
-      },
     }).fail((xhr, status, error) => {
       handleAJAXError(xhr, status, error);
     });

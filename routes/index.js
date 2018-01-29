@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
   });
 
   github.users.get({
-  }, (err, r) => {
+  }, (err) => {
     if (err && err.code === 401) {
       req.session.token = undefined;
 
@@ -94,7 +94,7 @@ router.get('/callback', (req, res, next) => {
 
     // Redirects if the token is not valid
     if (token === undefined) {
-      next(new Error(`Failed to get a token. Please check github client 
+      next(new Error(`Failed to get a token. Please check github client
         id and client secret`));
       return;
     }

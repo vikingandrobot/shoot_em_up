@@ -30,7 +30,7 @@ app.use(routes);
 app.use((req, res) => res.render('404'));
 
 // Error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   const status = err.code || 500;
   res.status(status);
 
