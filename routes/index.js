@@ -355,7 +355,11 @@ router.get('/skills/:owner/:repo', isAutenticated, (req, res, next) => {
     .then(getTotalCommits)
     .then(getTotalContributors)
     .then((r) => {
-      res.status(200).send(`${r.nbTotalUserCommits / (r.nbTotalCommits / r.nbTotalContributors)}`);
+      const data = {
+        commitMean: r.nbTotalCommits / r.nbTotalContributors,
+        level: `${r.nbTotalUserCommits / (r.nbTotalCommits / r.nbTotalContributors)}`,
+      };
+      res.status(200).json(data);
     })
     .catch((error) => {
       next(error);

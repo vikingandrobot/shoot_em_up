@@ -63,9 +63,8 @@ $(document).ready(() => {
   function loadPlayerLevel(playerLevelLoaded, errorOccured) {
     $.ajax({
       url: `skills/${repoUrl}`,
-    }).done((skill) => {
-      const playerLevel = parseFloat(skill);
-      playerLevelLoaded(playerLevel);
+    }).done((data) => {
+      playerLevelLoaded(data);
     }).fail((xhr, status, error) => {
       errorOccured(xhr, status, error);
     });
@@ -89,8 +88,11 @@ $(document).ready(() => {
   }
 
   // load the player level from the server and start the game.
-  loadPlayerLevel((playerLevel) => {
+  loadPlayerLevel((data) => {
     // Create the game...
+    const playerLevel = parseFloat(data.level);
+    const commitMean = parseFloat(data.commitMean).toFixed(2);
+
     game = new ShootEmHub('game-canvas', playerLevel);
     game.gameEndListener = gameEndListener;
 
@@ -112,6 +114,9 @@ $(document).ready(() => {
       sign = '';
       progressbarWidth *= -1;
     }
+
+    // Display the commit mean
+    $('.middle-text.stat').html(`mean (${commitMean})`);
 
     // Event on the play button
     $('.play-button').click((e) => {
