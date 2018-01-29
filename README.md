@@ -46,3 +46,14 @@ Prerequisites for Docker:
 + [Docker Compose](https://docs.docker.com/compose/install/)
 
 You can now access to the application via: [http://<yourdomain>:<yourport>](http://<yourdomain>:<yourport>)
+
+## About
+
+### Assets
+
+- The pictograms and logos (such as the rocket pictogram or the GitHub logo) come from the [https://iconmonstr.com](iconsmonstr.com) website. 
+
+- The music in the game is [https://freesound.org/people/joshuaempyre/sounds/251461/](Arcade Music Loop) 
+by [https://freesound.org/people/joshuaempyre/](joshuaempyre) licensed under [https://creativecommons.org/licenses/by/3.0/](CC BY 3.0).
+
+- All other assets such as game sprites were created by us.
