@@ -49,6 +49,25 @@ You can now access to the application via: [http://<yourdomain>:<yourport>](http
 
 ## About
 
+### Improvements
+
+Even though we are pretty happy about the result of this project, there are many things we'd like to improve in the future. 
+
+#### Game
+
+- Add a boss fight
+- Add some fine tuning on enemy waves
+- Add a game logic check on the server side to prevent cheating
+
+#### Application
+
+- Decide the player's level on more information than just the commit contribution
+- Check score inputs from the player
+
+#### Security
+
+- To inform us about security issues with the application 
+
 ### Assets
 
 - The pictograms and logos (such as the rocket pictogram or the GitHub logo) come from the [iconsmonstr.com](https://iconmonstr.com) website. 
