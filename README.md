@@ -79,6 +79,14 @@ and the maximum is infinite, but the level max in the game is reached when you h
 player's level = (player contribution relative to the mean) - 1
 ```
 
+The player's level is then mapped to the power of weapons as such (1 is weakest, 5 is most powerful): 
+
+- [-100%, -50%[ : 1
+- [-50%, +0%[ : 2
+- [+0%, +50%[ : 3
+- [+50%, +100%[ : 4
+- [+100%, +infinite[ : 5
+
 ### Improvements
 
 Even though we are pretty happy about the result of this project, there are many things we'd like to improve in the future. 
