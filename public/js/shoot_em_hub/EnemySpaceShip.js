@@ -59,7 +59,7 @@ class EnemySpaceShip extends SpaceShip {
     super.draw(ctx);
 
     // draw the life of the spaceship
-    if (this.life !== this.maxLife) {
+    if (this.life !== this.maxLife && this.life >= 0) {
       this.drawLife(ctx);
     }
   }
