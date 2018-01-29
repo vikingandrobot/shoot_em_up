@@ -76,7 +76,7 @@ Then the level of the player is given in percent of commits to the mean. The min
 and the maximum is infinite, but the level max in the game is reached when you have +100% commits (that is two times more commits than the mean).
 
 ```
-player's level = (player contribution relative to the mean) - 1 // player's level is included in [-1, +infinite]
+player's level = (player contribution relative to the mean) - 1
 ```
 
 ### Improvements
