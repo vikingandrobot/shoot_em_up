@@ -781,30 +781,6 @@ const ENEMY_GENERATOR = [
       {
         pos: {
           x: 0.4,
-          y: -0.7,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -0.7,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
           y: -0.9,
         },
         speed: {
@@ -818,30 +794,6 @@ const ENEMY_GENERATOR = [
         pos: {
           x: 0.6,
           y: -0.9,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
-          y: -1.1,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -1.1,
         },
         speed: {
           x: 0,
@@ -877,30 +829,6 @@ const ENEMY_GENERATOR = [
       {
         pos: {
           x: 0.4,
-          y: -1.5,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -1.5,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
           y: -1.7,
         },
         speed: {
@@ -914,30 +842,6 @@ const ENEMY_GENERATOR = [
         pos: {
           x: 0.6,
           y: -1.7,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
-          y: -1.9,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -1.9,
         },
         speed: {
           x: 0,
@@ -973,30 +877,6 @@ const ENEMY_GENERATOR = [
       {
         pos: {
           x: 0.4,
-          y: -2.3,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -2.3,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
           y: -2.5,
         },
         speed: {
@@ -1010,30 +890,6 @@ const ENEMY_GENERATOR = [
         pos: {
           x: 0.6,
           y: -2.5,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
-          y: -2.7,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -2.7,
         },
         speed: {
           x: 0,
@@ -1069,30 +925,6 @@ const ENEMY_GENERATOR = [
       {
         pos: {
           x: 0.4,
-          y: -3.1,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -3.1,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
           y: -3.3,
         },
         speed: {
@@ -1106,30 +938,6 @@ const ENEMY_GENERATOR = [
         pos: {
           x: 0.6,
           y: -3.3,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: 1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.4,
-          y: -3.5,
-        },
-        speed: {
-          x: 0,
-          y: 3,
-        },
-        direction: -1,
-        type: 'ELECTRIC',
-      },
-      {
-        pos: {
-          x: 0.6,
-          y: -3.5,
         },
         speed: {
           x: 0,

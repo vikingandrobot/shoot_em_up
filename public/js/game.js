@@ -6,8 +6,14 @@ $(document).ready(() => {
 
   // Dislay an error if we the repo url is not specified
   if (repoUrl === undefined || repoUrl === null) {
-    // Manage error
-    console.log('Error');
+    $('#loader').removeClass('active');
+    $('#error .error-title').html('No repository specified.');
+    $('#error .error-message').html('An error occured and we could\'nt find the repository you wanted to play on. You\'ll be redirected to the repo list.');
+    $('#error').addClass('active');
+    setTimeout(() => {
+      window.location.href = '/repos';
+    }, 3000);
+    return;
   }
 
   // Set the Back to work link

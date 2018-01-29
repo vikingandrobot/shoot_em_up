@@ -341,3 +341,23 @@
 #game-over .credits a:hover {
   color : white;
 }
+
+/* Error messages */
+#error {
+  display: flex;
+  flex-direction: center;
+  align-items: center;
+  content: center;
+  background-color: #1a2c44;
+}
+
+#error article {
+  width: 100%;
+  text-align: center;
+  padding: 10%;
+}
+
+#error h1, #error p {
+  color: white;
+  text-align: center;
+}

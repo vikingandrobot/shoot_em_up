@@ -42,7 +42,7 @@ class ShootEmHub {
     this.remainingCanons = [];
 
     // Wave count
-    this.wave = 0;
+    this.wave = 9;
 
     // Counting of the wave duration
     this.waveDuration = 0;
