@@ -48,7 +48,7 @@
 }
 
 .repos .repos-list {
-  max-width: 760px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 5% 5%;
 }
@@ -99,6 +99,9 @@
 
 .repo-overview .left {
   margin-right: 30px;
+}
+.repo-overview .middle {
+  min-width: 50%;
 }
 .repo-overview .right {
   margin-left: 30px;
