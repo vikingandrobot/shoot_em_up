@@ -24,6 +24,38 @@ $(document).ready(() => {
   $('.scoreboard-link').attr('href', `${h}/${repoUrl}`);
 
   /**
+    Handle the errors that occur when doing AJAX requests.
+  */
+  function handleAJAXError(xhr, status, error) {
+    switch (xhr.status) {
+      case 404:
+        $('#error .error-title').html(`${xhr.status} : ${error}`);
+        $('#error .error-message').html('The repository could not be found. You will be redirected to the repo list.');
+        setTimeout(() => {
+          window.location.href = '/repos';
+        }, 3000);
+        break;
+
+      case 401:
+        $('#error .error-title').html(`${xhr.status} : ${error}`);
+        $('#error .error-message').html('You are not logged in with GitHub. You will be redirected to the home page.');
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 3000);
+        break;
+
+      default:
+        $('#error .error-title').html('An error occured.');
+        $('#error .error-message').html('You will be redirected.');
+        setTimeout(() => {
+          window.location.href = '/repos';
+        }, 3000);
+        break;
+    }
+    $('#error').addClass('active');
+  }
+
+  /**
     Loads the player level drom the server.
     - playerLevelLoaded: callback on success,
     - errorOccured: callback if an error occured
@@ -43,7 +75,6 @@ $(document).ready(() => {
     Listener to send the score at the end of the game
   */
   function gameEndListener(playerScore) {
-    console.log('received score');
     const data = {
       score: playerScore,
     };
@@ -55,6 +86,8 @@ $(document).ready(() => {
       success: () => {
         console.log('success');
       },
+    }).fail((xhr, status, error) => {
+      handleAJAXError(xhr, status, error);
     });
   }
 
@@ -98,7 +131,7 @@ $(document).ready(() => {
     $(`#game-level ${progressBarSelector}`).width(`${progressbarWidth}%`);
     $(`#game-level ${progressBarSelector} .text`).html(`${sign}${deltaPercent}%`);
   }, (xhr, status, error) => {
-    alert(`Error fetching player level: ${xhr.status} : ${error}`);
+    handleAJAXError(xhr, status, error);
   });
 
   /**
@@ -121,7 +154,7 @@ $(document).ready(() => {
       $('#loader').removeClass('active');
       game.start();
     }, (xhr, status, error) => {
-      alert(`Error fetching player level: ${xhr.status} : ${error}`);
+      handleAJAXError(xhr, status, error);
     });
   });
 });
