@@ -30,6 +30,7 @@ app.use(routes);
 app.use((req, res) => res.render('404'));
 
 // Error handler
+// eslint-disable-next-line
 app.use((err, req, res, next) => {
   const status = err.code || 500;
   res.status(status);
@@ -47,5 +48,4 @@ app.use((err, req, res, next) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server is ready on port ${port}`);
 });
