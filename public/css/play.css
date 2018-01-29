@@ -25,6 +25,24 @@
   background-color: black;
 }
 
+#play .back {
+  display: inline-block;
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  padding: 10px 15px;
+  background-color: #1a2c44;
+  color: white;
+  text-decoration: none;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+#play .back:hover {
+background-color: white;
+color: #1a2c44;
+}
+
 /* Game canvas */
 #game-canvas {
   position: absolute;
