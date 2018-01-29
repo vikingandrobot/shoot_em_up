@@ -52,7 +52,7 @@ You can now access to the application via: [http://<yourdomain>:<yourport>](http
 ### Gamification
 
 The gamification is achieved in this project because the player's level in the game is decided according to his
-commit contribution on the repository is playing on. The more commits the player has made, the more powerful his
+commit contribution on the repository he's playing on. The more commits the player has made, the more powerful his
 weapons will be. 
 
 The game is actually kind of hard on the long run, and having the most powerful weapons is actually a great help
