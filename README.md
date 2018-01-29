@@ -49,6 +49,32 @@ You can now access to the application via: [http://<yourdomain>:<yourport>](http
 
 ## About
 
+### Gamification
+
+The gamification is achieved in this project because the player's level in the game is decided according to his
+commit contribution on the repository is playing on. The more commits the player has made, the more powerful his
+weapons will be. 
+
+The game is actually kind of hard on the long run, and having the most powerful weapons is actually a great help
+to last more than a few minutes. 
+
+#### Calculation of the player's level
+
+The server calculates the mean commit contribution for the repository
+
+```
+mean commit contribution = (total number of commits) / (number of contributors)
+```
+
+Then the player contribution is calculated relative to said mean
+
+```
+player contribution relative to the mean = (player number of commits) / (mean commit contribution)
+```
+
+Then the level of the player is given in percent of commits to the mean. The minimum is -100% (when the player has 0 commit)
+and the maximum is infinite, but the level max in the game is reached when you have +100% commits (that is two times more commits than the mean).
+
 ### Improvements
 
 Even though we are pretty happy about the result of this project, there are many things we'd like to improve in the future. 
@@ -66,7 +92,7 @@ Even though we are pretty happy about the result of this project, there are many
 
 #### Security
 
-- To inform us about security issues with the application 
+- To inform ourselves about security issues with the application 
 
 ### Assets
 
