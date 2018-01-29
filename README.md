@@ -14,7 +14,7 @@ The advantages he has in the game are chosen based on his participation to said 
 
 You want to deploy this application on your server? First, you need to create and register an OAuth App on Github.
 You can just follow this guide : [Creating an OAuth App](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/).
-The authorization callback URL is `http://yourdomaine:yourport/callback`.
+The authorization callback URL is `http://<yourdomain>:<yourport>/callback`. For example, with the docker setup we used during development, our callback URL was `http://localhost:9090/callback`. 
 
 Afterward, you can get the application code : 
 
@@ -27,7 +27,7 @@ When this step is done, you have to create `.env` file in the application root f
 the required fields.
 
 ```
-PORT= // Port of the application
+PORT= // Port of the application you'd like to use
 GH_BASIC_CLIENT_ID= // Your Github client ID (Do not store this value in any public place)
 GH_BASIC_SECRET_ID= // Your Github secret ID (Do not store this value in any public place)
 ```
@@ -45,4 +45,4 @@ Prerequisites for Docker:
 + [Docker](https://www.docker.com/get-docker)
 + [Docker Compose](https://docs.docker.com/compose/install/)
 
-You can now access to the application via: [http://localhost:yourport](http://localhost:yourport)
+You can now access to the application via: [http://<yourdomain>:<yourport>](http://<yourdomain>:<yourport>)
