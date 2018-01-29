@@ -47,6 +47,7 @@ router.get('/', (req, res) => {
   });
 
   github.users.get({
+    // eslint-disable-next-line
   }, (err, r) => {
     if (err && err.code === 401) {
       req.session.token = undefined;
