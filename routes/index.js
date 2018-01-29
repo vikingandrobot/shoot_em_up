@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
   });
 
   github.users.get({
-  }, (err) => {
+  }, (err, r) => {
     if (err && err.code === 401) {
       req.session.token = undefined;
 
